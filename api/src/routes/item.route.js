@@ -6,6 +6,6 @@ const router = express.Router();
 
 router.get('/', async (request, response) => {
     return response.send(await itemService.findAll());
-})
+});
 
 export default router;

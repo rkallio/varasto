@@ -2,7 +2,7 @@ import Sequelize from 'sequelize';
 const { Model } = Sequelize;
 import sequelize from '../sequelize.init.js';
 
-class Item extends Model { };
+class Item extends Model { }
 
 Item.init({
     name: {

@@ -3,17 +3,17 @@ const { Item } = sequelize.models;
 
 export const findAll = () => {
     return Item.findAll();
-}
+};
 
 export const findByKey = (key) => {
     return Item.findByPk(key, {
         rejectOnEmpty: true
     });
-}
+};
 
 export const create = (data) => {
     return Item.create(data);
-}
+};
 
 export const updateByKey = (key, data) => {
     const updated = sequelize.transaction(async t => {
@@ -27,7 +27,7 @@ export const updateByKey = (key, data) => {
         return updated;
     });
     return updated;
-}
+};
 
 export const deleteByKey = (key) => {
     const deleted = sequelize.transaction(async t => {
@@ -38,6 +38,6 @@ export const deleteByKey = (key) => {
         return item.destroy({
             transaction: t
         });
-    })
+    });
     return deleted;
-}
+};
