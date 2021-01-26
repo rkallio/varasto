@@ -1,6 +1,12 @@
 import { format } from 'util';
 
 const rules = {
+    INVENTORY_SERVER_PORT: {
+        coercer: Number,
+    },
+    INVENTORY_SERVER_HOST: {
+        coercer: String,
+    },
     INVENTORY_DB_DIALECT: {
         coercer: String,
     },

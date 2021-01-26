@@ -17,6 +17,7 @@
     "nodemon": "^2.0.7"
   },
   "dependencies": {
+    "express-async-errors": "^3.1.1",
     "sequelize": "^6.4.0",
     "sqlite3": "^5.0.1"
   }
