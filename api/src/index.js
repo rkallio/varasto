@@ -30,8 +30,26 @@ app.use((error, request, response, next) => {
             context: null
         });
     }
-    return next(error);
-})
+
+    if(error instanceof Sequelize.ValidationError) {
+        const { errors } = error;
+        const context = errors.map(item => {
+            return {
+                path: item.path,
+                type: item.type,
+                value: item.value
+            }
+        });
+
+        return response.status(400).json({
+            error: 'Validation Error',
+            message: 'Some fields did not pass validation checks',
+            context: context
+        });
+    }
+
+    throw error;
+});
 
 app.use((request, response) => {
     response.status(404).json({
