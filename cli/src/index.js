@@ -45,18 +45,11 @@ function makeTable(itemData) {
 
 async function list() {
     const request = axios.get(format('%s/items', api));
-    try {
-        const data = (await request).data;
-        const header = Object.keys(data[0]);
-        const values = data.map(Object.values);
-        const tableData = [
-            header,
-            ...values
-        ];
-        console.log(table(tableData));
-    } catch(error) {
-        console.error(
-            format('%s: %s', error.name, error.message));
+    let response = await request;
+    const data = response.data;
+    console.log(makeTable(data));
+}
+
     }
 }
 
