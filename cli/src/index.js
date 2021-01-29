@@ -4,8 +4,44 @@ import { format } from 'util';
 import { hideBin } from 'yargs/helpers';
 import { table  } from 'table';
 import prompt from 'prompt';
+import { formatDistanceToNow, parseISO } from 'date-fns';
 
 const api = 'http://localhost:8000';
+
+function makeTable(itemData) {
+    if(!Array.isArray(itemData)) {
+        itemData = [itemData];
+    }
+
+    if(itemData.length === 0) {
+        return undefined;
+    }
+
+    const header = Object.keys(itemData[0])
+
+    const values = itemData
+          .map(cell => {
+              const copy = { ...cell };
+              if(copy.createdAt) {
+                  copy.createdAt = formatDistanceToNow(
+                      parseISO(copy.createdAt), {
+                          includeSeconds: true,
+                          addSuffix: true
+                      });
+              }
+              if(copy.updatedAt) {
+                  copy.updatedAt = formatDistanceToNow(
+                      parseISO(copy.updatedAt), {
+                          includeSeonds: true,
+                          addSuffix: true
+                      })
+              }
+              return copy;
+          })
+          .map(Object.values);
+
+    return table([header, ...values]);
+}
 
 async function list() {
     const request = axios.get(format('%s/items', api));
