@@ -57,39 +57,34 @@ async function get(id) {
     console.log(makeTable(data));
 }
 
+const referenceSchema = {
+    name: {
+        description: 'name',
+        type: 'string',
+    },
+    location: {
+        description: 'location',
+        type: 'string',
+    },
+    quantity: {
+        description: 'quantity',
+        type: 'number',
     }
 }
 
 async function create() {
-    prompt.message = 'item';
-    const schema = {
-        properties: {
-            name: {
-                description: 'name',
-                type: 'string',
-                required: true
-            },
-            location: {
-                description: 'location',
-                type: 'string',
-                required: true
-            },
-            quantity: {
-                description: 'quantity',
-                type: 'number',
-                required: true
-            }
-        }
-    };
+    const schema = JSON.parse(JSON.stringify(referenceSchema));
+    schema.properties.name.required = true;
+    schema.properties.location.required = true;
+    schema.properties.quantity.required = true;
 
     const input = await prompt.get(schema);
     const request = axios.post(format('%s/items', api), input);
     const response = await request;
     const data = response.data;
-    console.log(Object.keys(data));
-    console.log(table([
-        Object.keys(data),
-        Object.values(data)]));
+    console.log(makeTable(data));
+}
+
 }
 
 const argv = yargs(hideBin(process.argv))
