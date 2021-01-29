@@ -50,6 +50,13 @@ async function list() {
     console.log(makeTable(data));
 }
 
+async function get(id) {
+    const request  = axios.get(format('%s/items/%s', api));
+    let response = await request;
+    const data = response.data;
+    console.log(makeTable(data));
+}
+
     }
 }
 
@@ -87,6 +94,11 @@ async function create() {
 
 const argv = yargs(hideBin(process.argv))
       .command('list', 'list items in inventory', list)
+      .command({
+          command: 'get <id>',
+          desc: 'get an item from the inventory',
+          handler: argv => get(argv.id)
+      })
       .command('add', 'add a new item to inventory', create)
       .help()
       .argv
