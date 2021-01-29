@@ -106,6 +106,12 @@ async function update(id) {
     console.log(makeTable(data));
 }
 
+async function remove(id) {
+    const request = axios.delete(
+        format('%s/items/%s', api, id));
+    const response = await request;
+    const data = response.data;
+    console.log(makeTable(data));
 }
 
 const argv = yargs(hideBin(process.argv))
@@ -120,6 +126,11 @@ const argv = yargs(hideBin(process.argv))
           command: 'update <id>',
           desc: 'update an existing item',
           handler: argv => update(argv.id)
+      })
+      .command({
+          command: 'remove <id>',
+          desc: 'remove an item',
+          handler: argv => remove(argv.id)
       })
       .help()
       .argv
