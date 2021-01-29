@@ -24,4 +24,11 @@ router.patch('/:id', async (request, response) => {
         await itemService.updateByKey(id, data));
 });
 
+router.delete('/:id', async (request, response) => {
+    const id = request.params.id;
+    const data = request.body;
+    return response.send(
+        await itemService.deleteByKey(id));
+});
+
 export default router;
