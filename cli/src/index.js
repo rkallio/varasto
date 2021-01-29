@@ -51,7 +51,7 @@ async function list() {
 }
 
 async function get(id) {
-    const request  = axios.get(format('%s/items/%s', api));
+    const request  = axios.get(format('%s/items/%s', api, id));
     let response = await request;
     const data = response.data;
     console.log(makeTable(data));
