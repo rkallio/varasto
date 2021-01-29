@@ -19,6 +19,13 @@ import routes from './routes/init.route.js';
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(routes);
+app.use((request, response) => {
+    response.status(404).json({
+        error: 'Not Found',
+        message: 'Resource not found',
+        context: null
+    });
+});
 
 server.listen(
     config.port,
