@@ -21,5 +21,5 @@ app.use(express.json());
 app.use(routes);
 
 server.listen(
-    config.INVENTORY_SERVER_PORT,
-    config.INVENTORY_SERVER_HOST);
+    config.port,
+    config.host);
