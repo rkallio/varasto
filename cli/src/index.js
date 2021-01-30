@@ -82,11 +82,11 @@ async function get(argv) {
 const referenceSchema = {
     properties: {
         name: {
-            description: 'name',
+            description: 'Name',
             type: 'string',
         },
         location: {
-            description: 'location',
+            description: 'Location',
             type: 'string',
         },
         currentQuantity: {
