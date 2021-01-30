@@ -42,7 +42,7 @@ function makeTable(itemData) {
 }
 
 function reportError(err) {
-    if(err.response.data) {
+    if(err.response && err.response.data) {
         const errdata = err.response.data;
         console.error(format('%s: %s', errdata.error, errdata.message));
         if(errdata.context) {
