@@ -118,8 +118,8 @@ async function create(argv) {
 
 async function update(argv) {
     const contextRequest = axios.get(
-    const ContextResponse = await request;
         format('%s/items/%s', argv.host, argv.id));
+    const contextResponse = await contextRequest;
     const defaults = contextResponse.data;
 
     const schema = JSON.parse(JSON.stringify(referenceSchema));
