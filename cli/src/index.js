@@ -63,7 +63,12 @@ async function list(argv) {
         return;
     }
     const data = response.data;
-    console.log(makeTable(data));
+    const table = makeTable(data);
+    if(table !== undefined) {
+        console.log(table);
+    } else {
+        console.log('empty');
+    }
 }
 
 async function get(argv) {
