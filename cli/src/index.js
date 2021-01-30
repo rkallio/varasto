@@ -6,8 +6,6 @@ import { table  } from 'table';
 import prompt from 'prompt';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 
-const api = 'http://localhost:8000';
-
 function makeTable(itemData) {
     if(!Array.isArray(itemData)) {
         itemData = [itemData];
@@ -43,52 +41,85 @@ function makeTable(itemData) {
     return table([header, ...values]);
 }
 
-async function list() {
-    const request = axios.get(format('%s/items', api));
-    let response = await request;
+function reportError(err) {
+    if(err.response.data) {
+        const errdata = err.response.data;
+        console.error(format('%s: %s', errdata.error, errdata.message));
+        if(errdata.context) {
+            console.error(JSON.stringify(errdata.context, null, 4));
+        }
+    } else {
+        throw err;
+    }
+}
+
+async function list(argv) {
+    const request = axios.get(format('%s/items', argv.host));
+    let response
+    try {
+        response = await request;
+    } catch(error) {
+        reportError(error);
+        return;
+    }
     const data = response.data;
     console.log(makeTable(data));
 }
 
-async function get(id) {
-    const request  = axios.get(format('%s/items/%s', api, id));
-    let response = await request;
+async function get(argv) {
+    const request  = axios.get(format('%s/items/%s', argv.host, argv.id));
+    let response;
+    try {
+        response = await request;
+    } catch(err) {
+        reportError(err);
+        return;
+    }
     const data = response.data;
     console.log(makeTable(data));
 }
 
 const referenceSchema = {
-    name: {
-        description: 'name',
-        type: 'string',
-    },
-    location: {
-        description: 'location',
-        type: 'string',
-    },
-    quantity: {
-        description: 'quantity',
-        type: 'number',
+    properties: {
+        name: {
+            description: 'name',
+            type: 'string',
+        },
+        location: {
+            description: 'location',
+            type: 'string',
+        },
+        quantity: {
+            description: 'quantity',
+            type: 'number',
+        }
     }
 }
 
-async function create() {
+async function create(argv) {
     const schema = JSON.parse(JSON.stringify(referenceSchema));
     schema.properties.name.required = true;
     schema.properties.location.required = true;
     schema.properties.quantity.required = true;
 
     const input = await prompt.get(schema);
-    const request = axios.post(format('%s/items', api), input);
-    const response = await request;
+
+    const request = axios.post(format('%s/items', argv.host, input));
+    let response;
+    try {
+        response = await request;
+    } catch(err) {
+        reportError(err);
+        return;
+    }
     const data = response.data;
     console.log(makeTable(data));
 }
 
-async function update(id) {
+async function update(argv) {
     const contextRequest = axios.get(
-        format('%s/items/%s', api, id));
     const ContextResponse = await request;
+        format('%s/items/%s', argv.host, argv.id));
     const defaults = contextResponse.data;
 
     const schema = JSON.parse(JSON.stringify(referenceSchema));
@@ -99,7 +130,7 @@ async function update(id) {
     const input = await prompt.get(schema);
 
     const request = axios.patch(
-        format('%s/items/%s', api, id), input);
+        format('%s/items/%s', argv.host, argv.id), input);
     const response = await request;
     const data = response.data;
 
@@ -108,29 +139,43 @@ async function update(id) {
 
 async function remove(id) {
     const request = axios.delete(
-        format('%s/items/%s', api, id));
+        format('%s/items/%s', argv.host, argv.id));
     const response = await request;
     const data = response.data;
     console.log(makeTable(data));
 }
 
 const argv = yargs(hideBin(process.argv))
-      .command('list', 'list items in inventory', list)
+      .env('INVENTORY_CLI_')
+      .option('host', {
+          demandOption: true,
+          describe: 'hostname of the target service',
+          type: 'string'
+      })
+      .command({
+          command: 'list',
+          desc: 'list items in inventory',
+          handler: list
+      })
       .command({
           command: 'get <id>',
-          desc: 'get an item from the inventory',
-          handler: argv => get(argv.id)
+          desc: 'get an item from inventory',
+          handler: get
       })
-      .command('add', 'add a new item to inventory', create)
+      .command({
+          command: ['add', 'create'],
+          desc: 'add a new item to inventory',
+          handler: create
+      })
       .command({
           command: 'update <id>',
           desc: 'update an existing item',
-          handler: argv => update(argv.id)
+          handler: update
       })
       .command({
           command: 'remove <id>',
           desc: 'remove an item',
-          handler: argv => remove(argv.id)
+          handler: remove
       })
       .help()
       .argv
