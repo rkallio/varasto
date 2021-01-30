@@ -1,8 +1,8 @@
 import Sequelize from 'sequelize';
-const { Model } = Sequelize;
+import BaseModel from './base.model.js';
 import sequelize from '../sequelize.init.js';
 
-class Item extends Model {}
+class Item extends BaseModel { }
 
 Item.init(
     {
