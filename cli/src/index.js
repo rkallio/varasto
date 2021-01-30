@@ -109,7 +109,7 @@ async function create(argv) {
 
     const input = await prompt.get(schema);
 
-    const request = axios.post(format('%s/items', argv.host, input));
+    const request = axios.post(format('%s/items', argv.host), input);
     let response;
     try {
         response = await request;
