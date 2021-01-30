@@ -1,28 +1,28 @@
 {
-  "name": "api",
-  "type": "module",
-  "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon",
-    "lint": "eslint .",
-    "format": "prettier ."
-  },
-  "author": "Roni Kallio",
-  "license": "MIT",
-  "devDependencies": {
-    "eslint": "^7.18.0",
-    "eslint-config-prettier": "^7.2.0",
-    "express": "^4.17.1",
-    "nodemon": "^2.0.7",
-    "prettier": "^2.2.1"
-  },
-  "dependencies": {
-    "express-async-errors": "^3.1.1",
-    "sequelize": "^6.4.0",
-    "sqlite3": "^5.0.1",
-    "yargs": "^16.2.0"
-  }
+    "name": "api",
+    "type": "module",
+    "version": "0.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start:dev": "nodemon",
+        "lint": "eslint .",
+        "format": "prettier ."
+    },
+    "author": "Roni Kallio",
+    "license": "MIT",
+    "devDependencies": {
+        "eslint": "^7.18.0",
+        "eslint-config-prettier": "^7.2.0",
+        "express": "^4.17.1",
+        "nodemon": "^2.0.7",
+        "prettier": "^2.2.1"
+    },
+    "dependencies": {
+        "express-async-errors": "^3.1.1",
+        "sequelize": "^6.4.0",
+        "sqlite3": "^5.0.1",
+        "yargs": "^16.2.0"
+    }
 }

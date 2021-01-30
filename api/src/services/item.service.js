@@ -7,7 +7,7 @@ export const findAll = () => {
 
 export const findByKey = (key) => {
     return Item.findByPk(key, {
-        rejectOnEmpty: true
+        rejectOnEmpty: true,
     });
 };
 
@@ -16,13 +16,13 @@ export const create = (data) => {
 };
 
 export const updateByKey = (key, data) => {
-    const updated = sequelize.transaction(async t => {
+    const updated = sequelize.transaction(async (t) => {
         const item = await Item.findByPk(key, {
             transaction: t,
-            rejectOnEmpty: true
+            rejectOnEmpty: true,
         });
         const updated = item.update(data, {
-            transaction: t
+            transaction: t,
         });
         return updated;
     });
@@ -30,13 +30,13 @@ export const updateByKey = (key, data) => {
 };
 
 export const deleteByKey = (key) => {
-    const deleted = sequelize.transaction(async t => {
+    const deleted = sequelize.transaction(async (t) => {
         const item = await Item.findByPk(key, {
             transaction: t,
-            rejectOnEmpty: t
+            rejectOnEmpty: t,
         });
         return item.destroy({
-            transaction: t
+            transaction: t,
         });
     });
     return deleted;

@@ -17,34 +17,34 @@ import './services/init.service.js';
 
 import routes from './routes/init.route.js';
 
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(routes);
 
 // sequelize handlers
 app.use((error, request, response, next) => {
-    if(error instanceof Sequelize.EmptyResultError) {
+    if (error instanceof Sequelize.EmptyResultError) {
         return response.status(404).json({
             error: 'Not Found',
             message: 'Resource not found',
-            context: null
+            context: null,
         });
     }
 
-    if(error instanceof Sequelize.ValidationError) {
+    if (error instanceof Sequelize.ValidationError) {
         const { errors } = error;
-        const context = errors.map(item => {
+        const context = errors.map((item) => {
             return {
                 path: item.path,
                 type: item.type,
-                value: item.value
-            }
+                value: item.value,
+            };
         });
 
         return response.status(400).json({
             error: 'Validation Error',
             message: 'Some fields did not pass validation checks',
-            context: context
+            context: context,
         });
     }
 
@@ -56,18 +56,16 @@ app.use((error, request, response, _next) => {
     return response.status(500).json({
         error: error.name,
         message: null,
-        context: null
-    })
-})
+        context: null,
+    });
+});
 
 app.use((request, response) => {
     response.status(404).json({
         error: 'Not Found',
         message: 'Resource not found',
-        context: null
+        context: null,
     });
 });
 
-server.listen(
-    config.port,
-    config.host);
+server.listen(config.port, config.host);

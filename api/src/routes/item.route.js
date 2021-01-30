@@ -15,20 +15,17 @@ router.get('/:id', async (request, response) => {
 
 router.post('/', async (request, response) => {
     return response.send(await itemService.create(request.body));
-})
+});
 
 router.patch('/:id', async (request, response) => {
     const id = request.params.id;
     const data = request.body;
-    return response.send(
-        await itemService.updateByKey(id, data));
+    return response.send(await itemService.updateByKey(id, data));
 });
 
 router.delete('/:id', async (request, response) => {
     const id = request.params.id;
-    const data = request.body;
-    return response.send(
-        await itemService.deleteByKey(id));
+    return response.send(await itemService.deleteByKey(id));
 });
 
 export default router;
