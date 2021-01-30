@@ -137,7 +137,7 @@ async function update(argv) {
     console.log(makeTable(data));
 }
 
-async function remove(id) {
+async function remove(argv) {
     const request = axios.delete(
         format('%s/items/%s', argv.host, argv.id));
     const response = await request;
