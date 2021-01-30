@@ -6,14 +6,13 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon",
+    "start": "node src/index.js",
     "lint": "eslint ."
   },
   "author": "Roni Kallio",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^7.18.0",
-    "nodemon": "^2.0.7"
+    "eslint": "^7.18.0"
   },
   "dependencies": {
     "axios": "^0.21.1",
