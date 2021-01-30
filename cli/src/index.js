@@ -89,8 +89,12 @@ const referenceSchema = {
             description: 'location',
             type: 'string',
         },
-        quantity: {
-            description: 'quantity',
+        currentQuantity: {
+            description: 'Current Quantity',
+            type: 'number',
+        },
+        targetQuantity: {
+            description: 'Target Quantity',
             type: 'number',
         }
     }
@@ -100,7 +104,8 @@ async function create(argv) {
     const schema = JSON.parse(JSON.stringify(referenceSchema));
     schema.properties.name.required = true;
     schema.properties.location.required = true;
-    schema.properties.quantity.required = true;
+    schema.properties.currentQuantity.required = true;
+    schema.properties.targetQuantity.required = true;
 
     const input = await prompt.get(schema);
 
@@ -125,7 +130,8 @@ async function update(argv) {
     const schema = JSON.parse(JSON.stringify(referenceSchema));
     schema.properties.name.default = defaults.name;
     schema.properties.location.default = defaults.location;
-    schema.properties.quantity.default = defaults.quantity;
+    schema.properties.currentQuantity.default = defaults.currentQuantity;
+    schema.properties.targetQuantity.default = defaults.targetQuantity;
 
     const input = await prompt.get(schema);
 

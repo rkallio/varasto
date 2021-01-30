@@ -22,13 +22,20 @@ Item.init(
                 len: [3, 20],
             },
         },
-        quantity: {
+        currentQuantity: {
             type: Sequelize.DataTypes.REAL,
             allowNull: false,
             validate: {
                 min: 0,
             },
         },
+        targetQuantity: {
+            type: Sequelize.DataTypes.REAL,
+            allowNull: false,
+            validate: {
+                min: 0,
+            }
+        }
     },
     {
         sequelize,
