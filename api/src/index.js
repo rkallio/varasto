@@ -51,6 +51,15 @@ app.use((error, request, response, next) => {
     throw error;
 });
 
+// any other error
+app.use((error, request, response, _next) => {
+    return response.status(500).json({
+        error: error.name,
+        message: null,
+        context: null
+    })
+})
+
 app.use((request, response) => {
     response.status(404).json({
         error: 'Not Found',
