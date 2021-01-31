@@ -2,10 +2,88 @@ import Sequelize from 'sequelize';
 import sequelize from '../sequelize.init.js';
 import bcrypt from 'bcrypt';
 import config from '../config.js';
+import _ from 'lodash';
 
 class User extends Sequelize.Model {
-    static test(name, password, options) {
-        return bcrypt.compare(password, this.password);
+    static async test(name, password, options) {
+        const user = await User.findOne({
+            where: {
+                name
+            }
+        });
+        return bcrypt.compare(password, user.password);
+    }
+
+    static async strictFindByKey(key, options) {
+        const transaction = _.get(options, 'transaction')
+            ? options.transaction
+            : await sequelize.transaction();
+
+        try {
+            const user = await User.findByPk(key, {
+                transaction: transaction,
+                rejectOnEmpty: true,
+            });
+            if (transaction !== _.get(options, 'transaction')) {
+                transaction.commit();
+            }
+            return user;
+        } catch (error) {
+            if (transaction !== _.get(options, 'transaction')) {
+                transaction.rollback();
+            }
+            throw error;
+        }
+    }
+
+    static async updateByKey(key, data, options) {
+        const transaction = _.get(options, 'transaction')
+            ? options.transaction
+            : await sequelize.transaction();
+
+        try {
+            const user = await User.strictFindByKey(key, {
+                transaction: transaction,
+            });
+
+            const updated = await user.update(data, {
+                transaction: transaction,
+            });
+            if (transaction !== _.get(options, 'transaction')) {
+                transaction.commit();
+            }
+            return updated;
+        } catch (error) {
+            if (transaction !== _.get(options, 'transaction')) {
+                transaction.rollback();
+            }
+            throw error;
+        }
+    }
+
+    static async deleteByKey(key, options) {
+        const transaction = _.get(options, 'transaction')
+            ? options.transaction
+            : await sequelize.transaction();
+
+        try {
+            const user = await User.strictFindByKey(key, {
+                transaction: transaction,
+            });
+
+            const destroyed = await user.destroy({
+                transaction: transaction,
+            });
+            if (transaction !== _.get(options, 'transaction')) {
+                transaction.commit();
+            }
+            return destroyed;
+        } catch (error) {
+            if (transaction !== _.get(options, 'transaction')) {
+                transaction.rollback();
+            }
+            throw error;
+        }
     }
 }
 
