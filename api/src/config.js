@@ -23,6 +23,16 @@ const argv = yargs(hideBin(process.argv))
         describe: 'database storage location',
         type: 'string',
     })
+    .option('salt-rounds', {
+        demandOption: true,
+        describe: 'rounds of salt for password generation',
+        type: 'number',
+    })
+    .option('jwt-secret', {
+        demandOption: true,
+        describe: 'secret used to sign json web tokens',
+        type: 'string',
+    })
     .help().argv;
 
 export default argv;
