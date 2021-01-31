@@ -13,7 +13,7 @@ module.exports = {
     },
     devServer: {
         // publicPath: undefined,
-        // contentBase: path.resolve(__dirname, 'dist'),
+        contentBase: path.resolve(__dirname, 'dist'),
         // compress: false,
         host: config.host,
         // hot: false,
