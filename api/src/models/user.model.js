@@ -7,9 +7,8 @@ import _ from 'lodash';
 class User extends Sequelize.Model {
     static async test(name, password, options) {
         const user = await User.findOne({
-            where: {
-                name
-            }
+            where: { name },
+            rejectOnEmpty: true,
         });
         return bcrypt.compare(password, user.password);
     }
