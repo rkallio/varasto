@@ -17,6 +17,6 @@ export const updateByKey = (key, data) => {
     return Item.updateByKey(key, data);
 };
 
-export const deleteByKey = key => {
+export const deleteByKey = (key) => {
     return Item.deleteByKey(key);
-}
+};

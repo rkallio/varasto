@@ -4,20 +4,20 @@ import _ from 'lodash';
 export default class BaseModel extends Sequelize.Model {
     static async strictFindByKey(key, options) {
         const transaction = _.get(options, 'transaction')
-              ? options.transaction
-              : await sequelize.transaction();
+            ? options.transaction
+            : await sequelize.transaction();
 
         try {
             const item = await Item.findByPk(key, {
                 transaction: transaction,
-                rejectOnEmpty: true
+                rejectOnEmpty: true,
             });
-            if(transaction !== _.get(options, 'transaction')) {
+            if (transaction !== _.get(options, 'transaction')) {
                 transaction.commit();
             }
             return item;
-        } catch(error) {
-            if(transaction !== _.get(options, 'transaction')) {
+        } catch (error) {
+            if (transaction !== _.get(options, 'transaction')) {
                 transaction.rollback();
             }
             throw error;
@@ -26,8 +26,8 @@ export default class BaseModel extends Sequelize.Model {
 
     static async updateByKey(key, data, options) {
         const transaction = _.get(options, 'transaction')
-              ? options.transaction
-              : await sequelize.transaction();
+            ? options.transaction
+            : await sequelize.transaction();
 
         try {
             const item = await Item.strictFindByKey(key, {
@@ -35,14 +35,14 @@ export default class BaseModel extends Sequelize.Model {
             });
 
             const updated = await item.update(data, {
-                transaction: transaction
+                transaction: transaction,
             });
-            if(transaction !== _.get(options, 'transaction')) {
+            if (transaction !== _.get(options, 'transaction')) {
                 transaction.commit();
             }
             return updated;
-        } catch(error) {
-            if(transaction !== _.get(options, 'transaction')) {
+        } catch (error) {
+            if (transaction !== _.get(options, 'transaction')) {
                 transaction.rollback();
             }
             throw error;
@@ -51,8 +51,8 @@ export default class BaseModel extends Sequelize.Model {
 
     static async deleteByKey(key, options) {
         const transaction = _.get(options, 'transaction')
-              ? options.transaction
-              : await sequelize.transaction();
+            ? options.transaction
+            : await sequelize.transaction();
 
         try {
             const item = await Item.strictFindByKey(key, {
@@ -60,14 +60,14 @@ export default class BaseModel extends Sequelize.Model {
             });
 
             const destroyed = await item.destroy({
-                transaction: transaction
+                transaction: transaction,
             });
-            if(transaction !== _.get(options, 'transaction')) {
+            if (transaction !== _.get(options, 'transaction')) {
                 transaction.commit();
             }
             return destroyed;
-        } catch(error) {
-            if(transaction !== _.get(options, 'transaction')) {
+        } catch (error) {
+            if (transaction !== _.get(options, 'transaction')) {
                 transaction.rollback();
             }
             throw error;

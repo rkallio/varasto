@@ -2,7 +2,7 @@ import Sequelize from 'sequelize';
 import BaseModel from './base.model.js';
 import sequelize from '../sequelize.init.js';
 
-class Item extends BaseModel { }
+class Item extends BaseModel {}
 
 Item.init(
     {
@@ -34,8 +34,8 @@ Item.init(
             allowNull: false,
             validate: {
                 min: 0,
-            }
-        }
+            },
+        },
     },
     {
         sequelize,
