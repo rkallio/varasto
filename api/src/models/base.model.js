@@ -1,5 +1,6 @@
 import Sequelize from 'sequelize';
 import _ from 'lodash';
+import sequelize from '../sequelize.init.js';
 
 export default class BaseModel extends Sequelize.Model {
     static async strictFindByKey(key, options) {
