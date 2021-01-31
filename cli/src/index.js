@@ -156,6 +156,30 @@ async function remove(argv) {
     console.log(makeTable(data));
 }
 
+async function getAuth(argv) {
+    const identificationSchema = {
+        properties: {
+            username: {
+                description: 'Username',
+                type: 'string',
+                required: true
+            },
+            password: {
+                description: 'Password',
+                type: 'string',
+                required: true,
+                hidden: true,
+                replace: '*'
+            }
+        }
+    };
+    const input = await prompt.get(identificationSchema);
+    const request = axios.post(format('%s/auth/', argv.host), input);
+    const response = await request;
+    const data = response.data;
+    console.log(data);
+}
+
 const argv = yargs(hideBin(process.argv))
       .env('INVENTORY_CLI_')
       .option('host', {
@@ -163,30 +187,49 @@ const argv = yargs(hideBin(process.argv))
           describe: 'hostname of the target service',
           type: 'string'
       })
-      .command({
-          command: 'list',
-          desc: 'list items in inventory',
-          handler: list
+      .option('auth', {
+          demandOption: false,
+          describe: 'token received from the authentication service',
+          type: 'string'
       })
       .command({
-          command: 'get <id>',
-          desc: 'get an item from inventory',
-          handler: get
+          command: 'auth',
+          desc: 'retrieve an authorization token',
+          handler: getAuth
       })
       .command({
-          command: ['add', 'create'],
-          desc: 'add a new item to inventory',
-          handler: create
-      })
-      .command({
-          command: 'update <id>',
-          desc: 'update an existing item',
-          handler: update
-      })
-      .command({
-          command: 'remove <id>',
-          desc: 'remove an item',
-          handler: remove
+          command: 'item',
+          desc: 'operate on items',
+          builder : yargs => {
+              yargs
+                  .command({
+                      command: 'list',
+                      desc: 'list items in inventory',
+                      handler: list
+                  })
+                  .command({
+                      command: 'get <id>',
+                      desc: 'get an item from inventory',
+                      handler: get
+                  })
+                  .command({
+                      command: ['add', 'create'],
+                      desc: 'add a new item to inventory',
+                      handler: create
+                  })
+                  .command({
+                      command: 'update <id>',
+                      desc: 'update an existing item',
+                      handler: update
+                  })
+                  .command({
+                      command: 'remove <id>',
+                      desc: 'remove an item',
+                      handler: remove
+                  })
+                  .help()
+                  .argv
+          }
       })
       .help()
       .argv
