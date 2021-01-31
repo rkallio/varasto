@@ -14,7 +14,7 @@ router.post('/', async (request, response) => {
         return response.status(400).send({
             error: 'Identification error',
             message: 'Supplied username or password incorrect',
-            context: { name, password }
+            context: { name, password },
         });
     }
 });
