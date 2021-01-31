@@ -159,7 +159,7 @@ async function remove(argv) {
 async function getAuth(argv) {
     const identificationSchema = {
         properties: {
-            username: {
+            name: {
                 description: 'Username',
                 type: 'string',
                 required: true
