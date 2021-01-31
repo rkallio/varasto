@@ -1,7 +1,7 @@
-import { Model } from Sequelize;
+import Sequelize from 'sequelize';
 import _ from 'lodash';
 
-export default class BaseModel extends Model {
+export default class BaseModel extends Sequelize.Model {
     static async strictFindByKey(key, options) {
         const transaction = _.get(options, 'transaction')
               ? options.transaction
