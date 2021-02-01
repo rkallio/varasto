@@ -2,10 +2,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const yargs = require('yargs/yargs');
 const { hideBin } = require('yargs/helpers');
+const webpack = require('webpack');
 
-const config = yargs(hideBin(process.argv)).argv;
-
-module.exports = {
+module.exports = env => ({
     entry: ['@babel/polyfill', './src/index.jsx'],
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -15,9 +14,9 @@ module.exports = {
         // publicPath: undefined,
         contentBase: path.resolve(__dirname, 'dist'),
         // compress: false,
-        host: config.host,
+        host: env.host,
         // hot: false,
-        port: config.port,
+        port: env.port,
     },
     devtool: 'source-map',
     resolve: {
@@ -42,5 +41,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, 'src', 'index.html'),
         }),
+        new webpack.DefinePlugin({
+            'window.api': JSON.stringify(env.api)
+        })
     ],
-};
+});
