@@ -15,6 +15,8 @@ await sequelize.sync();
 
 import './services/init.service.js';
 
+import passport from './passport.js';
+
 import routes from './routes/init.route.js';
 
 app.use(express.urlencoded({ extended: false }));

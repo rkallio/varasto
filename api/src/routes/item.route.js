@@ -1,8 +1,10 @@
 import express from 'express';
-
 import * as itemService from '../services/item.service.js';
+import passport from '../passport.js';
 
 const router = express.Router();
+
+router.use(passport.authenticate('bearer', { session: false }));
 
 router.get('/', async (request, response) => {
     return response.send(await itemService.findAll());
