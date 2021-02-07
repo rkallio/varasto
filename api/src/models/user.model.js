@@ -31,25 +31,12 @@ class User extends Sequelize.Model {
     }
 
     static async strictFindByKey(key, options) {
-        const transaction = _.get(options, 'transaction')
-            ? options.transaction
-            : await sequelize.transaction();
+        const trx = _.get(options, 'transaction');
 
-        try {
-            const user = await User.findByPk(key, {
-                transaction: transaction,
-                rejectOnEmpty: true,
-            });
-            if (transaction !== _.get(options, 'transaction')) {
-                transaction.commit();
-            }
-            return user;
-        } catch (error) {
-            if (transaction !== _.get(options, 'transaction')) {
-                transaction.rollback();
-            }
-            throw error;
-        }
+        return User.findByPk(key, {
+            transaction: trx,
+            rejectOnEmpty: true
+        });
     }
 
     static async updateByKey(key, data, options) {
