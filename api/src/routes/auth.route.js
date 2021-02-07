@@ -1,6 +1,6 @@
 import express from 'express';
 
-import tryAuthenticate from '../services/auth.service.js';
+import { tryAuthenticate } from '../services/auth.service.js';
 
 const router = express.Router();
 

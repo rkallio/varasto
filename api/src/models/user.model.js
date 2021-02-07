@@ -6,11 +6,28 @@ import _ from 'lodash';
 
 class User extends Sequelize.Model {
     static async test(name, password, options) {
+        const trx = _.get(options, 'transaction');
+
         const user = await User.findOne({
             where: { name },
-            rejectOnEmpty: true,
+            rejectOnEmpty: false,
+            transaction: trx
         });
-        return bcrypt.compare(password, user.password);
+
+        console.log(user);
+
+        if(user === null) {
+            return { ok: false,
+                     user: undefined };
+        }
+
+        const ok = await bcrypt.compare(password, user.password);
+
+        if(ok) {
+            return { ok, user };
+        } else {
+            return { ok: false, user: undefined };
+        }
     }
 
     static async strictFindByKey(key, options) {
