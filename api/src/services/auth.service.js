@@ -16,5 +16,3 @@ export const tryAuthenticate = async (username, password) => {
         return { ok, token: undefined };
     }
 };
-
-export default tryAuthenticate;
