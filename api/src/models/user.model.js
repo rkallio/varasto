@@ -14,8 +14,6 @@ class User extends Sequelize.Model {
             transaction: trx
         });
 
-        console.log(user);
-
         if(user === null) {
             return { ok: false,
                      user: undefined };
