@@ -1,9 +1,39 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { authenticate } from './auth.redux.js';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
-export default () => {
+import * as css from './login-page.module.css';
+
+const appendAstIf = (text, cond) => {
+    if(cond) {
+        return text + '*';
+    } else {
+        return text;
+    }
+}
+
+const InputContainer = (props) => {
+    return (
+        <div className={css.inputContainer}>
+             { props.children }
+        </div>
+    )
+}
+const LabeledInput = forwardRef((props, ref) => {
+    const { label, ...rest } = props;
+
+    return (
+        <InputContainer>
+            <label className={css.label} htmlFor={rest.name}>
+                {appendAstIf(label, props.required)}
+            </label>
+            <input className={css.input} ref={ref} {...rest} />
+        </InputContainer>
+    )
+})
+
+const LoginPage = () => {
     const { register, handleSubmit } = useForm();
     const dispatch = useDispatch();
     const onSubmit = async data => {
@@ -14,22 +44,33 @@ export default () => {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <div>
-                <label htmlFor="name">Name</label>
+        <form className={css.form}
+              onSubmit={handleSubmit(onSubmit)}>
+            <LabeledInput
+                name="name"
+                ref={register}
+                label="Name"
+                required
+            />
+            <LabeledInput
+                name="password"
+                type="password"
+                ref={register}
+                label="Password"
+                required
+            />
+            <InputContainer>
                 <input
-                    name="name"
-                    ref={register} />
-            </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                <input
-                    type="password"
-                    name="password"
-                    ref={register} />
-            </div>
-            <input
-                type="submit" />
+                    type="submit" />
+            </InputContainer>
         </form>
+    );
+}
+
+export default () => {
+    return (
+        <div className={css.container}>
+            <LoginPage />
+        </div>
     );
 }
