@@ -4,8 +4,8 @@
     "description": "",
     "browser": "dist/main.html",
     "scripts": {
-        "serve": "parcel serve --port 8080 src/index.html",
-        "build": "parcel build src/index.html",
+        "serve": "rm -rf .parcel-cache && parcel serve --port 8080 src/index.html",
+        "build": "rm -rf .parchel-cache && parcel build src/index.html",
         "lint": "eslint . --ext .js --ext .jsx --fix",
         "format": "prettier . --write"
     },
