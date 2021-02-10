@@ -1,0 +1,16 @@
+.fieldContainer {
+    padding: 10px;
+}
+
+.label {
+    display: block;
+    padding: 5px 0;
+}
+
+.input {
+    display:block;
+}
+
+.buttonGroup {
+    display: flex;
+}
