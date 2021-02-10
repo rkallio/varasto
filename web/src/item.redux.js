@@ -4,10 +4,13 @@ import {
     createEntityAdapter
 } from '@reduxjs/toolkit';
 
+import * as api from './api.js';
+import { selector as tokenSelector } from './auth.redux.js';
+
 export const findAllItems = createAsyncThunk(
     'items/find-all',
     async (_, thunk) => {
-        const token = selectToken(thunk.getState());
+        const token = tokenSelector(thunk.getState());
         const response = await api.items.find(token);
         return response;
     }
@@ -16,7 +19,7 @@ export const findAllItems = createAsyncThunk(
 export const postItem = createAsyncThunk(
     'items/post',
     async (data, thunk) => {
-        const token = selectToken(thunk.getState());
+        const token = tokenSelector(thunk.getState());
         const response = await api.items.post(data, token);
         return response;
     }
@@ -25,7 +28,7 @@ export const postItem = createAsyncThunk(
 export const patchItem = createAsyncThunk(
     'items/patch',
     async ({id, data}, thunk) => {
-        const token = selectToken(thunk.getState());
+        const token = tokenSelector(thunk.getState());
         const response = await api.items.patch(id, data, token);
         return {
             id: response.id,
@@ -37,7 +40,7 @@ export const patchItem = createAsyncThunk(
 export const deleteItem = createAsyncThunk(
     'items/delete',
     async (id, thunk) => {
-        const token = selectToken(thunk.getState());
+        const token = tokenSelector(thunk.getState());
         const response = await api.items.delete(id, token);
         return response.id;
     }

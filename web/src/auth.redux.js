@@ -1,12 +1,9 @@
 import * as api from './api.js';
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
-export const selectToken = state => state.auth.token;
-
-export const authenticate = createAsyncThunk(
-    'auth/authenticate',
-    data => api.authenticate(data)
-);
+import {
+    createSlice,
+    createAsyncThunk,
+    createSelector
+} from '@reduxjs/toolkit';
 
 const loadToken = () => {
     let serialized;
@@ -18,6 +15,16 @@ const loadToken = () => {
     return JSON.parse(serialized);
 }
 
+export const authenticate = createAsyncThunk(
+    'auth/authenticate',
+    async (data) => {
+        const result = await api.authenticate(data);
+        const serialized = JSON.stringify(result);
+        window.localStorage.setItem('token', serialized);
+        return result;
+    }
+);
+
 export default authSlice = createSlice({
     name: 'auth',
     initialState: loadToken(),
@@ -26,3 +33,5 @@ export default authSlice = createSlice({
         [authenticate.fulfilled]: (state, action) => action.payload
     }
 });
+
+export const selector = state => state.auth;
