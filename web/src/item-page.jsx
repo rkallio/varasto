@@ -6,6 +6,7 @@ import { itemSelector, findAllItems } from './item.redux.js';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { actions } from './modal.redux.js';
 import Container from './container.jsx';
+import AddButton from './add-button.jsx';
 
 const Property = ({ name, value }) => {
     return (
@@ -125,6 +126,7 @@ export default () => {
     return (
         <Container>
             <ItemList />
+            <AddButton />
         </Container>
     );
 }
