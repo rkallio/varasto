@@ -9,24 +9,25 @@ import EditItem from './edit-item.jsx';
 
 ReactModal.setAppElement('#root');
 
+const ModalSelector = () => {
+    const state = useSelector(modalSelector);
+    if(state.mode === 'create-item') {
+        return (<AddItem />);
+    } else if(state.mode === 'edit-item') {
+        return (<EditItem />);
+    } else {
+        return null;
+    }
+}
+
 export default Modal = () => {
     const state = useSelector(modalSelector);
     let element;
     const parentSelector = () => document.querySelector('#root');
 
-    if(state.mode === 'create-item') {
-        element = (<AddItem />);
-    } else if(state.mode ==='edit-item') {
-        element = (<EditItem />);
-    } else {
-        element = null;
-    }
-
     return (
-            <ReactModal
-                parentSelector={parentSelector}
-                isOpen={state.open}>
-                { element }
-            </ReactModal>
+        <ReactModal parentSelector={parentSelector} isOpen={state.open}>
+            <ModalSelector />
+        </ReactModal>
     );
 }
