@@ -6,6 +6,7 @@ import { actions, modalSelector } from './modal.redux.js';
 import { itemSelector } from './item.redux.js';
 import * as Forms from './forms.jsx';
 import * as Items from './items.jsx';
+import Container from './container.jsx';
 
 export default EditItem = () => {
     const dispatch = useDispatch();
@@ -25,6 +26,7 @@ export default EditItem = () => {
     }
 
     return (
+        <Container>
             <form
                 onSubmit={handleSubmit(onSubmit)}
             >
@@ -59,5 +61,6 @@ export default EditItem = () => {
                     </Forms.ButtonGroup>
                 </Forms.FieldContainer>
             </form>
+        </Container>
     );
 }

@@ -5,6 +5,7 @@ import { itemSelector, findAllItems } from './item.redux.js';
 
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { actions } from './modal.redux.js';
+import Container from './container.jsx';
 
 const Property = ({ name, value }) => {
     return (
@@ -122,8 +123,8 @@ const ItemList = props => {
 
 export default () => {
     return (
-        <div className={css.container}>
+        <Container>
             <ItemList />
-        </div>
+        </Container>
     );
 }
