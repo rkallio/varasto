@@ -26,7 +26,7 @@ export default () => {
                     <ItemPage />
                 </ProtectedRoute>
                 <Route path="/">
-                    <Home />
+                    <RootRedirect />
                 </Route>
             </Switch>
             <Modal />
@@ -34,7 +34,7 @@ export default () => {
     );
 }
 
-const Home = () => {
+const RootRedirect = () => {
     const token = useSelector(tokenSelector);
     const history = useHistory();
 
