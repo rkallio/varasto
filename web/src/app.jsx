@@ -13,6 +13,7 @@ import ReactModal from 'react-modal';
 import { useForm }  from 'react-hook-form';
 import AddItem from './add-item.jsx';
 import EditItem from './edit-item.jsx';
+import Modal from './modal.jsx';
 
 export default () => {
     return (
@@ -30,30 +31,6 @@ export default () => {
             </Switch>
             <Modal />
         </>
-    );
-}
-
-const Modal = () => {
-    const state = useSelector(state => state.modal);
-    let element;
-
-    if(state.mode === 'create-item') {
-        element = <AddItem />;
-    } else if(state.mode === 'edit-item') {
-        element = <EditItem />;
-    } else {
-        element = null;
-    }
-
-    return (
-        <ReactModal
-            parentSelector={() => document.querySelector('#root')}
-            isOpen={state.open}
-        >
-            {
-                element
-            }
-        </ReactModal>
     );
 }
 
