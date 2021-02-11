@@ -37,13 +37,17 @@ export default AddItem = () => {
                 />
                 <Forms.FieldContainer>
                     <Forms.ButtonGroup>
-                        <input type="submit" />
-                        <button
+                        <Forms.Button type="submit">
+                            Submit
+                        </Forms.Button>
+                        <Forms.Button
                             type="button"
-                            onClick={() => dispatch(actions.closeModal())}
+                            onClick={
+                                () => dispatch(actions.closeModal())
+                            }
                         >
                             Close
-                        </button>
+                        </Forms.Button>
                     </Forms.ButtonGroup>
                 </Forms.FieldContainer>
             </form>

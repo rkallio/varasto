@@ -52,6 +52,15 @@ export const LabeledInput = forwardRef((props, ref) => {
     )
 })
 
+export const Button = forwardRef((props, ref) => {
+    const { children, ...rest } = props;
+    return (
+        <button className={css.button} ref={ref} {...rest}>
+            { children }
+        </button>
+    );
+});
+
 export const ButtonGroup = props => {
     return (
         <div className={css.buttonGroup}>

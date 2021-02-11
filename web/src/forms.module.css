@@ -9,8 +9,30 @@
 
 .input {
     display:block;
+    background: white;
+    border: 1px solid gainsboro;
+    padding: 10px;
+    border-radius: 3px;
 }
 
 .buttonGroup {
     display: flex;
+    justify-content:space-between;
+}
+
+.button {
+    border-radius: 3px;
+    border: 1px solid gainsboro;
+    background: white;
+    padding: 5px 20px;
+}
+
+.button:hover {
+    background: whitesmoke;
+    border-color: lightgray;
+}
+
+.button:active {
+    background: gainsboro;
+    border-color: gray;
 }

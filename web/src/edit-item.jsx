@@ -56,8 +56,13 @@ export default EditItem = () => {
                 />
                 <Forms.FieldContainer>
                     <Forms.ButtonGroup>
-                        <input type="submit" />
-                        <button onClick={() => dispatch(actions.closeModal())}>Close</button>
+                        <Forms.Button type="submit">Submit</Forms.Button>
+                        <Forms.Button
+                            onClick={
+                                () => dispatch(actions.closeModal())
+                            }>
+                            Close
+                        </Forms.Button>
                     </Forms.ButtonGroup>
                 </Forms.FieldContainer>
             </form>
