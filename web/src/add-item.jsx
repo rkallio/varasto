@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { postItem } from './item.redux.js';
 import { actions } from './modal.redux.js';
 import * as Forms from './forms.jsx';
+import * as Items from './items.jsx';
 
 export default AddItem = () => {
     const dispatch = useDispatch();
@@ -16,28 +17,20 @@ export default AddItem = () => {
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}>
-            <Forms.LabeledInput
-                name="name"
+            <Items.NameInput
                 ref={register}
-                label="Name"
                 required
             />
-            <Forms.LabeledInput
-                name="location"
+            <Items.LocationInput
                 ref={register}
-                label="Location"
                 required
             />
-            <Forms.LabeledInput
-                name="currentQuantity"
+            <Items.CurrentQuantityInput
                 ref={register}
-                label="currentQuantity"
                 required
             />
-            <Forms.LabeledInput
-                name="targetQuantity"
+            <Items.TargetQuantityInput
                 ref={register}
-                label="targetQuantity"
                 required
             />
             <Forms.FieldContainer>

@@ -5,6 +5,7 @@ import { patchItem } from './item.redux.js';
 import { actions, modalSelector } from './modal.redux.js';
 import { itemSelector } from './item.redux.js';
 import * as Forms from './forms.jsx';
+import * as Items from './items.jsx';
 
 export default EditItem = () => {
     const dispatch = useDispatch();
@@ -15,7 +16,6 @@ export default EditItem = () => {
         const item = itemSelector.selectById(state, id);
         return item;
     });
-
 
     const onSubmit = async data => {
         const result = await dispatch(patchItem({id: item.id, data}));
@@ -28,35 +28,26 @@ export default EditItem = () => {
             <form
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <Forms.LabeledInput
-                    name="name"
+                <Items.NameInput
                     ref={register}
-                    label="Name"
                     defaultValue={item.name}
                     placeholder={item.name}
                     required
                 />
-                <Forms.LabeledInput
-                    name="locationn"
+                <Items.LocationInput
                     ref={register}
-                    label="Location"
                     defaultValue={item.location}
                     placeholder={item.location}
                     required
                 />
-                <Forms.LabeledInput
-                    name="currentQuantity"
+                <Items.CurrentQuantityInput
                     ref={register}
-                    label="Current Quantity"
                     defaultValue={item.currentQuantity}
-                    placeholder={item.targetQuantity}
+                    placeholder={item.currentQuantity}
                     required
                 />
-
-                <Forms.LabeledInput
-                    name="targetQuantity"
+                <Items.TargetQuantityInput
                     ref={register}
-                    label="Target Quantity"
                     defaultValue={item.targetQuantity}
                     placeholder={item.targetQuantity}
                     required
