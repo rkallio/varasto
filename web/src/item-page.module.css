@@ -17,12 +17,6 @@
     padding: 10px;
     background: white;
     cursor: pointer;
-    transition: 0.2s;
-}
-
-.itemContainer:hover {
-    background: gainsboro;
-    border: 1px solid darkgray;
 }
 
 .propertyContainer {
