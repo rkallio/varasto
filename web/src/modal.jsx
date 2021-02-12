@@ -11,9 +11,9 @@ ReactModal.setAppElement('#root');
 
 const ModalSelector = () => {
     const state = useSelector(modalSelector);
-    if(state.mode === 'create-item') {
+    if(state.open && state.mode === 'create-item') {
         return (<AddItem />);
-    } else if(state.mode === 'edit-item') {
+    } else if(state.open && state.mode === 'edit-item') {
         return (<EditItem />);
     } else {
         return null;

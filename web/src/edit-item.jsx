@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { patchItem } from './item.redux.js';
+import { patchItem, deleteItem } from './item.redux.js';
 import { actions, modalSelector } from './modal.redux.js';
 import { itemSelector } from './item.redux.js';
 import * as Forms from './forms.jsx';
@@ -17,6 +17,8 @@ export default EditItem = () => {
         const item = itemSelector.selectById(state, id);
         return item;
     });
+
+    const remove = () => dispatch(deleteItem(item.id));
 
     const onSubmit = async data => {
         const result = await dispatch(patchItem({id: item.id, data}));
@@ -62,6 +64,15 @@ export default EditItem = () => {
                                 () => dispatch(actions.closeModal())
                             }>
                             Close
+                        </Forms.Button>
+
+                    </Forms.ButtonGroup>
+
+                </Forms.FieldContainer>
+                <Forms.FieldContainer>
+                    <Forms.ButtonGroup>
+                        <Forms.Button type="button" onClick={remove}>
+                            Delete
                         </Forms.Button>
                     </Forms.ButtonGroup>
                 </Forms.FieldContainer>
