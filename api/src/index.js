@@ -1,12 +1,6 @@
-import http from 'http';
-
-import express from 'express';
-import 'express-async-errors';
-
 import config from './config.js';
-
-const app = express();
-const server = http.createServer(app);
+import express from 'express';
+import { app, server, io } from './server.js';
 
 import Sequelize from 'sequelize';
 import sequelize from './sequelize.init.js';
