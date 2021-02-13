@@ -13,6 +13,8 @@ import passport from './passport.js';
 
 import routes from './routes/init.route.js';
 
+import './socketns.js';
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(routes);
