@@ -1,4 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import socketMiddleware from './socket-middleware.js';
 
 import * as api from './api.js';
 import itemSlice from './item.redux.js';
@@ -10,5 +11,6 @@ export default configureStore({
         items: itemSlice.reducer,
         auth: authSlice.reducer,
         modal: modalSlice.reducer
-    }
+    },
+    middleware: [...getDefaultMiddleware(), socketMiddleware()]
 });

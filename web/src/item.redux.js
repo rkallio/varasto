@@ -59,7 +59,11 @@ export const itemAdapter = createEntityAdapter({
 export default itemSlice = createSlice({
     name: 'items',
     initialState: itemAdapter.getInitialState(),
-    reducers: { },
+    reducers: {
+        addOne: itemAdapter.addOne,
+        removeOne: itemAdapter.removeOne,
+        updateOne: itemAdapter.updateOne
+    },
     extraReducers: {
         [findAllItems.fulfilled]: itemAdapter.setAll,
         [postItem.fulfilled]: itemAdapter.addOne,
@@ -67,6 +71,8 @@ export default itemSlice = createSlice({
         [deleteItem.fulfilled]: itemAdapter.removeOne
     }
 });
+
+export const actions = itemSlice.actions;
 
 export const itemSelector = itemAdapter.getSelectors(
     state => state.items);
