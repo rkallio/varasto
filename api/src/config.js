@@ -23,6 +23,12 @@ const argv = yargs(hideBin(process.argv))
         describe: 'database storage location',
         type: 'string',
     })
+    .option('db-logging', {
+        demandOption: true,
+        describe: 'use database logging',
+        type: 'boolean',
+        coerce: v => v ? console.log : false
+    })
     .option('salt-rounds', {
         demandOption: true,
         describe: 'rounds of salt for password generation',
