@@ -1,7 +1,20 @@
 .addButton {
+    background: white;
+    border-radius: 3px;
+    border: 1px solid gainsboro;
     position: fixed;
     width: 60px;
     height: 60px;
     bottom: 10px;
     right: 10px;
+}
+
+.addButton:hover {
+    background: whitesmoke;
+    border-color: lightgray;
+}
+
+.addButton:active {
+    background: gainsboro;
+    border-color: gray;
 }
