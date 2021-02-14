@@ -31,6 +31,7 @@ export const CurrentQuantityInput = forwardRef((props, ref) => {
             label="Current Quantity"
             type="number"
             min="0"
+            step="any"
             {...props}
         />
     );
@@ -44,6 +45,7 @@ export const TargetQuantityInput = forwardRef((props, ref) => {
             label="Target Quantity"
             type="number"
             min="0"
+            step="any"
             {...props}
         />
     );
