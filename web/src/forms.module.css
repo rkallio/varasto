@@ -36,3 +36,9 @@
     background: gainsboro;
     border-color: gray;
 }
+
+.select {
+    background: white;
+    padding: 10px;
+    border: 1px solid gainsboro;
+}

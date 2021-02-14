@@ -35,6 +35,7 @@ export default AddItem = () => {
                     ref={register}
                     required
                 />
+                <Items.MeasureInput ref={register} />
                 <Forms.FieldContainer>
                     <Forms.ButtonGroup>
                         <Forms.Button type="submit">

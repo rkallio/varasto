@@ -109,6 +109,13 @@ Item.init(
                 min: 0,
             },
         },
+        measure: {
+            type: Sequelize.DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isIn: [['pcs', 'mass', 'volume']]
+            }
+        }
     },
     {
         sequelize,

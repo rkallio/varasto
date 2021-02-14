@@ -27,6 +27,19 @@ export const Input = forwardRef((props, ref) => {
     );
 })
 
+export const Select = forwardRef((props, ref) => {
+    const { children, ...rest } = props;
+    return (
+        <select
+            ref={ref}
+            {...rest}
+            className={css.select}
+            >
+            {children}
+        </select>
+    );
+});
+
 export const Label = forwardRef((props, ref) => {
     return (
         <label ref={ref} {...props} className={css.label}>
@@ -50,7 +63,21 @@ export const LabeledInput = forwardRef((props, ref) => {
             <Input ref={ref} {...rest} />
         </FieldContainer>
     )
-})
+});
+
+export const LabeledSelect = forwardRef((props, ref) => {
+    const { label, ...rest } = props;
+    return (
+        <FieldContainer>
+            <Label className={css.label} htmlFor={rest.name}>
+                {
+                    appendAsteriskIf(label, props.required)
+                }
+            </Label>
+            <Select ref={ref} {...rest} />
+        </FieldContainer>
+    )
+});
 
 export const Button = forwardRef((props, ref) => {
     const { children, ...rest } = props;

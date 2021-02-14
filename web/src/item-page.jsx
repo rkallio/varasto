@@ -8,6 +8,8 @@ import { actions } from './modal.redux.js';
 import Container from './container.jsx';
 import AddButton from './add-button.jsx';
 
+import * as math from 'mathjs';
+
 const Property = ({ name, value }) => {
     return (
         <div className={css.propertyContainer}>
@@ -35,9 +37,10 @@ const Item = ({ id }) => {
             <Property
                 name="Quantity"
                 value={
-                    <FractionalQuantity
+                    <Quantity
                         left={item.currentQuantity}
                         right={item.targetQuantity}
+                        measure={item.measure}
                     />
                 }
             />
@@ -49,26 +52,34 @@ const Item = ({ id }) => {
     )
 }
 
-const FractionalQuantity = (props) => {
-    const left = (
-        <FractionalColor
-            dividend={props.left}
-            divisor={props.right}
-        />
-    );
-    const right = (
-        <span>{props.right}</span>
-    );
-
+const Quantity = (props) => {
     return (
         <>
-            <FractionalColor
-                dividend={props.left}
-                divisor={props.right} />
+            <Measure value={props.left} name={props.measure} />
             /
-            {props.right}
+            <Measure value={props.right} name={props.measure} />
         </>
     );
+}
+
+const Volume = (props) => {
+    const unit = math.unit(props.value, 'l');
+    return unit.toString();
+}
+
+const Mass = (props) => {
+    const unit = math.unit(props.value, 'kg');
+    return unit.toString();
+}
+
+const Measure = (props) => {
+    if(props.name === 'mass') {
+        return <Mass value={props.value} />
+    } else if(props.name === 'volume') {
+        return <Volume value={props.value} />
+    } else {
+        return `${props.value} pieces`;
+    }
 }
 
 const FractionalColor = ({ dividend, divisor }) => {

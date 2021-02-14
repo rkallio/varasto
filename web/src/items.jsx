@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { LabeledInput } from './forms.jsx';
+import { LabeledInput, LabeledSelect } from './forms.jsx';
 
 export const NameInput = forwardRef((props, ref) => {
     return (
@@ -48,5 +48,20 @@ export const TargetQuantityInput = forwardRef((props, ref) => {
             step="any"
             {...props}
         />
+    );
+});
+
+export const MeasureInput = forwardRef((props, ref) => {
+    return (
+        <LabeledSelect
+            name="measure"
+            ref={ref}
+            label="Measure"
+            {...props}
+        >
+            <option value="mass">Mass (kg)</option>
+            <option value="volume">Volume (litres)</option>
+            <option value="pcs">Pieces</option>
+        </LabeledSelect>
     );
 });

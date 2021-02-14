@@ -53,6 +53,12 @@ export default EditItem = ({id}) => {
                     placeholder={item.targetQuantity}
                     required
                 />
+                <Items.MeasureInput
+                    ref={register}
+                    defaultValue={item.measure}
+                    placeholder={item.measure}
+                    required
+                />
                 <Forms.FieldContainer>
                     <Forms.ButtonGroup>
                         <Forms.Button type="submit">Submit</Forms.Button>
