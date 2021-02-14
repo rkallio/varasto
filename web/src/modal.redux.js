@@ -2,32 +2,43 @@ import {
     createSlice
 } from '@reduxjs/toolkit';
 
-import { deleteItem } from './item.redux.js';
+import {
+    actions as itemActions,
+    postItem,
+    patchItem,
+    deleteItem
+} from './item.redux.js';
 
+
+const initialState = {
+    type: undefined,
+    props: {}
+};
+
+const closeModal = (state, action) => {
+    return initialState;
+}
 export default modalSlice = createSlice({
     name: 'modal',
-    initialState: { open: false, mode: undefined },
+    initialState,
     reducers: {
         addItem(state, action) {
-            state.open = true;
-            state.mode = 'create-item';
+            state.type = 'create-item';
+            state.props = {};
         },
-
-        closeModal(state, action) {
-            state.open = false;
-        },
-
         editItem(state, action) {
-            state.open = true;
-            state.mode = 'edit-item';
-            state.id = action.payload;
-        }
+            state.type = 'edit-item';
+            state.props = { id: action.payload };
+        },
+        closeModal
     },
     extraReducers: {
-        [deleteItem.fulfilled]: (state, action) => {
-            if(state.open && state.mode === 'edit-item') {
-                state.open = false;
-                state.mode = undefined;
+        [postItem.fulfilled]: closeModal,
+        [patchItem.fulfilled]: closeModal,
+        [deleteItem.fulfilled]: closeModal,
+        [itemActions.removeOne]: (state, action) => {
+            if(state.type === 'edit-item' && state.props.id === action.payload) {
+                return initialState
             }
         }
     }

@@ -1,30 +1,27 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { patchItem, deleteItem } from './item.redux.js';
+import { patchItem, deleteItem, itemSelector } from './item.redux.js';
 import { actions, modalSelector } from './modal.redux.js';
-import { itemSelector } from './item.redux.js';
 import * as Forms from './forms.jsx';
 import * as Items from './items.jsx';
 import Container from './container.jsx';
 
-export default EditItem = () => {
+export default EditItem = ({id}) => {
     const dispatch = useDispatch();
     const { handleSubmit, register } = useForm();
 
-    const item = useSelector(state => {
-        const id = modalSelector(state).id;
-        const item = itemSelector.selectById(state, id);
-        return item;
-    });
+    const item = useSelector(
+        state => itemSelector.selectById(state, id));
 
     const remove = () => dispatch(deleteItem(item.id));
 
-    const onSubmit = async data => {
-        const result = await dispatch(patchItem({id: item.id, data}));
-        if(result.type === patchItem.fulfilled.type) {
-            dispatch(actions.closeModal());
-        }
+    const onSubmit =  data => {
+        const result = dispatch(patchItem({id: item.id, data}));
+    }
+
+    if(item === undefined) {
+        return null
     }
 
     return (
