@@ -1,5 +1,5 @@
 import React from 'react';
-import css from './container.module.css';
+import * as css from './container.module.css';
 
 export default (props) => {
     return (

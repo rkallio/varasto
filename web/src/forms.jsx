@@ -1,5 +1,5 @@
 import React, {forwardRef} from 'react';
-import css from './forms.module.css';
+import * as css from './forms.module.css';
 
 const appendAsteriskIf = (text, cond) => {
     if(cond) {
