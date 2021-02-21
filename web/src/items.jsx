@@ -3,12 +3,7 @@ import { LabeledInput, LabeledSelect } from './forms.jsx';
 
 export const NameInput = forwardRef((props, ref) => {
     return (
-        <LabeledInput
-            name="name"
-            ref={ref}
-            label="Name"
-            {...props}
-        />
+        <LabeledInput name="name" ref={ref} label="Name" {...props} />
     );
 });
 

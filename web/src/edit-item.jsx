@@ -7,28 +7,27 @@ import * as Forms from './forms.jsx';
 import * as Items from './items.jsx';
 import Container from './container.jsx';
 
-export default EditItem = ({id}) => {
+export default EditItem = ({ id }) => {
     const dispatch = useDispatch();
     const { handleSubmit, register } = useForm();
 
-    const item = useSelector(
-        state => itemSelector.selectById(state, id));
+    const item = useSelector((state) =>
+        itemSelector.selectById(state, id)
+    );
 
     const remove = () => dispatch(deleteItem(item.id));
 
-    const onSubmit =  data => {
-        const result = dispatch(patchItem({id: item.id, data}));
-    }
+    const onSubmit = (data) => {
+        const result = dispatch(patchItem({ id: item.id, data }));
+    };
 
-    if(item === undefined) {
-        return null
+    if (item === undefined) {
+        return null;
     }
 
     return (
         <Container>
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-            >
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Items.NameInput
                     ref={register}
                     defaultValue={item.name}
@@ -61,16 +60,17 @@ export default EditItem = ({id}) => {
                 />
                 <Forms.FieldContainer>
                     <Forms.ButtonGroup>
-                        <Forms.Button type="submit">Submit</Forms.Button>
+                        <Forms.Button type="submit">
+                            Submit
+                        </Forms.Button>
                         <Forms.Button
-                            onClick={
-                                () => dispatch(actions.closeModal())
-                            }>
+                            onClick={() =>
+                                dispatch(actions.closeModal())
+                            }
+                        >
                             Close
                         </Forms.Button>
-
                     </Forms.ButtonGroup>
-
                 </Forms.FieldContainer>
                 <Forms.FieldContainer>
                     <Forms.ButtonGroup>
@@ -82,4 +82,4 @@ export default EditItem = ({id}) => {
             </form>
         </Container>
     );
-}
+};

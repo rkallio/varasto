@@ -8,7 +8,7 @@
 }
 
 .input {
-    display:block;
+    display: block;
     background: white;
     border: 1px solid gainsboro;
     padding: 10px;
@@ -17,7 +17,7 @@
 
 .buttonGroup {
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between;
 }
 
 .button {

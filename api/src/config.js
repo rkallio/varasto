@@ -27,7 +27,7 @@ const argv = yargs(hideBin(process.argv))
         demandOption: true,
         describe: 'use database logging',
         type: 'boolean',
-        coerce: v => v ? console.log : false
+        coerce: (v) => (v ? console.log : false),
     })
     .option('salt-rounds', {
         demandOption: true,

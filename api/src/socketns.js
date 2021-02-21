@@ -9,6 +9,6 @@ itemns.use((socket, next) => {
     const auth = socket.handshake.auth;
     const payload = jwt.verify(auth.token, config.jwtSecret);
     findByKey(payload.id)
-        .then(user => next())
-        .catch(err => next(err));
+        .then((user) => next())
+        .catch((err) => next(err));
 });

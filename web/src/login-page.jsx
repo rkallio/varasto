@@ -9,12 +9,7 @@ import { FieldContainer, LabeledInput } from './forms.jsx';
 
 const UsernameInput = forwardRef((props, ref) => {
     return (
-        <LabeledInput
-            name="name"
-            ref={ref}
-            label="Name"
-            {...props}
-        />
+        <LabeledInput name="name" ref={ref} label="Name" {...props} />
     );
 });
 
@@ -34,17 +29,15 @@ export default LoginForm = () => {
     const { register, handleSubmit } = useForm();
     const dispatch = useDispatch();
     const history = useHistory();
-    const onSubmit = async data => {
+    const onSubmit = async (data) => {
         const result = await dispatch(authenticate(data));
-        if(result.type === authenticate.fulfilled.type) {
+        if (result.type === authenticate.fulfilled.type) {
             history.push('/');
         }
-    }
+    };
 
     return (
-        <form className={css.form}
-              onSubmit={handleSubmit(onSubmit)}
-        >
+        <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
             <UsernameInput ref={register} required />
             <PasswordInput ref={register} required />
             <FieldContainer>
@@ -52,7 +45,7 @@ export default LoginForm = () => {
             </FieldContainer>
         </form>
     );
-}
+};
 
 export const LoginPage = (props) => {
     return (
@@ -60,4 +53,4 @@ export const LoginPage = (props) => {
             <LoginForm />
         </div>
     );
-}
+};

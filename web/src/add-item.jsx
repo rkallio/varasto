@@ -11,30 +11,17 @@ export default AddItem = () => {
     const dispatch = useDispatch();
     const { register, reset, handleSubmit } = useForm();
 
-    const onSubmit = async data => {
+    const onSubmit = async (data) => {
         dispatch(postItem(data));
-    }
+    };
 
     return (
         <Container>
-            <form
-                onSubmit={handleSubmit(onSubmit)}>
-                <Items.NameInput
-                    ref={register}
-                    required
-                />
-                <Items.LocationInput
-                    ref={register}
-                    required
-                />
-                <Items.CurrentQuantityInput
-                    ref={register}
-                    required
-                />
-                <Items.TargetQuantityInput
-                    ref={register}
-                    required
-                />
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Items.NameInput ref={register} required />
+                <Items.LocationInput ref={register} required />
+                <Items.CurrentQuantityInput ref={register} required />
+                <Items.TargetQuantityInput ref={register} required />
                 <Items.MeasureInput ref={register} />
                 <Forms.FieldContainer>
                     <Forms.ButtonGroup>
@@ -43,8 +30,8 @@ export default AddItem = () => {
                         </Forms.Button>
                         <Forms.Button
                             type="button"
-                            onClick={
-                                () => dispatch(actions.closeModal())
+                            onClick={() =>
+                                dispatch(actions.closeModal())
                             }
                         >
                             Close
@@ -54,4 +41,4 @@ export default AddItem = () => {
             </form>
         </Container>
     );
-}
+};

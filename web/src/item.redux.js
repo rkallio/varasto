@@ -1,7 +1,7 @@
 import {
     createAsyncThunk,
     createSlice,
-    createEntityAdapter
+    createEntityAdapter,
 } from '@reduxjs/toolkit';
 
 import * as api from './api.js';
@@ -27,12 +27,12 @@ export const postItem = createAsyncThunk(
 
 export const patchItem = createAsyncThunk(
     'items/patch',
-    async ({id, data}, thunk) => {
+    async ({ id, data }, thunk) => {
         const token = tokenSelector(thunk.getState());
         const response = await api.items.patch(id, data, token);
         return {
             id: response.id,
-            changes: response
+            changes: response,
         };
     }
 );
@@ -50,10 +50,8 @@ export const itemAdapter = createEntityAdapter({
     sortComparer: (a, b) => {
         const name = a.name.localeCompare(b.name);
         const location = a.name.localeCompare(b.location);
-        return name !== 0
-            ? name
-            : location;
-    }
+        return name !== 0 ? name : location;
+    },
 });
 
 export default itemSlice = createSlice({
@@ -62,17 +60,18 @@ export default itemSlice = createSlice({
     reducers: {
         addOne: itemAdapter.addOne,
         removeOne: itemAdapter.removeOne,
-        updateOne: itemAdapter.updateOne
+        updateOne: itemAdapter.updateOne,
     },
     extraReducers: {
         [findAllItems.fulfilled]: itemAdapter.setAll,
         [postItem.fulfilled]: itemAdapter.addOne,
         [patchItem.fulfilled]: itemAdapter.updateOne,
-        [deleteItem.fulfilled]: itemAdapter.removeOne
-    }
+        [deleteItem.fulfilled]: itemAdapter.removeOne,
+    },
 });
 
 export const actions = itemSlice.actions;
 
 export const itemSelector = itemAdapter.getSelectors(
-    state => state.items);
+    (state) => state.items
+);

@@ -9,11 +9,8 @@ export default () => {
     const openAddItemModal = () => dispatch(actions.addItem());
 
     return (
-        <button
-            className={css.addButton}
-            onClick={openAddItemModal}
-        >
+        <button className={css.addButton} onClick={openAddItemModal}>
             +
         </button>
     );
-}
+};

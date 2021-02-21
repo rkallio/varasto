@@ -10,7 +10,7 @@ import ItemPage from './item-page.jsx';
 
 import ReactModal from 'react-modal';
 
-import { useForm }  from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import AddItem from './add-item.jsx';
 import EditItem from './edit-item.jsx';
 import Modal from './modal.jsx';
@@ -32,40 +32,33 @@ export default () => {
             <Modal />
         </>
     );
-}
+};
 
 const RootRedirect = () => {
     const token = useSelector(tokenSelector);
     const history = useHistory();
 
     useEffect(() => {
-        if(token) {
+        if (token) {
             history.push('/items');
         } else {
             history.push('/login');
         }
-    }, [token])
+    }, [token]);
 
     return null;
-}
-
+};
 
 const ProtectedRoute = (props) => {
     const history = useHistory();
     const token = useSelector(tokenSelector);
     useEffect(() => {
-        if(!token) {
+        if (!token) {
             history.push('/login');
         }
     }, [token]);
 
     const { children, ...rest } = props;
 
-    return (
-        <Route {...rest }>
-               {
-                   children
-               }
-        </Route>
-    );
-}
+    return <Route {...rest}>{children}</Route>;
+};

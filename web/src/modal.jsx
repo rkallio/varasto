@@ -11,27 +11,27 @@ ReactModal.setAppElement('#root');
 
 const ModalSelector = () => {
     const state = useSelector(modalSelector);
-    if(state.type === 'create-item') {
-        return <AddItem />
-    }
-    else if(state.type === 'edit-item') {
-        return <EditItem id={state.props.id}/>
+    if (state.type === 'create-item') {
+        return <AddItem />;
+    } else if (state.type === 'edit-item') {
+        return <EditItem id={state.props.id} />;
     } else {
         return null;
     }
-}
+};
 
 export default Modal = () => {
     const state = useSelector(modalSelector);
     const parentSelector = () => {
         return document.querySelector('#root');
-    }
+    };
 
     return (
         <ReactModal
             parentSelector={parentSelector}
-            isOpen={state.type !== undefined}>
+            isOpen={state.type !== undefined}
+        >
             <ModalSelector />
         </ReactModal>
     );
-}
+};

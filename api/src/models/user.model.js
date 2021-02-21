@@ -11,17 +11,16 @@ class User extends Sequelize.Model {
         const user = await User.findOne({
             where: { name },
             rejectOnEmpty: false,
-            transaction: trx
+            transaction: trx,
         });
 
-        if(user === null) {
-            return { ok: false,
-                     user: undefined };
+        if (user === null) {
+            return { ok: false, user: undefined };
         }
 
         const ok = await bcrypt.compare(password, user.password);
 
-        if(ok) {
+        if (ok) {
             return { ok, user };
         } else {
             return { ok: false, user: undefined };
@@ -33,7 +32,7 @@ class User extends Sequelize.Model {
 
         return User.findByPk(key, {
             transaction: trx,
-            rejectOnEmpty: true
+            rejectOnEmpty: true,
         });
     }
 

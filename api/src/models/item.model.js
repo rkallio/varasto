@@ -113,9 +113,9 @@ Item.init(
             type: Sequelize.DataTypes.STRING,
             allowNull: false,
             validate: {
-                isIn: [['pcs', 'mass', 'volume']]
-            }
-        }
+                isIn: [['pcs', 'mass', 'volume']],
+            },
+        },
     },
     {
         sequelize,

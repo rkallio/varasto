@@ -2,7 +2,7 @@ import * as api from './api.js';
 import {
     createSlice,
     createAsyncThunk,
-    createSelector
+    createSelector,
 } from '@reduxjs/toolkit';
 
 const loadToken = () => {
@@ -13,7 +13,7 @@ const loadToken = () => {
         return null;
     }
     return JSON.parse(serialized);
-}
+};
 
 export const authenticate = createAsyncThunk(
     'auth/authenticate',
@@ -30,8 +30,8 @@ export default authSlice = createSlice({
     initialState: loadToken(),
     reducers: {},
     extraReducers: {
-        [authenticate.fulfilled]: (state, action) => action.payload
-    }
+        [authenticate.fulfilled]: (state, action) => action.payload,
+    },
 });
 
-export const selector = state => state.auth;
+export const selector = (state) => state.auth;

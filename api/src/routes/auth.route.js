@@ -8,7 +8,7 @@ router.post('/', async (request, response) => {
     const name = request.body.name;
     const password = request.body.password;
     const result = await tryAuthenticate(name, password);
-    if(result.ok) {
+    if (result.ok) {
         return response.json(result.token);
     } else {
         return response.status(400).send({

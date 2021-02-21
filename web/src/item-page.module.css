@@ -17,11 +17,11 @@
 }
 
 .itemContainer:hover {
-    background:whitesmoke;
+    background: whitesmoke;
 }
 
 .itemContainer:active {
-    background:gainsboro;
+    background: gainsboro;
 }
 
 .propertyContainer {

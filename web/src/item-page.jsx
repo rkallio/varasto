@@ -17,23 +17,21 @@ const Property = ({ name, value }) => {
             <div className={css.propertyValue}>{value}</div>
         </div>
     );
-}
+};
 
 const Item = ({ id }) => {
-    const item = useSelector(
-        state =>itemSelector.selectById(state, id));
+    const item = useSelector((state) =>
+        itemSelector.selectById(state, id)
+    );
     const dispatch = useDispatch();
 
     return (
-        <div onClick={() => dispatch(actions.editItem(id))} className={css.itemContainer}>
-            <Property
-                name="Name"
-                value={item.name}
-            />
-            <Property
-                name="Location"
-                value={item.location}
-            />
+        <div
+            onClick={() => dispatch(actions.editItem(id))}
+            className={css.itemContainer}
+        >
+            <Property name="Name" value={item.name} />
+            <Property name="Location" value={item.location} />
             <Property
                 name="Quantity"
                 value={
@@ -49,8 +47,8 @@ const Item = ({ id }) => {
                 value={<Timestamp isoTime={item.updatedAt} />}
             />
         </div>
-    )
-}
+    );
+};
 
 const Quantity = (props) => {
     return (
@@ -60,64 +58,63 @@ const Quantity = (props) => {
             <Measure value={props.right} name={props.measure} />
         </>
     );
-}
+};
 
 const Volume = (props) => {
     const unit = math.unit(props.value, 'l');
     return unit.toString();
-}
+};
 
 const Mass = (props) => {
     const unit = math.unit(props.value, 'kg');
     return unit.toString();
-}
+};
 
 const Measure = (props) => {
-    if(props.name === 'mass') {
-        return <Mass value={props.value} />
-    } else if(props.name === 'volume') {
-        return <Volume value={props.value} />
+    if (props.name === 'mass') {
+        return <Mass value={props.value} />;
+    } else if (props.name === 'volume') {
+        return <Volume value={props.value} />;
     } else {
         return `${props.value} pieces`;
     }
-}
+};
 
 const FractionalColor = ({ dividend, divisor }) => {
     const fraction = Math.min(dividend / divisor, 3);
     return (
-        <span style={{
-                  color: `hsl(${fraction * 90}, 50%, 50%)`
-              }}
+        <span
+            style={{
+                color: `hsl(${fraction * 90}, 50%, 50%)`,
+            }}
         >
             {dividend}
         </span>
     );
-}
+};
 
-const timeSince = (isoTime) => formatDistanceToNow(
-    parseISO(isoTime), {
+const timeSince = (isoTime) =>
+    formatDistanceToNow(parseISO(isoTime), {
         includeSeconds: true,
-        addSuffix: true
-    }
-);
+        addSuffix: true,
+    });
 
-const Timestamp = ({ isoTime}) => {
+const Timestamp = ({ isoTime }) => {
     const [formattedTime, setFormattedTime] = useState(
-        timeSince(isoTime));
+        timeSince(isoTime)
+    );
 
     useEffect(() => {
         const timer = setInterval(
             () => setFormattedTime(timeSince(isoTime)),
             5000
         );
-        return () => clearInterval(timer)
+        return () => clearInterval(timer);
     }, [isoTime]);
 
-    return (
-        <time dateTime={isoTime}>{formattedTime}</time>
-    );
-}
-const ItemList = props => {
+    return <time dateTime={isoTime}>{formattedTime}</time>;
+};
+const ItemList = (props) => {
     const dispatch = useDispatch();
     const ids = useSelector(itemSelector.selectIds);
     useEffect(() => {
@@ -126,12 +123,12 @@ const ItemList = props => {
 
     return (
         <div className={css.list}>
-                {
-                    ids.map(id => <Item id={id} key={id} />)
-                }
+            {ids.map((id) => (
+                <Item id={id} key={id} />
+            ))}
         </div>
     );
-}
+};
 
 export default () => {
     return (
@@ -140,4 +137,4 @@ export default () => {
             <AddButton />
         </Container>
     );
-}
+};
