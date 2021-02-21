@@ -7,7 +7,8 @@
         "serve": "rm -rf .parcel-cache && parcel serve --port 8080 src/index.html",
         "build": "rm -rf .parchel-cache dist && parcel build src/index.html --public-url . --no-source-maps",
         "lint": "eslint . --ext .js --ext .jsx --fix",
-        "format": "prettier . --write"
+        "format": "prettier . --write",
+        "format:check": "prettier . --check"
     },
     "author": "Roni Kallio",
     "license": "MIT",

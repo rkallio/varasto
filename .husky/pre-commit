@@ -1,0 +1,4 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+pushd api && npm run format:check && popd && pushd web && npm run format:check && popd
