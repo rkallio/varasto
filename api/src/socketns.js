@@ -4,11 +4,15 @@ import { findByKey } from './services/user.service.js';
 import config from './config.js';
 
 export const itemns = io.of('/items');
+export const transientns = io.of('/transients');
 
-itemns.use((socket, next) => {
-    const auth = socket.handshake.auth;
-    const payload = jwt.verify(auth.token, config.jwtSecret);
+const authMiddleware = (socket, next) => {
+    const providedAuth = socket.handshake.auth;
+    const payload = jwt.verify(providedAuth.token, config.jwtSecret);
     findByKey(payload.id)
         .then((user) => next())
         .catch((err) => next(err));
-});
+};
+
+itemns.use(authMiddleware);
+itemns.use(authMiddleware);
