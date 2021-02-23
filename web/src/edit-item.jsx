@@ -7,6 +7,14 @@ import * as Forms from './forms.jsx';
 import * as Items from './items.jsx';
 import Container from './container.jsx';
 
+const If = ({ condition, children }) => {
+    if (condition) {
+        return children;
+    } else {
+        return null;
+    }
+};
+
 export default EditItem = ({ id }) => {
     const dispatch = useDispatch();
     const { handleSubmit, register } = useForm();
@@ -21,65 +29,66 @@ export default EditItem = ({ id }) => {
         const result = dispatch(patchItem({ id: item.id, data }));
     };
 
-    if (item === undefined) {
-        return null;
-    }
-
     return (
-        <Container>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Items.NameInput
-                    ref={register}
-                    defaultValue={item.name}
-                    placeholder={item.name}
-                    required
-                />
-                <Items.LocationInput
-                    ref={register}
-                    defaultValue={item.location}
-                    placeholder={item.location}
-                    required
-                />
-                <Items.CurrentQuantityInput
-                    ref={register}
-                    defaultValue={item.currentQuantity}
-                    placeholder={item.currentQuantity}
-                    required
-                />
-                <Items.TargetQuantityInput
-                    ref={register}
-                    defaultValue={item.targetQuantity}
-                    placeholder={item.targetQuantity}
-                    required
-                />
-                <Items.MeasureInput
-                    ref={register}
-                    defaultValue={item.measure}
-                    placeholder={item.measure}
-                    required
-                />
-                <Forms.FieldContainer>
-                    <Forms.ButtonGroup>
-                        <Forms.Button type="submit">
-                            Submit
-                        </Forms.Button>
-                        <Forms.Button
-                            onClick={() =>
-                                dispatch(actions.closeModal())
-                            }
-                        >
-                            Close
-                        </Forms.Button>
-                    </Forms.ButtonGroup>
-                </Forms.FieldContainer>
-                <Forms.FieldContainer>
-                    <Forms.ButtonGroup>
-                        <Forms.Button type="button" onClick={remove}>
-                            Delete
-                        </Forms.Button>
-                    </Forms.ButtonGroup>
-                </Forms.FieldContainer>
-            </form>
-        </Container>
+        <If condition={item}>
+            <Container>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <Items.NameInput
+                        ref={register}
+                        defaultValue={item.name}
+                        placeholder={item.name}
+                        required
+                    />
+                    <Items.LocationInput
+                        ref={register}
+                        defaultValue={item.location}
+                        placeholder={item.location}
+                        required
+                    />
+                    <Items.CurrentQuantityInput
+                        ref={register}
+                        defaultValue={item.currentQuantity}
+                        placeholder={item.currentQuantity}
+                        required
+                    />
+                    <Items.TargetQuantityInput
+                        ref={register}
+                        defaultValue={item.targetQuantity}
+                        placeholder={item.targetQuantity}
+                        required
+                    />
+                    <Items.MeasureInput
+                        ref={register}
+                        defaultValue={item.measure}
+                        placeholder={item.measure}
+                        required
+                    />
+                    <Forms.FieldContainer>
+                        <Forms.ButtonGroup>
+                            <Forms.Button type="submit">
+                                Submit
+                            </Forms.Button>
+                            <Forms.Button
+                                onClick={() =>
+                                    dispatch(actions.closeModal())
+                                }
+                            >
+                                Close
+                            </Forms.Button>
+                        </Forms.ButtonGroup>
+                    </Forms.FieldContainer>
+                    <Forms.FieldContainer>
+                        <Forms.ButtonGroup>
+                            <Forms.Button
+                                type="button"
+                                onClick={remove}
+                            >
+                                Delete
+                            </Forms.Button>
+                        </Forms.ButtonGroup>
+                    </Forms.FieldContainer>
+                </form>
+            </Container>
+        </If>
     );
 };
