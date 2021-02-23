@@ -3,6 +3,7 @@ import { authenticate } from './auth.redux.js';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { container as containerClass } from './container.module.css';
 import * as css from './login-page.module.css';
 
 import {
@@ -56,7 +57,7 @@ export default LoginForm = () => {
 
 export const LoginPage = (props) => {
     return (
-        <div className={css.container}>
+        <div className={containerClass}>
             <LoginForm />
         </div>
     );
