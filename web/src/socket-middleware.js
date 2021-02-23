@@ -5,6 +5,18 @@ import {
     selector as tokenSelector,
 } from './auth.redux.js';
 
+const subscribeForUpdates = (store, socket) => {
+    socket.on('post', (data) => store.dispatch(actions.addOne(data)));
+    socket.on('patch', (data) =>
+        store.dispatch(
+            actions.updateOne({ id: data.id, changes: data })
+        )
+    );
+    socket.on('delete', (data) =>
+        store.dispatch(actions.removeOne(data.id))
+    );
+};
+
 export default () => {
     return (store) => {
         let token = tokenSelector(store.getState());
@@ -17,22 +29,7 @@ export default () => {
         }
 
         if (socket) {
-            socket.on('post', (data) => {
-                store.dispatch(actions.addOne(data));
-            });
-
-            socket.on('patch', (data) => {
-                store.dispatch(
-                    actions.updateOne({
-                        id: data.id,
-                        changes: data,
-                    })
-                );
-            });
-
-            socket.on('delete', (data) => {
-                store.dispatch(actions.removeOne(data.id));
-            });
+            subscribeForUpdates(store, socket);
         }
 
         return (next) => (action) => {
@@ -44,22 +41,7 @@ export default () => {
                 socket = io('/items', {
                     auth: { token },
                 });
-                socket.on('post', (data) => {
-                    store.dispatch(actions.addOne(data));
-                });
-
-                socket.on('patch', (data) => {
-                    store.dispatch(
-                        actions.updateOne({
-                            id: data.id,
-                            changes: data,
-                        })
-                    );
-                });
-
-                socket.on('delete', (data) => {
-                    store.dispatch(actions.removeOne(data.id));
-                });
+                subscribeForUpdates(store, socket);
             }
             return next(action);
         };
