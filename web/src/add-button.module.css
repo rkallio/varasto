@@ -11,10 +11,8 @@
 
 .addButton:hover {
     background: whitesmoke;
-    border-color: lightgray;
 }
 
 .addButton:active {
     background: gainsboro;
-    border-color: gray;
 }

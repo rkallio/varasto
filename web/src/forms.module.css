@@ -29,12 +29,10 @@
 
 .button:hover {
     background: whitesmoke;
-    border-color: lightgray;
 }
 
 .button:active {
     background: gainsboro;
-    border-color: gray;
 }
 
 .select {
