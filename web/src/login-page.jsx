@@ -5,7 +5,12 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import * as css from './login-page.module.css';
 
-import { FieldContainer, LabeledInput } from './forms.jsx';
+import {
+    FieldContainer,
+    ButtonGroup,
+    Button,
+    LabeledInput,
+} from './forms.jsx';
 
 const UsernameInput = forwardRef((props, ref) => {
     return (
@@ -41,7 +46,9 @@ export default LoginForm = () => {
             <UsernameInput ref={register} required />
             <PasswordInput ref={register} required />
             <FieldContainer>
-                <input type="submit" />
+                <ButtonGroup>
+                    <Button type="submit">Submit</Button>
+                </ButtonGroup>
             </FieldContainer>
         </form>
     );
