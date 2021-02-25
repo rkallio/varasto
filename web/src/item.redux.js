@@ -50,7 +50,7 @@ export const itemAdapter = createEntityAdapter({
     sortComparer: (a, b) => {
         const name = a.name.localeCompare(b.name);
         const location = a.name.localeCompare(b.location);
-        return name !== 0 ? name : location;
+        return location !== 0 ? location : name;
     },
 });
 
