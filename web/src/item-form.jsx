@@ -12,10 +12,10 @@ const ItemForm = (props) => {
         itemSelector.selectById(state, props.id)
     );
 
-    const { values, handleChange, onSubmit } = useItemForm(
-        item,
-        props.method
-    );
+    const { values, handleChange, onSubmit } = useItemForm({
+        defaults: item,
+        method: props.method,
+    });
 
     return (
         <form onSubmit={onSubmit}>

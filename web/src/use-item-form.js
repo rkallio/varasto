@@ -1,23 +1,27 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-export default useItemForm = (defaults, method) => {
+export default useItemForm = ({ defaults, method }) => {
     const dispatch = useDispatch();
 
     const [name, setName] = useState(
-        defaults.name ? defaults.name : ''
+        defaults && defaults.name ? defaults.name : ''
     );
     const [location, setLocation] = useState(
-        defaults.location ? defaults.location : ''
+        defaults && defaults.location ? defaults.location : ''
     );
     const [currentQuantity, setCurrentQuantity] = useState(
-        defaults.currentQuantity ? defaults.currentQuantity : 0
+        defaults && defaults.currentQuantity
+            ? defaults.currentQuantity
+            : 0
     );
     const [targetQuantity, setTargetQuantity] = useState(
-        defaults.targetQuantity ? defaults.targetQuantity : 0
+        defaults && defaults.targetQuantity
+            ? defaults.targetQuantity
+            : 0
     );
     const [measure, setMeasure] = useState(
-        defaults.measure ? defaults.measure : 'mass'
+        defaults && defaults.measure ? defaults.measure : 'mass'
     );
 
     const values = {
