@@ -113,7 +113,7 @@ Item.init(
             type: Sequelize.DataTypes.STRING,
             allowNull: false,
             validate: {
-                isIn: [['pcs', 'mass', 'volume']],
+                isIn: [['pcs', 'mass', 'volume', '%']],
             },
         },
     },
@@ -121,6 +121,18 @@ Item.init(
         sequelize,
         underscored: true,
         modelName: 'Item',
+        validate: {
+            targetQuantity100WhenMeasureIsPercent() {
+                if (
+                    this.measure === '%' &&
+                    this.targetQuantity !== 100
+                ) {
+                    throw new Error(
+                        'Target Quantity should be hundred when measure is set to %'
+                    );
+                }
+            },
+        },
     }
 );
 
