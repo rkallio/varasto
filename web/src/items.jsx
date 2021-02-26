@@ -3,7 +3,13 @@ import { LabeledInput, LabeledSelect } from './forms.jsx';
 
 export const NameInput = forwardRef((props, ref) => {
     return (
-        <LabeledInput name="name" ref={ref} label="Name" {...props} />
+        <LabeledInput
+            name="name"
+            ref={ref}
+            label="Name"
+            placeholder="Milk"
+            {...props}
+        />
     );
 });
 
@@ -13,6 +19,7 @@ export const LocationInput = forwardRef((props, ref) => {
             name="location"
             ref={ref}
             label="Location"
+            placeholder="Fridge"
             {...props}
         />
     );
