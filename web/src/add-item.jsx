@@ -8,11 +8,12 @@ import { Button } from './forms.jsx';
 
 export default AddItem = () => {
     const dispatch = useDispatch();
+    const dispatcher = (values) => dispatch(postItem(values));
 
     return (
         <Container>
             <ItemForm
-                method={postItem}
+                dispatcher={dispatcher}
                 actionButtons={[
                     <Button
                         key="close"

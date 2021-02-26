@@ -14,7 +14,7 @@ const ItemForm = (props) => {
 
     const { values, handleChange, onSubmit } = useItemForm({
         defaults: item,
-        method: props.method,
+        dispatcher: props.dispatcher,
     });
 
     return (
@@ -57,7 +57,7 @@ const ItemForm = (props) => {
 
 ItemForm.propTypes = {
     id: PropTypes.number,
-    method: PropTypes.func.isRequired,
+    dispatcher: PropTypes.func.isRequired,
     actionButtons: PropTypes.arrayOf(PropTypes.element),
 };
 

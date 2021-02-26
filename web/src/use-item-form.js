@@ -1,9 +1,6 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 
-export default useItemForm = ({ defaults, method }) => {
-    const dispatch = useDispatch();
-
+export default useItemForm = ({ defaults, dispatcher }) => {
     const [name, setName] = useState(
         defaults && defaults.name ? defaults.name : ''
     );
@@ -51,7 +48,7 @@ export default useItemForm = ({ defaults, method }) => {
 
     const onSubmit = (event) => {
         event.preventDefault();
-        dispatch(method(values));
+        dispatcher(values);
     };
 
     return { values, handleChange, onSubmit };
