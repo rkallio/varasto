@@ -17,7 +17,7 @@ export default useItemForm = (defaults, method) => {
         defaults.targetQuantity ? defaults.targetQuantity : 0
     );
     const [measure, setMeasure] = useState(
-        defaults.measure ? defaults.measure : 'kg'
+        defaults.measure ? defaults.measure : 'mass'
     );
 
     const values = {
