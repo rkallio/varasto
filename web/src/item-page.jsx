@@ -70,11 +70,17 @@ const Mass = (props) => {
     return unit.toString();
 };
 
+const Percentage = (props) => {
+    return props.value + '%';
+};
+
 const Measure = (props) => {
     if (props.name === 'mass') {
         return <Mass value={props.value} />;
     } else if (props.name === 'volume') {
         return <Volume value={props.value} />;
+    } else if (props.name === '%') {
+        return <Percentage value={props.value} />;
     } else {
         return `${props.value} pieces`;
     }

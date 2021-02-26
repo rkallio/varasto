@@ -57,6 +57,7 @@ export const MeasureInput = forwardRef((props, ref) => {
             <option value="mass">Mass (kg)</option>
             <option value="volume">Volume (litres)</option>
             <option value="pcs">Pieces</option>
+            <option value="%">Percentage (%)</option>
         </LabeledSelect>
     );
 });
