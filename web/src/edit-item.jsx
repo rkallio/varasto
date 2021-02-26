@@ -6,14 +6,7 @@ import { actions, modalSelector } from './modal.redux.js';
 import * as Forms from './forms.jsx';
 import * as Items from './items.jsx';
 import Container from './container.jsx';
-
-const If = ({ condition, children }) => {
-    if (condition) {
-        return children;
-    } else {
-        return null;
-    }
-};
+import If from './if.jsx';
 
 export default EditItem = ({ id }) => {
     const dispatch = useDispatch();
@@ -30,7 +23,7 @@ export default EditItem = ({ id }) => {
     };
 
     return (
-        <If condition={item}>
+        <If cond={item}>
             <Container>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Items.NameInput
