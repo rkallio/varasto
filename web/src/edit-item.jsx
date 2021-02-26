@@ -1,87 +1,50 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { patchItem, deleteItem, itemSelector } from './item.redux.js';
-import { actions, modalSelector } from './modal.redux.js';
-import * as Forms from './forms.jsx';
-import * as Items from './items.jsx';
+import { actions } from './modal.redux.js';
+import { Button } from './forms.jsx';
 import Container from './container.jsx';
-import If from './if.jsx';
+import ItemForm from './item-form.jsx';
 
 export default EditItem = ({ id }) => {
     const dispatch = useDispatch();
-    const { handleSubmit, register } = useForm();
 
     const item = useSelector((state) =>
         itemSelector.selectById(state, id)
     );
 
-    const remove = () => dispatch(deleteItem(item.id));
-
-    const onSubmit = (data) => {
-        const result = dispatch(patchItem({ id: item.id, data }));
+    const dispatcher = (values) => {
+        return dispatch(patchItem({ id: id, data: values }));
     };
 
+    const removeItem = () => dispatch(deleteItem(id));
+
     return (
-        <If cond={item}>
-            <Container>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Items.NameInput
-                        ref={register}
-                        defaultValue={item.name}
-                        placeholder={item.name}
-                        required
-                    />
-                    <Items.LocationInput
-                        ref={register}
-                        defaultValue={item.location}
-                        placeholder={item.location}
-                        required
-                    />
-                    <Items.CurrentQuantityInput
-                        ref={register}
-                        defaultValue={item.currentQuantity}
-                        placeholder={item.currentQuantity}
-                        required
-                    />
-                    <Items.TargetQuantityInput
-                        ref={register}
-                        defaultValue={item.targetQuantity}
-                        placeholder={item.targetQuantity}
-                        required
-                    />
-                    <Items.MeasureInput
-                        ref={register}
-                        defaultValue={item.measure}
-                        placeholder={item.measure}
-                        required
-                    />
-                    <Forms.FieldContainer>
-                        <Forms.ButtonGroup>
-                            <Forms.Button type="submit">
-                                Submit
-                            </Forms.Button>
-                            <Forms.Button
-                                onClick={() =>
-                                    dispatch(actions.closeModal())
-                                }
-                            >
-                                Close
-                            </Forms.Button>
-                        </Forms.ButtonGroup>
-                    </Forms.FieldContainer>
-                    <Forms.FieldContainer>
-                        <Forms.ButtonGroup>
-                            <Forms.Button
-                                type="button"
-                                onClick={remove}
-                            >
-                                Delete
-                            </Forms.Button>
-                        </Forms.ButtonGroup>
-                    </Forms.FieldContainer>
-                </form>
-            </Container>
-        </If>
+        <Container>
+            <ItemForm
+                id={id}
+                dispatcher={dispatcher}
+                actionButtons={[
+                    <Button
+                        key="remove"
+                        type="button"
+                        onClick={() => {
+                            dispatch(deleteItem(id));
+                        }}
+                    >
+                        Delete
+                    </Button>,
+                    <Button
+                        key="close"
+                        type="button"
+                        onClick={() => {
+                            dispatch(actions.closeModal());
+                        }}
+                    >
+                        Close
+                    </Button>,
+                ]}
+            />
+        </Container>
     );
 };
