@@ -1,5 +1,233 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useState, useEffect } from 'react';
 import { LabeledInput, LabeledSelect } from './forms.jsx';
+import * as css from './items.module.css';
+import * as math from 'mathjs';
+import { useDispatch, useSelector } from 'react-redux';
+import { itemSelector, findAllItems } from './item.redux.js';
+import { formatDistanceToNow, parseISO } from 'date-fns';
+import { actions } from './modal.redux.js';
+import Card from './components/card.jsx';
+
+export default ItemList = (props) => {
+    const dispatch = useDispatch();
+    const ids = useSelector(itemSelector.selectIds);
+    const categories = useSelector((state) => {
+        const items = itemSelector.selectAll(state);
+        return items.reduce((acc, curr) => {
+            if (curr.location in acc) {
+                acc[curr.location].push(curr);
+            } else {
+                acc[curr.location] = [curr];
+            }
+            return acc;
+        }, {});
+    });
+
+    useEffect(() => {
+        dispatch(findAllItems());
+    }, []);
+
+    return (
+        <div className={css.itemList}>
+            {Object.entries(categories).map(([category, items]) => (
+                <Category
+                    category={category}
+                    key={category}
+                    items={items}
+                />
+            ))}
+        </div>
+    );
+};
+
+const Category = (props) => {
+    return (
+        <>
+            <div className={css.category}>
+                <CategoryHeader>{props.category}</CategoryHeader>
+                <ItemGroup>
+                    {props.items.map((item) => (
+                        <Item key={item.id} id={item.id} />
+                    ))}
+                </ItemGroup>
+                <hr className={css.categorySeparator} />
+            </div>
+        </>
+    );
+};
+
+const CategoryHeader = (props) => {
+    return <div className={css.categoryHeader}>{props.children}</div>;
+};
+
+const ItemGroup = (props) => {
+    return <div className={css.itemGroup}>{props.children}</div>;
+};
+
+const Item = ({ id }) => {
+    const item = useSelector((state) =>
+        itemSelector.selectById(state, id)
+    );
+    const dispatch = useDispatch();
+
+    return (
+        <div className={css.item}>
+            <Card onClick={() => dispatch(actions.editItem(id))}>
+                <div className={css.innerItem}>
+                    <TaggedName value={item.name} />
+                    <TaggedQuantity
+                        current={item.currentQuantity}
+                        target={item.targetQuantity}
+                        measure={item.measure}
+                    />
+                </div>
+            </Card>
+        </div>
+    );
+};
+
+export const TaggedName = (props) => {
+    return (
+        <Property>
+            <PropertyName>Name</PropertyName>
+            <Space />
+            <Name>{props.value}</Name>
+        </Property>
+    );
+};
+
+const Property = (props) => {
+    return <div className={css.property}>{props.children}</div>;
+};
+
+const PropertyName = (props) => {
+    return <div className={css.propertyName}>{props.children}</div>;
+};
+
+const Space = (props) => {
+    return <span>&nbsp;</span>;
+};
+
+export const Name = (props) => {
+    return <PropertyValue>{props.children}</PropertyValue>;
+};
+
+const PropertyValue = (props) => {
+    return <div className={css.propertyValue}>{props.children}</div>;
+};
+
+export const TaggedLocation = (props) => {
+    return (
+        <Property>
+            <PropertyName>Location</PropertyName>
+            <Space />
+            <Location>{props.children}</Location>
+        </Property>
+    );
+};
+
+export const Location = (props) => {
+    return <PropertyValue>{props.children}></PropertyValue>;
+};
+
+export const TaggedQuantity = (props) => {
+    return (
+        <Property>
+            <PropertyName>Quantity</PropertyName>
+            <Space />
+            <Quantity
+                current={props.current}
+                target={props.target}
+                measure={props.measure}
+            />
+        </Property>
+    );
+};
+
+const Quantity = (props) => {
+    return (
+        <PropertyValue>
+            <CurrentQuantity
+                value={props.current}
+                target={props.target}
+                measure={props.measure}
+            />
+            <QuantitySeparator />
+            <TargetQuantity
+                value={props.target}
+                measure={props.measure}
+            />
+        </PropertyValue>
+    );
+};
+
+export const CurrentQuantity = (props) => {
+    const color = `hsl(${Math.min(
+        180,
+        (props.value / props.target) * 120
+    )}, 50%, 50%)`;
+
+    return (
+        <span className={css.currentQuantity} style={{ color }}>
+            {mapQuantityToString(props.value, props.measure)}
+        </span>
+    );
+};
+
+export const QuantitySeparator = (props) => {
+    return <span className={css.quantitySeparator}>/</span>;
+};
+
+export const TargetQuantity = (props) => {
+    return (
+        <span className={css.targetQuantity}>
+            {mapQuantityToString(props.value, props.measure)}
+        </span>
+    );
+};
+
+export const TaggedLastModified = (props) => {
+    return (
+        <Property>
+            <PropertyName>Last Modified</PropertyName>
+            <Space />
+            <LastModified time={props.time} />
+        </Property>
+    );
+};
+
+export const LastModified = (props) => {
+    return (
+        <PropertyValue>
+            <Relatime time={props.time} />
+        </PropertyValue>
+    );
+};
+
+export const Relatime = (props) => {
+    const [formattedTime, setFormattedTime] = useState(
+        timeSince(props.time)
+    );
+
+    useEffect(() => {
+        setFormattedTime(timeSince(props.time));
+        const timer = setInterval(() => {
+            setFormattedTime(timeSince(props.time));
+        }, 2500);
+        return () => {
+            return clearInterval(timer);
+        };
+    }, [props.time]);
+
+    return <time dateTime={props.time}>{formattedTime}</time>;
+};
+
+const timeSince = (time) => {
+    return formatDistanceToNow(parseISO(time), {
+        includeSeconds: true,
+        addSuffix: true,
+    });
+};
 
 export const NameInput = forwardRef((props, ref) => {
     return (
@@ -68,3 +296,16 @@ export const MeasureInput = forwardRef((props, ref) => {
         </LabeledSelect>
     );
 });
+
+const mapQuantityToString = (quantity, measure) => {
+    switch (measure) {
+        case 'mass':
+            return math.unit(quantity, 'kg').toString();
+        case 'volume':
+            return math.unit(quantity, 'l').toString();
+        case '%':
+            return quantity + '%';
+        case 'pcs':
+            return quantity + ' pieces';
+    }
+};
