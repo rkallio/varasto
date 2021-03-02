@@ -44,3 +44,41 @@ export const items = {
         return (await request).data;
     },
 };
+
+export const transients = {
+    async findAll(token) {
+        const request = axios.get('api/transients', {
+            headers: {
+                Authorization: 'Bearer ' + token,
+            },
+        });
+        return (await request).data;
+    },
+
+    async post(data, token) {
+        const request = axios.post('api/transients', data, {
+            headers: {
+                Authorization: 'Bearer ' + token,
+            },
+        });
+        return (await request).data;
+    },
+
+    async patch(id, data, token) {
+        const request = axios.patch('api/transients/' + id, data, {
+            headers: {
+                Authorization: 'Bearer ' + token,
+            },
+        });
+        return (await request).data;
+    },
+
+    async delete(id, token) {
+        const request = axios.delete('api/transients/' + id, {
+            headers: {
+                Authorization: 'Bearer ' + token,
+            },
+        });
+        return (await request).data;
+    },
+};
