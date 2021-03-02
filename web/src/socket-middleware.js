@@ -1,35 +1,60 @@
 import { io } from 'socket.io-client';
-import { actions } from './item.redux.js';
+import { actions as itemActions } from './item.redux.js';
+import { actions as transientActions } from './transient.redux.js';
 import {
     authenticate,
     selector as tokenSelector,
 } from './auth.redux.js';
 
-const subscribeForUpdates = (store, socket) => {
-    socket.on('post', (data) => store.dispatch(actions.addOne(data)));
+const subscribeForItemUpdates = (store, socket) => {
+    socket.on('post', (data) =>
+        store.dispatch(itemActions.addOne(data))
+    );
     socket.on('patch', (data) =>
         store.dispatch(
-            actions.updateOne({ id: data.id, changes: data })
+            itemActions.updateOne({ id: data.id, changes: data })
         )
     );
     socket.on('delete', (data) =>
-        store.dispatch(actions.removeOne(data.id))
+        store.dispatch(itemActions.removeOne(data.id))
+    );
+};
+
+const subscribeForTransientUpdates = (store, socket) => {
+    socket.on('post', (data) =>
+        store.dispatch(transientActions.addOne(data))
+    );
+    socket.on('patch', (data) =>
+        store.dispatch(
+            transientActions.updateOne({ id: data.id, changes: data })
+        )
+    );
+    socket.on('delete', (data) =>
+        store.dispatch(transientActions.removeOne(data.id))
+    );
+    socket.on('deleteMany', (data) =>
+        store.dispatch(
+            transientActions.removeMany(data.map((p) => p.id))
+        )
     );
 };
 
 export default () => {
     return (store) => {
         let token = tokenSelector(store.getState());
-        let socket;
+        const root = io('/');
+        let items, transients;
 
         if (token) {
-            socket = io('/items', {
+            items = io('/items', {
                 auth: { token },
             });
-        }
+            transients = io('/transients', {
+                auth: { token },
+            });
 
-        if (socket) {
-            subscribeForUpdates(store, socket);
+            subscribeForItemUpdates(store, items);
+            subscribeForTransientUpdates(store, transients);
         }
 
         return (next) => (action) => {
@@ -38,10 +63,14 @@ export default () => {
                 action.type === authenticate.fulfilled.type
             ) {
                 token = action.payload;
-                socket = io('/items', {
+                items = io('/items', {
                     auth: { token },
                 });
-                subscribeForUpdates(store, socket);
+                transients = io('/transients', {
+                    auth: { token },
+                });
+                subscribeForItemUpdates(store, items);
+                subscribeForTransientUpdates(store, transients);
             }
             return next(action);
         };
