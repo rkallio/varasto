@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import * as css from './forms.module.css';
 
 const appendAsteriskIf = (text, cond) => {
@@ -31,6 +31,21 @@ export const Select = (props) => {
     );
 };
 
+export const Checkbox = (props) => {
+    return (
+        <input {...props} type="checkbox" className={css.checkbox} />
+    );
+};
+
+export const LabeledCheckbox = (props) => {
+    const { label, name, ...rest } = props;
+    return (
+        <FieldContainer>
+            <Label htmlFor={name}>{label}</Label>
+            <Checkbox {...rest} name={name} />
+        </FieldContainer>
+    );
+};
 
 export const Label = (props) => {
     const { children, required, ...rest } = props;
