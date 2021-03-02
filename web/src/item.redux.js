@@ -49,7 +49,7 @@ export const deleteItem = createAsyncThunk(
 export const itemAdapter = createEntityAdapter({
     sortComparer: (a, b) => {
         const name = a.name.localeCompare(b.name);
-        const location = a.name.localeCompare(b.location);
+        const location = a.location.localeCompare(b.location);
         return location !== 0 ? location : name;
     },
 });
