@@ -42,7 +42,7 @@ const subscribeForTransientUpdates = (store, socket) => {
 export default () => {
     return (store) => {
         let token = tokenSelector(store.getState());
-        const root = io('/');
+
         let items, transients;
 
         if (token) {
