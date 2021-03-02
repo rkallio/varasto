@@ -3,19 +3,5 @@
     flex-direction: column;
     border: 1.5px solid black;
     border-radius: 3px;
-    padding: 10px;
-    background: white;
-    cursor: pointer;
-    transition: color 500ms, background 500ms;
-}
-
-.card:hover {
-    background: black;
-    color: white;
-    transition: color 0ms, background 0ms;
-}
-
-.card:active {
-    background: white;
-    color: black;
+    padding: 9px;
 }

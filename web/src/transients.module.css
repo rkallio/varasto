@@ -1,0 +1,22 @@
+.outerTransient {
+    border-radius: 3px;
+    background: white;
+    cursor: pointer;
+    user-select: none;
+    transition: color 1000ms, background 1000ms;
+}
+
+.outerTransient:hover {
+    background: black;
+    color: white;
+    transition: color 0ms, background 0ms;
+}
+
+.outerTransient:active {
+    background: white;
+    color: black;
+}
+
+.innerTransient {
+    margin: auto;
+}

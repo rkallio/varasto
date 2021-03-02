@@ -1,9 +1,8 @@
-import React, { forwardRef } from 'react';
+import React, { useState } from 'react';
 import { authenticate } from './auth.redux.js';
-import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { container as containerClass } from './container.module.css';
+import Container from './container.jsx';
 import * as css from './login-page.module.css';
 
 import {
@@ -13,39 +12,77 @@ import {
     LabeledInput,
 } from './forms.jsx';
 
-const UsernameInput = forwardRef((props, ref) => {
-    return (
-        <LabeledInput name="name" ref={ref} label="Name" {...props} />
+const useLogin = ({ defaults, dispatcher }) => {
+    const [name, setName] = useState(
+        defaults && defaults.name ? defaults.name : ''
     );
-});
+    const [password, setPassword] = useState(
+        defaults && defaults.password ? defaults.password : ''
+    );
 
-const PasswordInput = forwardRef((props, ref) => {
+    const values = {
+        name,
+        password,
+    };
+    const setters = { name: setName, password: setPassword };
+
+    const handleChange = (event) => {
+        const field = event.target.name;
+        const value = event.target.value;
+        setters[field](value);
+    };
+
+    const onSubmit = (event) => {
+        event.preventDefault();
+        dispatcher(values);
+    };
+
+    return { values, handleChange, onSubmit };
+};
+
+const UsernameInput = (props) => {
+    return <LabeledInput name="name" label="Name" {...props} />;
+};
+
+const PasswordInput = (props) => {
     return (
         <LabeledInput
             name="password"
-            ref={ref}
             label="Password"
             type="password"
             {...props}
         />
     );
-});
+};
 
-export default LoginForm = () => {
-    const { register, handleSubmit } = useForm();
+export const LoginForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const onSubmit = async (data) => {
-        const result = await dispatch(authenticate(data));
+
+    const dispatcher = async (values) => {
+        const result = await dispatch(authenticate(values));
         if (result.type === authenticate.fulfilled.type) {
             history.push('/');
         }
     };
 
+    const { values, handleChange, onSubmit } = useLogin({
+        defaults: {},
+        dispatcher,
+    });
+
     return (
-        <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
-            <UsernameInput ref={register} required />
-            <PasswordInput ref={register} required />
+        <form className={css.form} onSubmit={onSubmit}>
+            <UsernameInput
+                required
+                value={values.name}
+                onChange={handleChange}
+            />
+            <PasswordInput
+                required
+                value={values.password}
+                onChange={handleChange}
+            />
             <FieldContainer>
                 <ButtonGroup>
                     <Button type="submit">Submit</Button>
@@ -55,10 +92,10 @@ export default LoginForm = () => {
     );
 };
 
-export const LoginPage = (props) => {
+export default LoginPage = (props) => {
     return (
-        <div className={containerClass}>
+        <Container>
             <LoginForm />
-        </div>
+        </Container>
     );
 };

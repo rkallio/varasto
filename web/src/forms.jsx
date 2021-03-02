@@ -10,63 +10,70 @@ const appendAsteriskIf = (text, cond) => {
 };
 
 export const FieldContainer = (props) => {
-    return <div className={css.fieldContainer}>{props.children}</div>;
-};
-
-export const Input = forwardRef((props, ref) => {
-    return <input ref={ref} {...props} className={css.input} />;
-});
-
-export const Select = forwardRef((props, ref) => {
     const { children, ...rest } = props;
     return (
-        <select ref={ref} {...rest} className={css.select}>
+        <div className={css.fieldContainer} {...rest}>
+            {children}
+        </div>
+    );
+};
+
+export const Input = (props) => {
+    return <input {...props} className={css.input} />;
+};
+
+export const Select = (props) => {
+    const { children, ...rest } = props;
+    return (
+        <select {...rest} className={css.select}>
             {children}
         </select>
     );
-});
+};
 
-export const Label = forwardRef((props, ref) => {
+
+export const Label = (props) => {
+    const { children, required, ...rest } = props;
     return (
-        <label ref={ref} {...props} className={css.label}>
-            {props.children}
+        <label {...props} className={css.label}>
+            {appendAsteriskIf(children, required)}
         </label>
     );
-});
+};
 
-export const LabeledInput = forwardRef((props, ref) => {
-    const { label, ...rest } = props;
+export const LabeledInput = (props) => {
+    const { label, name, required, ...rest } = props;
 
     return (
         <FieldContainer>
-            <Label className={css.label} htmlFor={rest.name}>
-                {appendAsteriskIf(label, props.required)}
+            <Label htmlFor={name} required={required}>
+                {label}
             </Label>
-            <Input ref={ref} {...rest} />
+            <Input name={name} required={required} {...rest} />
         </FieldContainer>
     );
-});
+};
 
-export const LabeledSelect = forwardRef((props, ref) => {
-    const { label, ...rest } = props;
+export const LabeledSelect = (props) => {
+    const { label, required, ...rest } = props;
     return (
         <FieldContainer>
-            <Label className={css.label} htmlFor={rest.name}>
-                {appendAsteriskIf(label, props.required)}
+            <Label htmlFor={rest.name} required={required}>
+                {label}
             </Label>
-            <Select ref={ref} {...rest} />
+            <Select required={required} {...rest} />
         </FieldContainer>
     );
-});
+};
 
-export const Button = forwardRef((props, ref) => {
+export const Button = (props) => {
     const { children, ...rest } = props;
     return (
-        <button className={css.button} ref={ref} {...rest}>
+        <button className={css.button} {...rest}>
             {children}
         </button>
     );
-});
+};
 
 export const ButtonGroup = (props) => {
     return <div className={css.buttonGroup}>{props.children}</div>;

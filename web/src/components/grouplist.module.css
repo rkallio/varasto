@@ -1,0 +1,22 @@
+.groupList {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.group {
+    margin-bottom: 15px;
+}
+
+.header {
+    font-size: 20px;
+}
+
+.body {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: stretch;
+}
+
+.separator {
+    border: 1px solid black;
+}

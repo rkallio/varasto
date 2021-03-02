@@ -1,45 +1,32 @@
-.itemList {
-    display: flex;
-    flex-flow: column nowrap;
-}
-
-.category {
-}
-
-.categorySeparator {
-    border: 1px solid black;
-    margin: 10px 3px;
-}
-
-.categoryHeader {
-    font-size: 20px;
-    margin: 0 3px;
-}
-
-.itemGroup {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: stretch;
-    justify-content: center;
-}
-
-.item {
-    margin: 3px;
+.outerItem {
+    border-radius: 3px;
+    background: white;
+    cursor: pointer;
+    transition: color 1000ms, background 1000ms;
+    user-select: none;
     flex-grow: 1;
-    flex-basis: 1;
+    margin: 3px;
+}
+
+.outerItem:hover {
+    background: black;
+    color: white;
+    transition: color 0ms, background 0ms;
+}
+
+.outerItem:active {
+    background: white;
+    color: black;
 }
 
 .innerItem {
-    display: flex;
-    flex-direction: column;
     margin: auto;
 }
 
 .property {
     display: flex;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     justify-content: space-between;
-    margin: 2px 0;
 }
 
 .propertyName {

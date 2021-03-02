@@ -7,10 +7,10 @@ import { itemSelector, findAllItems } from './item.redux.js';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { actions } from './modal.redux.js';
 import Card from './components/card.jsx';
+import GroupList from './components/grouplist.jsx';
 
 export default ItemList = (props) => {
     const dispatch = useDispatch();
-    const ids = useSelector(itemSelector.selectIds);
     const categories = useSelector((state) => {
         const items = itemSelector.selectAll(state);
         return items.reduce((acc, curr) => {
@@ -28,51 +28,26 @@ export default ItemList = (props) => {
     }, []);
 
     return (
-        <div className={css.itemList}>
-            {Object.entries(categories).map(([category, items]) => (
-                <Category
-                    category={category}
-                    key={category}
-                    items={items}
-                />
-            ))}
-        </div>
+        <GroupList
+            data={Object.entries(categories)}
+            render={(item) => <Item key={item.id} id={item.id} />}
+        />
     );
 };
 
-const Category = (props) => {
-    return (
-        <>
-            <div className={css.category}>
-                <CategoryHeader>{props.category}</CategoryHeader>
-                <ItemGroup>
-                    {props.items.map((item) => (
-                        <Item key={item.id} id={item.id} />
-                    ))}
-                </ItemGroup>
-                <hr className={css.categorySeparator} />
-            </div>
-        </>
-    );
-};
-
-const CategoryHeader = (props) => {
-    return <div className={css.categoryHeader}>{props.children}</div>;
-};
-
-const ItemGroup = (props) => {
-    return <div className={css.itemGroup}>{props.children}</div>;
-};
-
-const Item = ({ id }) => {
+const Item = (props) => {
+    const { id, ...rest } = props;
     const item = useSelector((state) =>
         itemSelector.selectById(state, id)
     );
     const dispatch = useDispatch();
 
     return (
-        <div className={css.item}>
-            <Card onClick={() => dispatch(actions.editItem(id))}>
+        <div
+            className={css.outerItem}
+            onClick={() => dispatch(actions.editItem(id))}
+        >
+            <Card>
                 <div className={css.innerItem}>
                     <TaggedName value={item.name} />
                     <TaggedQuantity
@@ -96,7 +71,7 @@ export const TaggedName = (props) => {
     );
 };
 
-const Property = (props) => {
+export const Property = (props) => {
     return <div className={css.property}>{props.children}</div>;
 };
 

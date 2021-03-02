@@ -5,7 +5,7 @@ import { Switch, Route, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { selector as tokenSelector } from './auth.redux.js';
 
-import { LoginPage } from './login-page.jsx';
+import LoginPage from './login-page.jsx';
 import ItemPage from './item-page.jsx';
 
 import Modal from './modal.jsx';
