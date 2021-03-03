@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { patchItem, deleteItem, itemSelector } from './item.redux.js';
 import { actions } from './modal.redux.js';
-import { Button } from './forms.jsx';
+import { Button } from './components/form-components.jsx';
 import ItemForm from './item-form.jsx';
 
 export default EditItem = ({ id }) => {

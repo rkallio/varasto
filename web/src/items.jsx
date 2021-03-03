@@ -1,5 +1,8 @@
 import React, { forwardRef, useState, useEffect } from 'react';
-import { LabeledInput, LabeledSelect } from './forms.jsx';
+import {
+    LabeledInput,
+    LabeledSelect,
+} from './components/form-components.jsx';
 import * as css from './items.module.css';
 import * as math from 'mathjs';
 import { useDispatch, useSelector } from 'react-redux';

@@ -12,7 +12,10 @@ import Card from './components/card.jsx';
 import * as Items from './items.jsx';
 import { actions } from './modal.redux.js';
 import ItemForm from './item-form.jsx';
-import { LabeledInput, LabeledSelect } from './forms.jsx';
+import {
+    LabeledInput,
+    LabeledSelect,
+} from './components/form-components.jsx';
 import GroupList from './components/grouplist.jsx';
 
 export default TransientList = (props) => {

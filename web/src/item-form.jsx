@@ -5,7 +5,7 @@ import If from './components/if.jsx';
 import useItemForm from './use-item-form.js';
 import { itemSelector } from './item.redux.js';
 import * as Items from './items.jsx';
-import * as Forms from './forms.jsx';
+import * as Forms from './components/form-components.jsx';
 
 const ItemForm = (props) => {
     const item = useSelector((state) =>

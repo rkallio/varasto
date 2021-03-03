@@ -10,7 +10,7 @@ import {
     ButtonGroup,
     Button,
     LabeledInput,
-} from '../forms.jsx';
+} from '../components/form-components.jsx';
 
 const useLogin = ({ defaults, dispatcher }) => {
     const [name, setName] = useState(
