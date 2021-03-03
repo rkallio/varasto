@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { selector as tokenSelector } from './auth.redux.js';
+import { selector as tokenSelector } from './login/auth.redux.js';
 
 import LoginPage from './pages/login-page.jsx';
 import ItemPage from './pages/item-page.jsx';

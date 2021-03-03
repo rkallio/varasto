@@ -4,7 +4,7 @@ import { actions as transientActions } from './transients/transient.redux.js';
 import {
     authenticate,
     selector as tokenSelector,
-} from './auth.redux.js';
+} from './login/auth.redux.js';
 
 const subscribeForItemUpdates = (store, socket) => {
     socket.on('post', (data) =>

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import useLoginForm from './use-login-form.js';
 import { UsernameInput, PasswordInput } from './login-components.jsx';
 import * as Forms from '../components/form-components.jsx';
-import { authenticate } from '../auth.redux.js';
+import { authenticate } from './auth.redux.js';
 
 export default LoginForm = () => {
     const dispatch = useDispatch();
