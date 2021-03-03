@@ -10,7 +10,6 @@ import * as css from './transients.module.css';
 import Card from './components/card.jsx';
 import * as Items from './items/item-components.jsx';
 import { actions } from './modal.redux.js';
-import ItemForm from './item-form.jsx';
 import {
     LabeledInput,
     LabeledSelect,
