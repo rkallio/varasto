@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { authenticate } from './auth.redux.js';
+import { authenticate } from '../auth.redux.js';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import Container from './container.jsx';
+import Container from '../container.jsx';
 import * as css from './login-page.module.css';
 
 import {
@@ -10,7 +10,7 @@ import {
     ButtonGroup,
     Button,
     LabeledInput,
-} from './forms.jsx';
+} from '../forms.jsx';
 
 const useLogin = ({ defaults, dispatcher }) => {
     const [name, setName] = useState(
