@@ -7,9 +7,8 @@ import {
     selector as transientSelector,
 } from './transient.redux.js';
 import * as css from './transients.module.css';
-import * as itemcss from './items.module.css';
 import Card from './components/card.jsx';
-import * as Items from './items.jsx';
+import * as Items from './items/item-components.jsx';
 import { actions } from './modal.redux.js';
 import ItemForm from './item-form.jsx';
 import {
@@ -35,10 +34,6 @@ export default TransientList = (props) => {
             render={(t) => <Transient key={t.id} id={t.id} />}
         />
     );
-};
-
-const Group = (props) => {
-    return <div className={itemcss.itemGroup}>{props.children}</div>;
 };
 
 const Transients = (props) => {

@@ -2,15 +2,15 @@ import React, { forwardRef, useState, useEffect } from 'react';
 import {
     LabeledInput,
     LabeledSelect,
-} from './components/form-components.jsx';
-import * as css from './items.module.css';
+} from '../components/form-components.jsx';
+import * as css from './item-components.module.css';
 import * as math from 'mathjs';
 import { useDispatch, useSelector } from 'react-redux';
-import { itemSelector, findAllItems } from './item.redux.js';
+import { itemSelector, findAllItems } from '../item.redux.js';
 import { formatDistanceToNow, parseISO } from 'date-fns';
-import { actions } from './modal.redux.js';
-import Card from './components/card.jsx';
-import GroupList from './components/grouplist.jsx';
+import { actions } from '../modal.redux.js';
+import Card from '../components/card.jsx';
+import GroupList from '../components/grouplist.jsx';
 
 export default ItemList = (props) => {
     const dispatch = useDispatch();
