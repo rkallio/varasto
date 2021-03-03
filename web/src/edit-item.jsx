@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { patchItem, deleteItem, itemSelector } from './item.redux.js';
 import { actions } from './modal.redux.js';
 import { Button } from './forms.jsx';
-import Container from './container.jsx';
 import ItemForm from './item-form.jsx';
 
 export default EditItem = ({ id }) => {
@@ -20,31 +19,29 @@ export default EditItem = ({ id }) => {
     const removeItem = () => dispatch(deleteItem(id));
 
     return (
-        <Container>
-            <ItemForm
-                id={id}
-                dispatcher={dispatcher}
-                actionButtons={[
-                    <Button
-                        key="remove"
-                        type="button"
-                        onClick={() => {
-                            dispatch(deleteItem(id));
-                        }}
-                    >
-                        Delete
-                    </Button>,
-                    <Button
-                        key="close"
-                        type="button"
-                        onClick={() => {
-                            dispatch(actions.closeModal());
-                        }}
-                    >
-                        Close
-                    </Button>,
-                ]}
-            />
-        </Container>
+        <ItemForm
+            id={id}
+            dispatcher={dispatcher}
+            actionButtons={[
+                <Button
+                    key="remove"
+                    type="button"
+                    onClick={() => {
+                        dispatch(deleteItem(id));
+                    }}
+                >
+                    Delete
+                </Button>,
+                <Button
+                    key="close"
+                    type="button"
+                    onClick={() => {
+                        dispatch(actions.closeModal());
+                    }}
+                >
+                    Close
+                </Button>,
+            ]}
+        />
     );
 };
