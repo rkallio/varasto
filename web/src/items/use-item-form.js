@@ -53,35 +53,3 @@ export default useItemForm = ({ defaults, dispatcher }) => {
 
     return { values, handleChange, onSubmit };
 };
-
-export const useTransientForm = ({ defaults, dispatcher }) => {
-    const [name, setName] = useState(
-        defaults && defaults.name ? defaults.name : ''
-    );
-    const [completed, setCompleted] = useState(
-        defaults && defaults.completed ? defaults.completed : ''
-    );
-
-    const values = {
-        name,
-        completed,
-    };
-
-    const setters = {
-        name: setName,
-        completed: setCompleted,
-    };
-
-    const handleChange = (event) => {
-        const field = event.target.name;
-        const value = event.target.value;
-        setters[field](value);
-    };
-
-    const onSubmit = (event) => {
-        event.preventDefault();
-        dispatcher(values);
-    };
-
-    return { values, handleChange, onSubmit };
-};
