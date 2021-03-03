@@ -5,7 +5,7 @@ import {
     findAll,
     create,
     selector as transientSelector,
-} from '../transient.redux.js';
+} from './transient.redux.js';
 import * as css from './transient-components.module.css';
 import Card from '../components/card.jsx';
 import * as Items from '../items/item-components.jsx';
