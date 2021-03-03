@@ -6,7 +6,7 @@ import {
 import * as css from './item-components.module.css';
 import * as math from 'mathjs';
 import { useDispatch, useSelector } from 'react-redux';
-import { itemSelector, findAllItems } from '../item.redux.js';
+import { itemSelector, findAllItems } from './item.redux.js';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { actions } from '../modal.redux.js';
 import Card from '../components/card.jsx';

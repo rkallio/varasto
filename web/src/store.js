@@ -6,7 +6,7 @@ import {
 import socketMiddleware from './socket-middleware.js';
 
 import * as api from './api.js';
-import itemSlice from './item.redux.js';
+import itemSlice from './items/item.redux.js';
 import transientSlice from './transient.redux.js';
 import authSlice from './auth.redux.js';
 import modalSlice from './modal.redux.js';

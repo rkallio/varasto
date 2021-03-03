@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { postItem } from './item.redux.js';
+import { postItem } from './items/item.redux.js';
 import { actions } from './modal.redux.js';
 import ItemForm from './items/item-form.jsx';
 import { Button } from './components/form-components.jsx';

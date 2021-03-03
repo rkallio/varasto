@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import If from '../components/if.jsx';
 import useItemForm from './use-item-form.js';
-import { itemSelector } from '../item.redux.js';
+import { itemSelector } from './item.redux.js';
 import * as Items from './item-components.jsx';
 import * as Forms from '../components/form-components.jsx';
 

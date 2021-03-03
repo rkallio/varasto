@@ -1,5 +1,5 @@
 import { io } from 'socket.io-client';
-import { actions as itemActions } from './item.redux.js';
+import { actions as itemActions } from './items/item.redux.js';
 import { actions as transientActions } from './transient.redux.js';
 import {
     authenticate,

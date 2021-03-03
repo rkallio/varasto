@@ -1,6 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { patchItem, deleteItem, itemSelector } from './item.redux.js';
+import {
+    patchItem,
+    deleteItem,
+    itemSelector,
+} from './items/item.redux.js';
 import { actions } from './modal.redux.js';
 import { Button } from './components/form-components.jsx';
 import ItemForm from './items/item-form.jsx';

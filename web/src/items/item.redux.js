@@ -4,8 +4,8 @@ import {
     createEntityAdapter,
 } from '@reduxjs/toolkit';
 
-import * as api from './api.js';
-import { selector as tokenSelector } from './auth.redux.js';
+import * as api from '../api.js';
+import { selector as tokenSelector } from '../auth.redux.js';
 
 export const findAllItems = createAsyncThunk(
     'items/find-all',
