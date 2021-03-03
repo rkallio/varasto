@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactModal from 'react-modal';
 
+import Container from '../components/container.jsx';
 import { useSelector } from 'react-redux';
 import { modalSelector } from './modal.redux.js';
 
@@ -11,9 +12,9 @@ ReactModal.setAppElement('#root');
 const ModalSelector = () => {
     const state = useSelector(modalSelector);
     if (state.type === 'create-item') {
-        return <AddItem />;
+        return <AddItemForm />;
     } else if (state.type === 'edit-item') {
-        return <EditItem id={state.props.id} />;
+        return <EditItemForm id={state.props.id} />;
     } else {
         return null;
     }
@@ -30,7 +31,9 @@ export default Modal = () => {
             parentSelector={parentSelector}
             isOpen={state.type !== undefined}
         >
-            <ModalSelector />
+            <Container>
+                <ModalSelector />
+            </Container>
         </ReactModal>
     );
 };
