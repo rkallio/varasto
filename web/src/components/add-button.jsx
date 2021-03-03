@@ -1,15 +1,14 @@
 import React from 'react';
-import { actions } from './modal.redux.js';
 import { useDispatch } from 'react-redux';
 import * as css from './add-button.module.css';
+import { actions } from '../modal.redux.js';
 
-export default () => {
+export default (props) => {
     const dispatch = useDispatch();
-
-    const openAddItemModal = () => dispatch(actions.addItem());
+    const onClick = () => dispatch(actions.addItem());
 
     return (
-        <button className={css.addButton} onClick={openAddItemModal}>
+        <button className={css.addButton} onClick={onClick}>
             +
         </button>
     );
