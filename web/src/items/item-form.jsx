@@ -1,9 +1,16 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    postItem,
+    patchItem,
+    deleteItem,
+    itemSelector,
+} from './item.redux.js';
+import { actions } from '../modal.redux.js';
+import { Button } from '../components/form-components.jsx';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
 import If from '../components/if.jsx';
 import useItemForm from './use-item-form.js';
-import { itemSelector } from './item.redux.js';
 import * as Items from './item-components.jsx';
 import * as Forms from '../components/form-components.jsx';
 
@@ -62,3 +69,66 @@ ItemForm.propTypes = {
 };
 
 export default ItemForm;
+
+export const AddItemForm = () => {
+    const dispatch = useDispatch();
+    const dispatcher = (values) => dispatch(postItem(values));
+
+    return (
+        <ItemForm
+            dispatcher={dispatcher}
+            actionButtons={[
+                <Button
+                    key="close"
+                    type="button"
+                    onClick={() => {
+                        dispatch(actions.closeModal());
+                    }}
+                >
+                    Close
+                </Button>,
+            ]}
+        />
+    );
+};
+
+export const EditItemForm = ({ id }) => {
+    const dispatch = useDispatch();
+
+    const item = useSelector((state) =>
+        itemSelector.selectById(state, id)
+    );
+
+    const dispatcher = (values) => {
+        return dispatch(patchItem({ id: id, data: values }));
+    };
+
+    const removeItem = () => dispatch(deleteItem(id));
+
+    return (
+        <ItemForm
+            id={id}
+            dispatcher={dispatcher}
+            actionButtons={[
+                <Button
+                    key="remove"
+                    type="button"
+                    onClick={() => {
+                        dispatch(deleteItem(id));
+                    }}
+                >
+                    Delete
+                </Button>,
+                <Button
+                    key="close"
+                    type="button"
+                    onClick={() => {
+                        dispatch(actions.closeModal());
+                    }}
+                >
+                    Close
+                </Button>,
+            ]}
+        />
+    );
+};
