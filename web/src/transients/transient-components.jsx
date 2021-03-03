@@ -5,16 +5,16 @@ import {
     findAll,
     create,
     selector as transientSelector,
-} from './transient.redux.js';
-import * as css from './transients.module.css';
-import Card from './components/card.jsx';
-import * as Items from './items/item-components.jsx';
-import { actions } from './modal/modal.redux.js';
+} from '../transient.redux.js';
+import * as css from './transient-components.module.css';
+import Card from '../components/card.jsx';
+import * as Items from '../items/item-components.jsx';
+import { actions } from '../modal/modal.redux.js';
 import {
     LabeledInput,
     LabeledSelect,
-} from './components/form-components.jsx';
-import GroupList from './components/grouplist.jsx';
+} from '../components/form-components.jsx';
+import GroupList from '../components/grouplist.jsx';
 
 export default TransientList = (props) => {
     const dispatch = useDispatch();
