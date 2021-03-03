@@ -5,7 +5,7 @@ import {
     postItem,
     patchItem,
     deleteItem,
-} from './items/item.redux.js';
+} from '../items/item.redux.js';
 
 const initialState = {
     type: undefined,

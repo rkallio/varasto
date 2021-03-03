@@ -6,7 +6,7 @@ import {
     deleteItem,
     itemSelector,
 } from './item.redux.js';
-import { actions } from '../modal.redux.js';
+import { actions } from '../modal/modal.redux.js';
 import { Button } from '../components/form-components.jsx';
 import PropTypes from 'prop-types';
 import If from '../components/if.jsx';

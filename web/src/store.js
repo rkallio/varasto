@@ -9,7 +9,7 @@ import * as api from './api.js';
 import itemSlice from './items/item.redux.js';
 import transientSlice from './transient.redux.js';
 import authSlice from './auth.redux.js';
-import modalSlice from './modal.redux.js';
+import modalSlice from './modal/modal.redux.js';
 
 export default configureStore({
     reducer: {

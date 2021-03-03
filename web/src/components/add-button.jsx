@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import * as css from './add-button.module.css';
-import { actions } from '../modal.redux.js';
+import { actions } from '../modal/modal.redux.js';
 
 export default (props) => {
     const dispatch = useDispatch();

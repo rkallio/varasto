@@ -8,7 +8,7 @@ import * as math from 'mathjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { itemSelector, findAllItems } from './item.redux.js';
 import { formatDistanceToNow, parseISO } from 'date-fns';
-import { actions } from '../modal.redux.js';
+import { actions } from '../modal/modal.redux.js';
 import Card from '../components/card.jsx';
 import GroupList from '../components/grouplist.jsx';
 
