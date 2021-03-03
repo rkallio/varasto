@@ -2,9 +2,9 @@ import React from 'react';
 import ReactModal from 'react-modal';
 
 import { useSelector } from 'react-redux';
-import { modalSelector } from './modal.redux.js';
+import { modalSelector } from '../modal.redux.js';
 
-import { AddItemForm, EditItemForm } from './items/item-form.jsx';
+import { AddItemForm, EditItemForm } from '../items/item-form.jsx';
 
 ReactModal.setAppElement('#root');
 

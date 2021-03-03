@@ -8,7 +8,7 @@ import { selector as tokenSelector } from './auth.redux.js';
 import LoginPage from './pages/login-page.jsx';
 import ItemPage from './pages/item-page.jsx';
 
-import Modal from './modal.jsx';
+import Modal from './modal/modal.jsx';
 
 export default () => {
     return (
