@@ -12,12 +12,13 @@ import * as Items from '../items/item-components.jsx';
 import { actions } from '../modal/modal.redux.js';
 import {
     LabeledInput,
-    LabeledSelect,
+    LabeledCheckbox,
 } from '../components/form-components.jsx';
 import GroupList from '../components/grouplist.jsx';
 
 export default TransientList = (props) => {
     const dispatch = useDispatch();
+    const total = useSelector(transientSelector.selectTotal);
     const transients = useSelector((state) => {
         const transients = transientSelector.selectAll(state);
         return { Transients: transients };
@@ -27,6 +28,9 @@ export default TransientList = (props) => {
         dispatch(findAll());
     }, []);
 
+    if (total === 0) {
+        return null;
+    }
     return (
         <GroupList
             data={Object.entries(transients)}
@@ -114,9 +118,13 @@ export const NameInput = (props) => {
 
 export const CompletedInput = (props) => {
     return (
-        <LabeledSelect name="completed" label="Completed" {...props}>
+        <LabeledCheckbox
+            name="completed"
+            label="Completed"
+            {...props}
+        >
             <option value={false}>False</option>
             <option value={true}>True</option>
-        </LabeledSelect>
+        </LabeledCheckbox>
     );
 };

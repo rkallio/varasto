@@ -7,6 +7,8 @@ import {
     deleteItem,
 } from '../items/item.redux.js';
 
+import { create as createTransient } from '../transients/transient.redux.js';
+
 const initialState = {
     type: undefined,
     props: {},
@@ -19,6 +21,14 @@ export default modalSlice = createSlice({
     name: 'modal',
     initialState,
     reducers: {
+        formPicker(state, action) {
+            state.type = 'form-picker';
+            state.props = {};
+        },
+        addTransient(state, action) {
+            state.type = 'create-transient';
+            state.props = {};
+        },
         addItem(state, action) {
             state.type = 'create-item';
             state.props = {};
@@ -33,6 +43,7 @@ export default modalSlice = createSlice({
         [postItem.fulfilled]: closeModal,
         [patchItem.fulfilled]: closeModal,
         [deleteItem.fulfilled]: closeModal,
+        [createTransient.fulfilled]: closeModal,
         [itemActions.removeOne]: (state, action) => {
             if (
                 state.type === 'edit-item' &&

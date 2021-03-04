@@ -38,11 +38,13 @@ export const Checkbox = (props) => {
 };
 
 export const LabeledCheckbox = (props) => {
-    const { label, name, ...rest } = props;
+    const { label, name, required, children, ...rest } = props;
     return (
         <FieldContainer>
-            <Label htmlFor={name}>{label}</Label>
-            <Checkbox {...rest} name={name} />
+            <Label htmlFor={name} required={required}>
+                {label}
+            </Label>
+            <Checkbox {...rest} name={name} required={required} />
         </FieldContainer>
     );
 };
@@ -70,13 +72,13 @@ export const LabeledInput = (props) => {
 };
 
 export const LabeledSelect = (props) => {
-    const { label, required, ...rest } = props;
+    const { label, name, required, ...rest } = props;
     return (
         <FieldContainer>
-            <Label htmlFor={rest.name} required={required}>
+            <Label htmlFor={name} required={required}>
                 {label}
             </Label>
-            <Select required={required} {...rest} />
+            <Select required={required} name={name} {...rest} />
         </FieldContainer>
     );
 };

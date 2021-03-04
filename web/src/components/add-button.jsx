@@ -5,7 +5,7 @@ import { actions } from '../modal/modal.redux.js';
 
 export default (props) => {
     const dispatch = useDispatch();
-    const onClick = () => dispatch(actions.addItem());
+    const onClick = () => dispatch(actions.formPicker());
 
     return (
         <button className={css.addButton} onClick={onClick}>

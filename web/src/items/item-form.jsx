@@ -14,7 +14,7 @@ import useItemForm from './use-item-form.js';
 import * as Items from './item-components.jsx';
 import * as Forms from '../components/form-components.jsx';
 
-const ItemForm = (props) => {
+export default ItemForm = (props) => {
     const item = useSelector((state) =>
         itemSelector.selectById(state, props.id)
     );
@@ -67,8 +67,6 @@ ItemForm.propTypes = {
     dispatcher: PropTypes.func.isRequired,
     actionButtons: PropTypes.arrayOf(PropTypes.element),
 };
-
-export default ItemForm;
 
 export const AddItemForm = () => {
     const dispatch = useDispatch();
