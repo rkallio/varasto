@@ -4,8 +4,11 @@ import * as Transients from './transient-components.jsx';
 import * as Forms from '../components/form-components.jsx';
 import { create } from './transient.redux.js';
 import useTransientForm from './use-transient-form.js';
+import { actions as modalActions } from '../modal/modal.redux.js';
 
-export default TransientForm = (props) => {
+export const TransientForm = (props) => {
+    const { actionButtons, ...rest } = props;
+
     const dispatch = useDispatch();
     const dispatcher = (values) => dispatch(create(values));
 
@@ -27,9 +30,31 @@ export default TransientForm = (props) => {
             />
             <Forms.FieldContainer>
                 <Forms.ButtonGroup>
-                    <Forms.Button type="submit">Submit</Forms.Button>
+                    <Forms.Button key="submit" type="submit">
+                        Submit
+                    </Forms.Button>
+                    {actionButtons ? actionButtons : null}
                 </Forms.ButtonGroup>
             </Forms.FieldContainer>
         </form>
+    );
+};
+
+export default AddTransientFormModal = (props) => {
+    const dispatch = useDispatch();
+    const close = () => dispatch(modalActions.closeModal());
+
+    return (
+        <TransientForm
+            actionButtons={[
+                <Forms.Button
+                    key="close"
+                    type="button"
+                    onClick={close}
+                >
+                    Close
+                </Forms.Button>,
+            ]}
+        />
     );
 };
