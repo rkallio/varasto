@@ -7,7 +7,7 @@ import { modalSelector } from './modal.redux.js';
 
 import { AddItemForm, EditItemForm } from '../items/item-form.jsx';
 import AddTransientForm from '../transients/transient-form.jsx';
-import FormPicker from '../components/form-picker.jsx';
+import FormPicker from './form-picker.jsx';
 
 ReactModal.setAppElement('#root');
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import * as Forms from './form-components.jsx';
+import * as Forms from '../components/form-components.jsx';
 import { useDispatch } from 'react-redux';
-import { actions as modal } from '../modal/modal.redux.js';
+import { actions as modal } from './modal.redux.js';
 
 export default FormPicker = (props) => {
     const dispatch = useDispatch();
