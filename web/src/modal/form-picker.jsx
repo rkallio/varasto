@@ -2,6 +2,7 @@ import React from 'react';
 import * as Forms from '../components/form-components.jsx';
 import { useDispatch } from 'react-redux';
 import { actions as modal } from './modal.redux.js';
+import CloseModalButton from './close-modal-button.jsx';
 
 export default FormPicker = (props) => {
     const dispatch = useDispatch();
@@ -20,6 +21,7 @@ export default FormPicker = (props) => {
                 >
                     Add Transient Item
                 </Forms.Button>
+                <CloseModalButton />
             </Forms.ButtonGroup>
         </Forms.FieldContainer>
     );

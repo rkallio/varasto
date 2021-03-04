@@ -6,7 +6,6 @@ import {
     deleteItem,
     itemSelector,
 } from './item.redux.js';
-import { actions } from '../modal/modal.redux.js';
 import { Button } from '../components/form-components.jsx';
 import PropTypes from 'prop-types';
 import If from '../components/if.jsx';
@@ -75,17 +74,7 @@ export const AddItemForm = () => {
     return (
         <ItemForm
             dispatcher={dispatcher}
-            actionButtons={[
-                <Button
-                    key="close"
-                    type="button"
-                    onClick={() => {
-                        dispatch(actions.closeModal());
-                    }}
-                >
-                    Close
-                </Button>,
-            ]}
+            actionButtons={[<CloseModalButton key="close-modal" />]}
         />
     );
 };
@@ -117,15 +106,7 @@ export const EditItemForm = ({ id }) => {
                 >
                     Delete
                 </Button>,
-                <Button
-                    key="close"
-                    type="button"
-                    onClick={() => {
-                        dispatch(actions.closeModal());
-                    }}
-                >
-                    Close
-                </Button>,
+                <CloseModalButton key="close-modal" />,
             ]}
         />
     );
