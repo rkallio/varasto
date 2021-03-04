@@ -13,7 +13,7 @@ export default FormPicker = (props) => {
                     type="button"
                     onClick={() => dispatch(modal.addItem())}
                 >
-                    Add Permanen Item
+                    Add Permanent Item
                 </Forms.Button>
                 <Forms.Button
                     type="button"
