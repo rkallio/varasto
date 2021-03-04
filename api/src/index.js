@@ -15,6 +15,8 @@ import routes from './routes/init.route.js';
 
 import './socketns.js';
 
+import job from './jobs/remove-outdated-transients.js';
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(routes);

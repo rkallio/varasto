@@ -39,6 +39,16 @@ const argv = yargs(hideBin(process.argv))
         describe: 'secret used to sign json web tokens',
         type: 'string',
     })
+    .option('cron-schedule', {
+        demandOption: true,
+        describe: 'cron schedule for running jobs',
+        type: 'string',
+    })
+    .option('transient-lifetime', {
+        demandOption: true,
+        describe: 'Minimum lifetime of unmodified transient items',
+        type: 'number',
+    })
     .help().argv;
 
 export default argv;

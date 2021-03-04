@@ -13,4 +13,6 @@ ENTRYPOINT ["node", "src", \
         "--db-logging", "false", \
         "--salt-rounds", "10", \
         "--host", "localhost", \
-        "--port", "8080"]
+        "--port", "8080", \
+        "--cron-schedule", "0 0 * * *", \
+        "--transient-lifetime", "24"]
