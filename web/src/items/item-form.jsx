@@ -35,6 +35,10 @@ export default ItemForm = (props) => {
                 onChange={handleChange}
                 required
             />
+            <Items.MeasureInput
+                value={values.measure}
+                onChange={handleChange}
+            />
             <Items.CurrentQuantityInput
                 value={values.currentQuantity}
                 onChange={handleChange}
@@ -47,10 +51,6 @@ export default ItemForm = (props) => {
                     required
                 />
             </If>
-            <Items.MeasureInput
-                value={values.measure}
-                onChange={handleChange}
-            />
             <Forms.FieldContainer>
                 <Forms.ButtonGroup>
                     <Forms.Button type="submit">Submit</Forms.Button>
