@@ -18,24 +18,29 @@ const closeModal = (_state, _action) => {
     return initialState;
 };
 
+export const FORM_PICKER = 'FORM-PICKER';
+export const CREATE_TRANSIENT = 'CREATE-TRANSIENT';
+export const CREATE_ITEM = 'CREATE-ITEM';
+export const EDIT_ITEM = 'EDIT-ITEM';
+
 const modalSlice = createSlice({
     name: 'modal',
     initialState,
     reducers: {
         formPicker(state, _action) {
-            state.type = 'form-picker';
+            state.type = FORM_PICKER;
             state.props = {};
         },
         addTransient(state, _action) {
-            state.type = 'create-transient';
+            state.type = CREATE_TRANSIENT;
             state.props = {};
         },
         addItem(state, _action) {
-            state.type = 'create-item';
+            state.type = CREATE_ITEM;
             state.props = {};
         },
         editItem(state, action) {
-            state.type = 'edit-item';
+            state.type = EDIT_ITEM;
             state.props = { id: action.payload };
         },
         closeModal,
@@ -47,7 +52,7 @@ const modalSlice = createSlice({
         [createTransient.fulfilled]: closeModal,
         [itemActions.removeOne]: (state, action) => {
             if (
-                state.type === 'edit-item' &&
+                state.type === EDIT_ITEM &&
                 state.props.id === action.payload
             ) {
                 return initialState;

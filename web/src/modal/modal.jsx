@@ -3,7 +3,7 @@ import ReactModal from 'react-modal';
 
 import Container from '../components/container.jsx';
 import { useSelector } from 'react-redux';
-import { modalSelector } from './modal.redux.js';
+import * as modal from './modal.redux.js';
 
 import { AddItemForm, EditItemForm } from '../items/item-form.jsx';
 import AddTransientForm from '../transients/transient-form.jsx';
@@ -12,14 +12,14 @@ import FormPicker from './form-picker.jsx';
 ReactModal.setAppElement('#root');
 
 const ModalSelector = () => {
-    const state = useSelector(modalSelector);
-    if (state.type === 'create-item') {
+    const state = useSelector(modal.modalSelector);
+    if (state.type === modal.CREATE_ITEM) {
         return <AddItemForm />;
-    } else if (state.type === 'create-transient') {
+    } else if (state.type === modal.CREATE_TRANSIENT) {
         return <AddTransientForm />;
-    } else if (state.type === 'edit-item') {
+    } else if (state.type === modal.EDIT_ITEM) {
         return <EditItemForm id={state.props.id} />;
-    } else if (state.type === 'form-picker') {
+    } else if (state.type === modal.FORM_PICKER) {
         return <FormPicker />;
     } else {
         return null;
@@ -27,7 +27,7 @@ const ModalSelector = () => {
 };
 
 const Modal = () => {
-    const state = useSelector(modalSelector);
+    const state = useSelector(modal.modalSelector);
     const parentSelector = () => {
         return document.querySelector('#root');
     };
