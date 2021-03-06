@@ -3,20 +3,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     toggleCompleted,
     findAll,
-    create,
     selector as transientSelector,
 } from './transient.redux.js';
 import * as css from './transient-components.module.css';
 import Card from '../components/card.jsx';
-import * as Items from '../items/item-components.jsx';
-import { actions } from '../modal/modal.redux.js';
 import {
     LabeledInput,
     LabeledCheckbox,
 } from '../components/form-components.jsx';
 import GroupList from '../components/grouplist.jsx';
 
-export default TransientList = (props) => {
+const TransientList = () => {
     const dispatch = useDispatch();
     const total = useSelector(transientSelector.selectTotal);
     const transients = useSelector((state) => {
@@ -39,11 +36,7 @@ export default TransientList = (props) => {
     );
 };
 
-const Transients = (props) => {
-    return props.ids
-        .map((id) => <Transient id={id} key={id} />)
-        .concat([<AddTransient />]);
-};
+export default TransientList;
 
 const Transient = ({ id }) => {
     const tsient = useSelector((state) =>
@@ -74,35 +67,6 @@ const Transient = ({ id }) => {
             </div>
         );
     }
-};
-
-export const TransientCreator = (props) => {
-    const dispatch = useDispatch();
-    const dispatcher = (values) => dispatch(create(values));
-
-    return (
-        <form>
-            <NameInput />
-            <CompletedInput />
-        </form>
-    );
-};
-
-const AddTransient = (props) => {
-    const dispatch = useDispatch();
-
-    return (
-        <div
-            className={itemcss.item}
-            onClick={() => dispatch(actions.addTransient())}
-        >
-            <Card>
-                <div className={itemcss.innerItem}>
-                    <Items.Property>+</Items.Property>
-                </div>
-            </Card>
-        </div>
-    );
 };
 
 export const NameInput = (props) => {

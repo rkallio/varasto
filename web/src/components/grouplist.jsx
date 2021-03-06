@@ -1,8 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import * as css from './grouplist.module.css';
 
-export default GroupList = (props) => {
-    const { render, data, ...rest } = props;
+const GroupList = (props) => {
+    const { render, data } = props;
     const mapfn = ([category, items]) => (
         <Group
             key={category}
@@ -15,8 +17,15 @@ export default GroupList = (props) => {
     return <div className={css.groupList}>{data.map(mapfn)}</div>;
 };
 
+GroupList.propTypes = {
+    render: PropTypes.func.isRequired,
+    data: PropTypes.arrayOf(PropTypes.array).isRequired,
+};
+
+export default GroupList;
+
 const Group = (props) => {
-    const { render, data, header, ...rest } = props;
+    const { render, data, header } = props;
 
     return (
         <div className={css.group}>
@@ -25,6 +34,12 @@ const Group = (props) => {
             <Separator />
         </div>
     );
+};
+
+Group.propTypes = {
+    render: PropTypes.func.isRequired,
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    header: PropTypes.string.isRequired,
 };
 
 const Header = (props) => {
@@ -36,11 +51,19 @@ const Header = (props) => {
     );
 };
 
-const Separator = (props) => {
+Header.propTypes = {
+    children: PropTypes.string.isRequired,
+};
+
+const Separator = () => {
     return <hr className={css.separator} />;
 };
 
 const Body = (props) => {
-    const { children, ...rest } = props;
+    const { children } = props;
     return <div className={css.body}>{children}</div>;
+};
+
+Body.propTypes = {
+    children: PropTypes.arrayOf(PropTypes.node).isRequired,
 };

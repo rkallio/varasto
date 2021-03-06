@@ -1,4 +1,5 @@
-import React, { forwardRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
     LabeledInput,
     LabeledSelect,
@@ -12,7 +13,7 @@ import { actions } from '../modal/modal.redux.js';
 import Card from '../components/card.jsx';
 import GroupList from '../components/grouplist.jsx';
 
-export default ItemList = (props) => {
+const ItemList = () => {
     const dispatch = useDispatch();
     const categories = useSelector((state) => {
         const items = itemSelector.selectAll(state);
@@ -38,8 +39,10 @@ export default ItemList = (props) => {
     );
 };
 
+export default ItemList;
+
 const Item = (props) => {
-    const { id, ...rest } = props;
+    const { id } = props;
     const item = useSelector((state) =>
         itemSelector.selectById(state, id)
     );
@@ -52,7 +55,7 @@ const Item = (props) => {
         >
             <Card>
                 <div className={css.innerItem}>
-                    <TaggedName value={item.name} />
+                    <TaggedName>{item.name}</TaggedName>
                     <TaggedQuantity
                         current={item.currentQuantity}
                         target={item.targetQuantity}
@@ -64,140 +67,204 @@ const Item = (props) => {
     );
 };
 
-export const TaggedName = (props) => {
+Item.propTypes = {
+    id: PropTypes.number.isRequired,
+};
+
+export const TaggedName = ({ children }) => {
     return (
         <Property>
             <PropertyName>Name</PropertyName>
             <Space />
-            <Name>{props.value}</Name>
+            <Name>{children}</Name>
         </Property>
     );
 };
 
-export const Property = (props) => {
-    return <div className={css.property}>{props.children}</div>;
+TaggedName.propTypes = {
+    children: PropTypes.string.isRequired,
 };
 
-const PropertyName = (props) => {
-    return <div className={css.propertyName}>{props.children}</div>;
+export const Property = ({ children }) => {
+    return <div className={css.property}>{children}</div>;
 };
 
-const Space = (props) => {
+Property.propTypes = {
+    children: PropTypes.node.isRequired,
+};
+
+const PropertyName = ({ children }) => {
+    return <div className={css.propertyName}>{children}</div>;
+};
+
+PropertyName.propTypes = {
+    children: PropTypes.string.isRequired,
+};
+
+const Space = () => {
     return <span>&nbsp;</span>;
 };
 
-export const Name = (props) => {
-    return <PropertyValue>{props.children}</PropertyValue>;
+export const Name = ({ children }) => {
+    return <PropertyValue>{children}</PropertyValue>;
 };
 
-const PropertyValue = (props) => {
-    return <div className={css.propertyValue}>{props.children}</div>;
+Name.propTypes = {
+    children: PropTypes.string.isRequired,
 };
 
-export const TaggedLocation = (props) => {
+const PropertyValue = ({ children }) => {
+    return <div className={css.propertyValue}>{children}</div>;
+};
+
+PropertyValue.propTypes = {
+    children: PropTypes.node.isRequired,
+};
+
+export const TaggedLocation = ({ children }) => {
     return (
         <Property>
             <PropertyName>Location</PropertyName>
             <Space />
-            <Location>{props.children}</Location>
+            <Location>{children}</Location>
         </Property>
     );
 };
 
-export const Location = (props) => {
-    return <PropertyValue>{props.children}></PropertyValue>;
+TaggedLocation.propTypes = {
+    children: PropTypes.string.isRequired,
 };
 
-export const TaggedQuantity = (props) => {
+export const Location = ({ children }) => {
+    return <PropertyValue>{children}</PropertyValue>;
+};
+
+Location.propTypes = {
+    children: PropTypes.string.isRequired,
+};
+
+export const TaggedQuantity = ({ current, target, measure }) => {
     return (
         <Property>
             <PropertyName>Quantity</PropertyName>
             <Space />
             <Quantity
-                current={props.current}
-                target={props.target}
-                measure={props.measure}
+                current={current}
+                target={target}
+                measure={measure}
             />
         </Property>
     );
 };
 
-const Quantity = (props) => {
+TaggedQuantity.propTypes = {
+    current: PropTypes.number.isRequired,
+    target: PropTypes.number.isRequired,
+    measure: PropTypes.string.isRequired,
+};
+
+const Quantity = ({ current, target, measure }) => {
     return (
         <PropertyValue>
             <CurrentQuantity
-                value={props.current}
-                target={props.target}
-                measure={props.measure}
+                value={current}
+                target={target}
+                measure={measure}
             />
             <QuantitySeparator />
-            <TargetQuantity
-                value={props.target}
-                measure={props.measure}
-            />
+            <TargetQuantity value={target} measure={measure} />
         </PropertyValue>
     );
 };
 
-export const CurrentQuantity = (props) => {
+Quantity.propTypes = {
+    current: PropTypes.number.isRequired,
+    target: PropTypes.number.isRequired,
+    measure: PropTypes.string.isRequired,
+};
+
+export const CurrentQuantity = ({ value, target, measure }) => {
     const color = `hsl(${Math.min(
         180,
-        (props.value / props.target) * 120
+        (value / target) * 120
     )}, 50%, 50%)`;
 
     return (
         <span className={css.currentQuantity} style={{ color }}>
-            {mapQuantityToString(props.value, props.measure)}
+            {mapQuantityToString(value, measure)}
         </span>
     );
 };
 
-export const QuantitySeparator = (props) => {
+CurrentQuantity.propTypes = {
+    value: PropTypes.number.isRequired,
+    target: PropTypes.number.isRequired,
+    measure: PropTypes.string.isRequired,
+};
+
+export const QuantitySeparator = () => {
     return <span className={css.quantitySeparator}>/</span>;
 };
 
-export const TargetQuantity = (props) => {
+export const TargetQuantity = ({ value, measure }) => {
     return (
         <span className={css.targetQuantity}>
-            {mapQuantityToString(props.value, props.measure)}
+            {mapQuantityToString(value, measure)}
         </span>
     );
 };
 
-export const TaggedLastModified = (props) => {
+TargetQuantity.propTypes = {
+    value: PropTypes.number.isRequired,
+    measure: PropTypes.string.isRequired,
+};
+
+export const TaggedLastModified = ({ time }) => {
     return (
         <Property>
             <PropertyName>Last Modified</PropertyName>
             <Space />
-            <LastModified time={props.time} />
+            <LastModified time={time} />
         </Property>
     );
 };
 
-export const LastModified = (props) => {
+TaggedLastModified.propTypes = {
+    time: PropTypes.string.isRequired,
+};
+
+export const LastModified = ({ time }) => {
     return (
         <PropertyValue>
-            <Relatime time={props.time} />
+            <Relatime time={time} />
         </PropertyValue>
     );
 };
 
-export const Relatime = (props) => {
+LastModified.propTypes = {
+    time: PropTypes.string.isRequired,
+};
+
+export const Relatime = ({ time }) => {
     const [formattedTime, setFormattedTime] = useState(
-        timeSince(props.time)
+        timeSince(time)
     );
 
     useEffect(() => {
-        setFormattedTime(timeSince(props.time));
+        setFormattedTime(timeSince(time));
         const timer = setInterval(() => {
-            setFormattedTime(timeSince(props.time));
+            setFormattedTime(timeSince(time));
         }, 2500);
         return () => {
             return clearInterval(timer);
         };
-    }, [props.time]);
+    }, [time]);
 
-    return <time dateTime={props.time}>{formattedTime}</time>;
+    return <time dateTime={time}>{formattedTime}</time>;
+};
+
+Relatime.propTypes = {
+    time: PropTypes.string.isRequired,
 };
 
 const timeSince = (time) => {
@@ -207,35 +274,32 @@ const timeSince = (time) => {
     });
 };
 
-export const NameInput = forwardRef((props, ref) => {
+export const NameInput = (props) => {
     return (
         <LabeledInput
             name="name"
-            ref={ref}
             label="Name"
             placeholder="Milk"
             {...props}
         />
     );
-});
+};
 
-export const LocationInput = forwardRef((props, ref) => {
+export const LocationInput = (props) => {
     return (
         <LabeledInput
             name="location"
-            ref={ref}
             label="Location"
             placeholder="Fridge"
             {...props}
         />
     );
-});
+};
 
-export const CurrentQuantityInput = forwardRef((props, ref) => {
+export const CurrentQuantityInput = (props) => {
     return (
         <LabeledInput
             name="currentQuantity"
-            ref={ref}
             label="Current Quantity"
             type="number"
             min="0"
@@ -243,13 +307,12 @@ export const CurrentQuantityInput = forwardRef((props, ref) => {
             {...props}
         />
     );
-});
+};
 
-export const TargetQuantityInput = forwardRef((props, ref) => {
+export const TargetQuantityInput = (props) => {
     return (
         <LabeledInput
             name="targetQuantity"
-            ref={ref}
             label="Target Quantity"
             type="number"
             min="0"
@@ -257,23 +320,18 @@ export const TargetQuantityInput = forwardRef((props, ref) => {
             {...props}
         />
     );
-});
+};
 
-export const MeasureInput = forwardRef((props, ref) => {
+export const MeasureInput = (props) => {
     return (
-        <LabeledSelect
-            name="measure"
-            ref={ref}
-            label="Measure"
-            {...props}
-        >
+        <LabeledSelect name="measure" label="Measure" {...props}>
             <option value="mass">Mass (kg)</option>
             <option value="volume">Volume (litres)</option>
             <option value="pcs">Pieces</option>
             <option value="%">Percentage (%)</option>
         </LabeledSelect>
     );
-});
+};
 
 const mapQuantityToString = (quantity, measure) => {
     switch (measure) {

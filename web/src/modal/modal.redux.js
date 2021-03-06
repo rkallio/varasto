@@ -14,22 +14,23 @@ const initialState = {
     props: {},
 };
 
-const closeModal = (state, action) => {
+const closeModal = (_state, _action) => {
     return initialState;
 };
-export default modalSlice = createSlice({
+
+const modalSlice = createSlice({
     name: 'modal',
     initialState,
     reducers: {
-        formPicker(state, action) {
+        formPicker(state, _action) {
             state.type = 'form-picker';
             state.props = {};
         },
-        addTransient(state, action) {
+        addTransient(state, _action) {
             state.type = 'create-transient';
             state.props = {};
         },
-        addItem(state, action) {
+        addItem(state, _action) {
             state.type = 'create-item';
             state.props = {};
         },
@@ -54,6 +55,8 @@ export default modalSlice = createSlice({
         },
     },
 });
+
+export default modalSlice;
 
 export const modalSelector = (state) => state.modal;
 export const actions = modalSlice.actions;

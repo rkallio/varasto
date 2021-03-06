@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import * as css from './add-button.module.css';
 import { actions } from '../modal/modal.redux.js';
 
-export default (props) => {
+const AddButton = () => {
     const dispatch = useDispatch();
     const onClick = () => dispatch(actions.formPicker());
 
@@ -13,3 +13,5 @@ export default (props) => {
         </button>
     );
 };
+
+export default AddButton;

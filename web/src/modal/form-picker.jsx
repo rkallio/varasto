@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { actions as modal } from './modal.redux.js';
 import CloseModalButton from './close-modal-button.jsx';
 
-export default FormPicker = (props) => {
+const FormPicker = () => {
     const dispatch = useDispatch();
     return (
         <Forms.FieldContainer>
@@ -26,3 +26,5 @@ export default FormPicker = (props) => {
         </Forms.FieldContainer>
     );
 };
+
+export default FormPicker;

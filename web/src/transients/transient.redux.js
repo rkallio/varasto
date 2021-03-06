@@ -72,7 +72,7 @@ export const entityAdapter = createEntityAdapter({
     },
 });
 
-export default slice = createSlice({
+const slice = createSlice({
     name: 'transients',
     initialState: entityAdapter.getInitialState(),
     reducers: {
@@ -88,6 +88,8 @@ export default slice = createSlice({
         [remove.fulfilled]: entityAdapter.removeOne,
     },
 });
+
+export default slice;
 
 export const actions = slice.actions;
 export const selector = entityAdapter.getSelectors(

@@ -12,8 +12,9 @@ import If from '../components/if.jsx';
 import useItemForm from './use-item-form.js';
 import * as Items from './item-components.jsx';
 import * as Forms from '../components/form-components.jsx';
+import CloseModalButton from '../modal/close-modal-button.jsx';
 
-export default ItemForm = (props) => {
+const ItemForm = (props) => {
     const item = useSelector((state) =>
         itemSelector.selectById(state, props.id)
     );
@@ -67,6 +68,8 @@ ItemForm.propTypes = {
     actionButtons: PropTypes.arrayOf(PropTypes.element),
 };
 
+export default ItemForm;
+
 export const AddItemForm = () => {
     const dispatch = useDispatch();
     const dispatcher = (values) => dispatch(postItem(values));
@@ -82,15 +85,9 @@ export const AddItemForm = () => {
 export const EditItemForm = ({ id }) => {
     const dispatch = useDispatch();
 
-    const item = useSelector((state) =>
-        itemSelector.selectById(state, id)
-    );
-
     const dispatcher = (values) => {
         return dispatch(patchItem({ id: id, data: values }));
     };
-
-    const removeItem = () => dispatch(deleteItem(id));
 
     return (
         <ItemForm
@@ -110,4 +107,8 @@ export const EditItemForm = ({ id }) => {
             ]}
         />
     );
+};
+
+EditItemForm.propTypes = {
+    id: PropTypes.number.isRequired,
 };

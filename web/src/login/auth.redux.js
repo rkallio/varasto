@@ -1,9 +1,5 @@
 import * as api from '../api.js';
-import {
-    createSlice,
-    createAsyncThunk,
-    createSelector,
-} from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const loadToken = () => {
     let serialized;
@@ -25,7 +21,7 @@ export const authenticate = createAsyncThunk(
     }
 );
 
-export default authSlice = createSlice({
+const authSlice = createSlice({
     name: 'auth',
     initialState: loadToken(),
     reducers: {},
@@ -33,5 +29,7 @@ export default authSlice = createSlice({
         [authenticate.fulfilled]: (state, action) => action.payload,
     },
 });
+
+export default authSlice;
 
 export const selector = (state) => state.auth;

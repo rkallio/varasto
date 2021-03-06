@@ -5,7 +5,7 @@ import ItemList from '../items/item-components.jsx';
 import TransientList from '../transients/transient-components.jsx';
 import * as css from './item-page.module.css';
 
-export default () => {
+const ItemPage = () => {
     return (
         <Container>
             <div className={css.itemPage}>
@@ -16,3 +16,5 @@ export default () => {
         </Container>
     );
 };
+
+export default ItemPage;

@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Button } from '../components/form-components.jsx';
 import { actions as modalActions } from './modal.redux.js';
 
-export default CloseModalButton = (props) => {
-    const { children, ...rest } = props;
+const CloseModalButton = (props) => {
+    const { children } = props;
     const dispatch = useDispatch();
     const closeModal = () => dispatch(modalActions.closeModal());
     return (
@@ -13,3 +14,9 @@ export default CloseModalButton = (props) => {
         </Button>
     );
 };
+
+CloseModalButton.propTypes = {
+    children: PropTypes.node,
+};
+
+export default CloseModalButton;

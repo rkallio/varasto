@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default useTransientForm = ({ defaults, dispatcher }) => {
+const useTransientForm = ({ defaults, dispatcher }) => {
     const [name, setName] = useState(
         defaults && defaults.name ? defaults.name : ''
     );
@@ -34,3 +34,5 @@ export default useTransientForm = ({ defaults, dispatcher }) => {
 
     return { values, handleChange, onSubmit };
 };
+
+export default useTransientForm;

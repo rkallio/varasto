@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 import { Switch, Route, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ import ItemPage from './pages/item-page.jsx';
 
 import Modal from './modal/modal.jsx';
 
-export default () => {
+const App = () => {
     return (
         <>
             <Switch>
@@ -28,6 +28,8 @@ export default () => {
         </>
     );
 };
+
+export default App;
 
 const RootRedirect = () => {
     const token = useSelector(tokenSelector);
@@ -56,4 +58,8 @@ const ProtectedRoute = (props) => {
     const { children, ...rest } = props;
 
     return <Route {...rest}>{children}</Route>;
+};
+
+ProtectedRoute.propTypes = {
+    children: PropTypes.node.isRequired,
 };

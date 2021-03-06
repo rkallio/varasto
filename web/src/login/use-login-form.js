@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default useLoginForm = ({ defaults, dispatcher }) => {
+const useLoginForm = ({ defaults, dispatcher }) => {
     const [name, setName] = useState(
         defaults && defaults.name ? defaults.name : ''
     );
@@ -27,3 +27,5 @@ export default useLoginForm = ({ defaults, dispatcher }) => {
 
     return { values, handleChange, onSubmit };
 };
+
+export default useLoginForm;

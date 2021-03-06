@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import * as Transients from './transient-components.jsx';
 import * as Forms from '../components/form-components.jsx';
@@ -7,7 +8,7 @@ import useTransientForm from './use-transient-form.js';
 import CloseModalButton from '../modal/close-modal-button.jsx';
 
 export const TransientForm = (props) => {
-    const { actionButtons, ...rest } = props;
+    const { actionButtons } = props;
 
     const dispatch = useDispatch();
     const dispatcher = (values) => dispatch(create(values));
@@ -40,10 +41,16 @@ export const TransientForm = (props) => {
     );
 };
 
-export default AddTransientFormModal = (props) => {
+TransientForm.propTypes = {
+    actionButtons: PropTypes.arrayOf(PropTypes.node),
+};
+
+const AddTransientFormModal = () => {
     return (
         <TransientForm
             actionButtons={[<CloseModalButton key="close-modal" />]}
         />
     );
 };
+
+export default AddTransientFormModal;

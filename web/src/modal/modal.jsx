@@ -26,7 +26,7 @@ const ModalSelector = () => {
     }
 };
 
-export default Modal = () => {
+const Modal = () => {
     const state = useSelector(modalSelector);
     const parentSelector = () => {
         return document.querySelector('#root');
@@ -43,3 +43,5 @@ export default Modal = () => {
         </ReactModal>
     );
 };
+
+export default Modal;

@@ -6,7 +6,7 @@ import { UsernameInput, PasswordInput } from './login-components.jsx';
 import * as Forms from '../components/form-components.jsx';
 import { authenticate } from './auth.redux.js';
 
-export default LoginForm = () => {
+const LoginForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -42,3 +42,5 @@ export default LoginForm = () => {
         </form>
     );
 };
+
+export default LoginForm;

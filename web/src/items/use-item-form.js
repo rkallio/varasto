@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export default useItemForm = ({ defaults, dispatcher }) => {
+const useItemForm = ({ defaults, dispatcher }) => {
     const [name, setName] = useState(
         defaults && defaults.name ? defaults.name : ''
     );
@@ -53,3 +53,5 @@ export default useItemForm = ({ defaults, dispatcher }) => {
 
     return { values, handleChange, onSubmit };
 };
+
+export default useItemForm;
