@@ -15,14 +15,14 @@ describe('model utilities', () => {
       assert.ok(fake.called);
     });
 
-    it('returns created transaction @unit', () => {
+    it('returns created transaction @unit', async () => {
       const trx = {};
-      const fake = sinon.fake.returns(trx);
+      const fake = sinon.fake.resolves(trx);
       const utils = proxyquire('../../src/models/utilities.js', {
         '../sequelize.init.js': { transaction: fake },
       });
 
-      const t = utils.createOrKeepTransaction(undefined);
+      const t = await utils.createOrKeepTransaction(undefined);
       assert.strictEqual(t, trx);
     });
 
