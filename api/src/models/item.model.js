@@ -2,76 +2,83 @@ const Sequelize = require('sequelize');
 const { Model } = Sequelize;
 const sequelize = require('../sequelize.init.js');
 const _ = require('lodash');
+const utils = require('./utilities.js');
 
 class Item extends Model {
     static async strictFindByKey(key, options) {
-        const transaction = _.get(options, 'transaction')
-            ? options.transaction
-            : await sequelize.transaction();
+        const providedTrx = _.get(options, 'transaction');
+        const trx = await utils.createOrKeepTransaction(providedTrx);
 
         try {
             const item = await Item.findByPk(key, {
-                transaction: transaction,
+                transaction: trx,
                 rejectOnEmpty: true,
             });
-            if (transaction !== _.get(options, 'transaction')) {
-                transaction.commit();
-            }
+
+            await utils.commitOrKeepTransaction({
+                provided: providedTrx,
+                used: trx,
+            });
+
             return item;
         } catch (error) {
-            if (transaction !== _.get(options, 'transaction')) {
-                transaction.rollback();
-            }
+            await utils.rollbackOrKeepTransaction({
+                provided: providedTrx,
+                used: trx,
+            });
             throw error;
         }
     }
 
     static async updateByKey(key, data, options) {
-        const transaction = _.get(options, 'transaction')
-            ? options.transaction
-            : await sequelize.transaction();
+        const providedTrx = _.get(options, 'transaction');
+        const trx = await utils.createOrKeepTransaction(providedTrx);
 
         try {
             const item = await Item.strictFindByKey(key, {
-                transaction: transaction,
+                transaction: trx,
             });
 
             const updated = await item.update(data, {
-                transaction: transaction,
+                transaction: trx,
             });
-            if (transaction !== _.get(options, 'transaction')) {
-                transaction.commit();
-            }
+            await utils.commitOrKeepTransaction({
+                provided: providedTrx,
+                used: trx,
+            });
+
             return updated;
         } catch (error) {
-            if (transaction !== _.get(options, 'transaction')) {
-                transaction.rollback();
-            }
+            await utils.rollbackOrKeepTransaction({
+                provided: providedTrx,
+                used: trx,
+            });
             throw error;
         }
     }
 
     static async deleteByKey(key, options) {
-        const transaction = _.get(options, 'transaction')
-            ? options.transaction
-            : await sequelize.transaction();
+        const providedTrx = _.get(options, 'transaction');
+        const trx = await utils.createOrKeepTransaction(providedTrx);
 
         try {
             const item = await Item.strictFindByKey(key, {
-                transaction: transaction,
+                transaction: trx,
             });
 
             const destroyed = await item.destroy({
-                transaction: transaction,
+                transaction: trx,
             });
-            if (transaction !== _.get(options, 'transaction')) {
-                transaction.commit();
-            }
+            await utils.commitOrKeepTransaction({
+                provided: providedTrx,
+                used: trx,
+            });
             return destroyed;
         } catch (error) {
-            if (transaction !== _.get(options, 'transaction')) {
-                transaction.rollback();
-            }
+            await utils.rollbackOrKeepTransaction({
+                provided: providedTrx,
+                used: trx,
+            });
             throw error;
         }
     }

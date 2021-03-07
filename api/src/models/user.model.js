@@ -3,6 +3,7 @@ const sequelize = require('../sequelize.init.js');
 const bcrypt = require('bcrypt');
 const config = require('../config.js');
 const _ = require('lodash');
+const utils = require('./utilities.js');
 
 class User extends Sequelize.Model {
     static async test(name, password, options) {
@@ -37,51 +38,53 @@ class User extends Sequelize.Model {
     }
 
     static async updateByKey(key, data, options) {
-        const transaction = _.get(options, 'transaction')
-            ? options.transaction
-            : await sequelize.transaction();
+        const providedTrx = _.get(options, 'transaction');
+        const trx = await utils.createOrKeepTransaction(providedTrx);
 
         try {
             const user = await User.strictFindByKey(key, {
-                transaction: transaction,
+                transaction: trx,
             });
 
             const updated = await user.update(data, {
-                transaction: transaction,
+                transaction: trx,
             });
-            if (transaction !== _.get(options, 'transaction')) {
-                transaction.commit();
-            }
+            await utils.commitOrKeepTransaction({
+                provided: providedTrx,
+                used: trx,
+            });
             return updated;
         } catch (error) {
-            if (transaction !== _.get(options, 'transaction')) {
-                transaction.rollback();
-            }
+            await utils.rollbackOrKeepTransaction({
+                provided: providedTrx,
+                used: trx,
+            });
             throw error;
         }
     }
 
     static async deleteByKey(key, options) {
-        const transaction = _.get(options, 'transaction')
-            ? options.transaction
-            : await sequelize.transaction();
+        const providedTrx = _.get(options, 'transaction');
+        const trx = await utils.createOrKeepTransaction(providedTrx);
 
         try {
             const user = await User.strictFindByKey(key, {
-                transaction: transaction,
+                transaction: trx,
             });
 
             const destroyed = await user.destroy({
-                transaction: transaction,
+                transaction: trx,
             });
-            if (transaction !== _.get(options, 'transaction')) {
-                transaction.commit();
-            }
+            await utils.commitOrKeepTransaction({
+                provided: providedTrx,
+                used: trx,
+            });
             return destroyed;
         } catch (error) {
-            if (transaction !== _.get(options, 'transaction')) {
-                transaction.rollback();
-            }
+            await utils.rollbackOrKeepTransaction({
+                provided: providedTrx,
+                used: trx,
+            });
             throw error;
         }
     }
