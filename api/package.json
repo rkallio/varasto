@@ -4,7 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "mocha --recursive",
+        "coverage": "nyc --reporter=html --reporter=text npm run test",
         "start:dev": "nodemon",
         "lint": "eslint .",
         "format": "prettier . --write",
@@ -13,10 +14,15 @@
     "author": "Roni Kallio",
     "license": "MIT",
     "devDependencies": {
+        "chai": "^4.3.3",
         "eslint": "^7.18.0",
         "eslint-config-prettier": "^7.2.0",
+        "mocha": "^8.3.1",
         "nodemon": "^2.0.7",
-        "prettier": "^2.2.1"
+        "nyc": "^15.1.0",
+        "prettier": "^2.2.1",
+        "proxyquire": "^2.1.3",
+        "sinon": "^9.2.4"
     },
     "dependencies": {
         "bcrypt": "^5.0.0",
