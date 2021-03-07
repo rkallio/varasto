@@ -10,7 +10,7 @@ const authMiddleware = (socket, next) => {
     const providedAuth = socket.handshake.auth;
     const payload = jwt.verify(providedAuth.token, config.jwtSecret);
     findByKey(payload.id)
-        .then((user) => next())
+        .then(() => next())
         .catch((err) => next(err));
 };
 

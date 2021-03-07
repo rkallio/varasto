@@ -1,6 +1,6 @@
 const config = require('./config.js');
 const express = require('express');
-const { app, server, io } = require('./server.js');
+const { app, server } = require('./server.js');
 
 const Sequelize = require('sequelize');
 const sequelize = require('./sequelize.init.js');
@@ -16,14 +16,14 @@ const routes = require('./routes/init.route.js');
 
 require('./socketns.js');
 
-const job = require('./jobs/remove-outdated-transients.js');
+require('./jobs/remove-outdated-transients.js');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(routes);
 
 // sequelize handlers
-app.use((error, request, response, next) => {
+app.use((error, request, response, _next) => {
     if (error instanceof Sequelize.EmptyResultError) {
         return response.status(404).json({
             error: 'Not Found',
