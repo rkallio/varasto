@@ -6,12 +6,12 @@ const { findByKey } = require('./services/user.service.js');
 const jwt = require('jsonwebtoken');
 
 passport.use(
-    new BearerStrategy((token, done) => {
-        const payload = jwt.verify(token, config.jwtSecret);
-        findByKey(payload.id)
-            .then((user) => done(null, user))
-            .catch((err) => done(err));
-    })
+  new BearerStrategy((token, done) => {
+    const payload = jwt.verify(token, config.jwtSecret);
+    findByKey(payload.id)
+      .then((user) => done(null, user))
+      .catch((err) => done(err));
+  })
 );
 
 module.exports = passport;

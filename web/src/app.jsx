@@ -11,55 +11,55 @@ import ItemPage from './pages/item-page.jsx';
 import Modal from './modal/modal.jsx';
 
 const App = () => {
-    return (
-        <>
-            <Switch>
-                <Route path="/login">
-                    <LoginPage />
-                </Route>
-                <ProtectedRoute path="/items">
-                    <ItemPage />
-                </ProtectedRoute>
-                <Route path="/">
-                    <RootRedirect />
-                </Route>
-            </Switch>
-            <Modal />
-        </>
-    );
+  return (
+    <>
+      <Switch>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+        <ProtectedRoute path="/items">
+          <ItemPage />
+        </ProtectedRoute>
+        <Route path="/">
+          <RootRedirect />
+        </Route>
+      </Switch>
+      <Modal />
+    </>
+  );
 };
 
 export default App;
 
 const RootRedirect = () => {
-    const token = useSelector(tokenSelector);
-    const history = useHistory();
+  const token = useSelector(tokenSelector);
+  const history = useHistory();
 
-    useEffect(() => {
-        if (token) {
-            history.push('/items');
-        } else {
-            history.push('/login');
-        }
-    }, [token]);
+  useEffect(() => {
+    if (token) {
+      history.push('/items');
+    } else {
+      history.push('/login');
+    }
+  }, [token]);
 
-    return null;
+  return null;
 };
 
 const ProtectedRoute = (props) => {
-    const history = useHistory();
-    const token = useSelector(tokenSelector);
-    useEffect(() => {
-        if (!token) {
-            history.push('/login');
-        }
-    }, [token]);
+  const history = useHistory();
+  const token = useSelector(tokenSelector);
+  useEffect(() => {
+    if (!token) {
+      history.push('/login');
+    }
+  }, [token]);
 
-    const { children, ...rest } = props;
+  const { children, ...rest } = props;
 
-    return <Route {...rest}>{children}</Route>;
+  return <Route {...rest}>{children}</Route>;
 };
 
 ProtectedRoute.propTypes = {
-    children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired,
 };

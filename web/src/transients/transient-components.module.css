@@ -1,24 +1,24 @@
 .outerTransient {
-    border-radius: 3px;
-    background: white;
-    cursor: pointer;
-    transition: color 1000ms, background 1000ms;
-    user-select: none;
-    flex-grow: 1;
-    margin: 3px;
+  border-radius: 3px;
+  background: white;
+  cursor: pointer;
+  transition: color 1000ms, background 1000ms;
+  user-select: none;
+  flex-grow: 1;
+  margin: 3px;
 }
 
 .outerTransient:hover {
-    background: black;
-    color: white;
-    transition: color 0ms, background 0ms;
+  background: black;
+  color: white;
+  transition: color 0ms, background 0ms;
 }
 
 .outerTransient:active {
-    background: white;
-    color: black;
+  background: white;
+  color: black;
 }
 
 .innerTransient {
-    margin: auto;
+  margin: auto;
 }

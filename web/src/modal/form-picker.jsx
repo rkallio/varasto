@@ -5,26 +5,26 @@ import { actions as modal } from './modal.redux.js';
 import CloseModalButton from './close-modal-button.jsx';
 
 const FormPicker = () => {
-    const dispatch = useDispatch();
-    return (
-        <Forms.FieldContainer>
-            <Forms.ButtonGroup>
-                <Forms.Button
-                    type="button"
-                    onClick={() => dispatch(modal.addItem())}
-                >
-                    Add Permanent Item
-                </Forms.Button>
-                <Forms.Button
-                    type="button"
-                    onClick={() => dispatch(modal.addTransient())}
-                >
-                    Add Transient Item
-                </Forms.Button>
-                <CloseModalButton />
-            </Forms.ButtonGroup>
-        </Forms.FieldContainer>
-    );
+  const dispatch = useDispatch();
+  return (
+    <Forms.FieldContainer>
+      <Forms.ButtonGroup>
+        <Forms.Button
+          type="button"
+          onClick={() => dispatch(modal.addItem())}
+        >
+          Add Permanent Item
+        </Forms.Button>
+        <Forms.Button
+          type="button"
+          onClick={() => dispatch(modal.addTransient())}
+        >
+          Add Transient Item
+        </Forms.Button>
+        <CloseModalButton />
+      </Forms.ButtonGroup>
+    </Forms.FieldContainer>
+  );
 };
 
 export default FormPicker;

@@ -8,49 +8,49 @@ import useTransientForm from './use-transient-form.js';
 import CloseModalButton from '../modal/close-modal-button.jsx';
 
 export const TransientForm = (props) => {
-    const { actionButtons } = props;
+  const { actionButtons } = props;
 
-    const dispatch = useDispatch();
-    const dispatcher = (values) => dispatch(create(values));
+  const dispatch = useDispatch();
+  const dispatcher = (values) => dispatch(create(values));
 
-    const { values, handleChange, onSubmit } = useTransientForm({
-        defaults: {},
-        dispatcher,
-    });
+  const { values, handleChange, onSubmit } = useTransientForm({
+    defaults: {},
+    dispatcher,
+  });
 
-    return (
-        <form onSubmit={onSubmit}>
-            <Transients.NameInput
-                value={values.name}
-                onChange={handleChange}
-                required
-            />
-            <Transients.CompletedInput
-                value={values.completed}
-                onChange={handleChange}
-            />
-            <Forms.FieldContainer>
-                <Forms.ButtonGroup>
-                    <Forms.Button key="submit" type="submit">
-                        Submit
-                    </Forms.Button>
-                    {actionButtons ? actionButtons : null}
-                </Forms.ButtonGroup>
-            </Forms.FieldContainer>
-        </form>
-    );
+  return (
+    <form onSubmit={onSubmit}>
+      <Transients.NameInput
+        value={values.name}
+        onChange={handleChange}
+        required
+      />
+      <Transients.CompletedInput
+        value={values.completed}
+        onChange={handleChange}
+      />
+      <Forms.FieldContainer>
+        <Forms.ButtonGroup>
+          <Forms.Button key="submit" type="submit">
+            Submit
+          </Forms.Button>
+          {actionButtons ? actionButtons : null}
+        </Forms.ButtonGroup>
+      </Forms.FieldContainer>
+    </form>
+  );
 };
 
 TransientForm.propTypes = {
-    actionButtons: PropTypes.arrayOf(PropTypes.node),
+  actionButtons: PropTypes.arrayOf(PropTypes.node),
 };
 
 const AddTransientFormModal = () => {
-    return (
-        <TransientForm
-            actionButtons={[<CloseModalButton key="close-modal" />]}
-        />
-    );
+  return (
+    <TransientForm
+      actionButtons={[<CloseModalButton key="close-modal" />]}
+    />
+  );
 };
 
 export default AddTransientFormModal;

@@ -5,27 +5,27 @@ const userService = require('../services/user.service.js');
 const router = express.Router();
 
 router.get('/', async (request, response) => {
-    return response.send(await userService.findAll());
+  return response.send(await userService.findAll());
 });
 
 router.get('/:id', async (request, response) => {
-    const id = request.params.id;
-    return response.send(await userService.findByKey(id));
+  const id = request.params.id;
+  return response.send(await userService.findByKey(id));
 });
 
 router.post('/', async (request, response) => {
-    return response.send(await userService.create(request.body));
+  return response.send(await userService.create(request.body));
 });
 
 router.patch('/:id', async (request, response) => {
-    const id = request.params.id;
-    const data = request.body;
-    return response.send(await userService.updateByKey(id, data));
+  const id = request.params.id;
+  const data = request.body;
+  return response.send(await userService.updateByKey(id, data));
 });
 
 router.delete('/:id', async (request, response) => {
-    const id = request.params.id;
-    return response.send(await userService.deleteByKey(id));
+  const id = request.params.id;
+  return response.send(await userService.deleteByKey(id));
 });
 
 module.exports = router;

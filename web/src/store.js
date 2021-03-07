@@ -1,6 +1,6 @@
 import {
-    configureStore,
-    getDefaultMiddleware,
+  configureStore,
+  getDefaultMiddleware,
 } from '@reduxjs/toolkit';
 
 import socketMiddleware from './socket-middleware.js';
@@ -11,11 +11,11 @@ import authSlice from './login/auth.redux.js';
 import modalSlice from './modal/modal.redux.js';
 
 export default configureStore({
-    reducer: {
-        items: itemSlice.reducer,
-        transients: transientSlice.reducer,
-        auth: authSlice.reducer,
-        modal: modalSlice.reducer,
-    },
-    middleware: [...getDefaultMiddleware(), socketMiddleware()],
+  reducer: {
+    items: itemSlice.reducer,
+    transients: transientSlice.reducer,
+    auth: authSlice.reducer,
+    modal: modalSlice.reducer,
+  },
+  middleware: [...getDefaultMiddleware(), socketMiddleware()],
 });

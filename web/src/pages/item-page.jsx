@@ -6,15 +6,15 @@ import TransientList from '../transients/transient-components.jsx';
 import * as css from './item-page.module.css';
 
 const ItemPage = () => {
-    return (
-        <Container>
-            <div className={css.itemPage}>
-                <ItemList />
-                <TransientList />
-            </div>
-            <AddButton />
-        </Container>
-    );
+  return (
+    <Container>
+      <div className={css.itemPage}>
+        <ItemList />
+        <TransientList />
+      </div>
+      <AddButton />
+    </Container>
+  );
 };
 
 export default ItemPage;

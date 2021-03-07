@@ -1,37 +1,37 @@
 {
-    "name": "web",
-    "version": "0.0.0",
-    "description": "",
-    "browser": "dist/index.html",
-    "scripts": {
-        "serve": "rm -rf .parcel-cache && parcel serve --port 8080 src/index.html",
-        "build": "rm -rf .parchel-cache dist && parcel build src/index.html --public-url . --no-source-maps",
-        "lint": "eslint . --ext .js --ext .jsx",
-        "format": "prettier . --write",
-        "format:check": "prettier . --check"
-    },
-    "author": "Roni Kallio",
-    "license": "MIT",
-    "devDependencies": {
-        "eslint": "^7.19.0",
-        "eslint-config-prettier": "^7.2.0",
-        "eslint-plugin-react": "^7.22.0",
-        "parcel": "^2.0.0-beta.1",
-        "postcss": "^8.2.5",
-        "postcss-modules": "^4.0.0",
-        "prettier": "^2.2.1"
-    },
-    "dependencies": {
-        "@reduxjs/toolkit": "^1.5.0",
-        "axios": "^0.21.1",
-        "date-fns": "^2.16.1",
-        "mathjs": "^9.2.0",
-        "react": "^17.0.1",
-        "react-dom": "^17.0.1",
-        "react-hook-form": "^6.15.1",
-        "react-modal": "^3.12.1",
-        "react-redux": "^7.2.2",
-        "react-router-dom": "^5.2.0",
-        "socket.io-client": "^3.1.1"
-    }
+  "name": "web",
+  "version": "0.0.0",
+  "description": "",
+  "browser": "dist/index.html",
+  "scripts": {
+    "serve": "rm -rf .parcel-cache && parcel serve --port 8080 src/index.html",
+    "build": "rm -rf .parchel-cache dist && parcel build src/index.html --public-url . --no-source-maps",
+    "lint": "eslint . --ext .js --ext .jsx",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
+  "author": "Roni Kallio",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.19.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-react": "^7.22.0",
+    "parcel": "^2.0.0-beta.1",
+    "postcss": "^8.2.5",
+    "postcss-modules": "^4.0.0",
+    "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.5.0",
+    "axios": "^0.21.1",
+    "date-fns": "^2.16.1",
+    "mathjs": "^9.2.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-hook-form": "^6.15.1",
+    "react-modal": "^3.12.1",
+    "react-redux": "^7.2.2",
+    "react-router-dom": "^5.2.0",
+    "socket.io-client": "^3.1.1"
+  }
 }

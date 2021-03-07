@@ -7,11 +7,11 @@ exports.itemns = io.of('/items');
 exports.transientns = io.of('/transients');
 
 const authMiddleware = (socket, next) => {
-    const providedAuth = socket.handshake.auth;
-    const payload = jwt.verify(providedAuth.token, config.jwtSecret);
-    findByKey(payload.id)
-        .then(() => next())
-        .catch((err) => next(err));
+  const providedAuth = socket.handshake.auth;
+  const payload = jwt.verify(providedAuth.token, config.jwtSecret);
+  findByKey(payload.id)
+    .then(() => next())
+    .catch((err) => next(err));
 };
 
 exports.itemns.use(authMiddleware);
