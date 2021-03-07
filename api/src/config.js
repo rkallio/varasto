@@ -1,5 +1,5 @@
-import yargs from 'yargs';
-import { hideBin } from 'yargs/helpers';
+const yargs = require('yargs');
+const { hideBin } = require('yargs/helpers');
 
 const argv = yargs(hideBin(process.argv))
     .env('INVENTORY_SERVER_')
@@ -51,4 +51,4 @@ const argv = yargs(hideBin(process.argv))
     })
     .help().argv;
 
-export default argv;
+module.exports = argv;

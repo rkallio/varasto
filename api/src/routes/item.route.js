@@ -1,6 +1,6 @@
-import express from 'express';
-import * as itemService from '../services/item.service.js';
-import passport from '../passport.js';
+const express = require('express');
+const itemService = require('../services/item.service.js');
+const passport = require('../passport.js');
 
 const router = express.Router();
 
@@ -30,4 +30,4 @@ router.delete('/:id', async (request, response) => {
     return response.send(await itemService.deleteByKey(id));
 });
 
-export default router;
+module.exports = router;

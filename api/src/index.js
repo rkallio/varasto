@@ -1,21 +1,22 @@
-import config from './config.js';
-import express from 'express';
-import { app, server, io } from './server.js';
+const config = require('./config.js');
+const express = require('express');
+const { app, server, io } = require('./server.js');
 
-import Sequelize from 'sequelize';
-import sequelize from './sequelize.init.js';
-import './models/init.model.js';
-await sequelize.sync();
+const Sequelize = require('sequelize');
+const sequelize = require('./sequelize.init.js');
+require('./models/init.model.js');
 
-import './services/init.service.js';
+const dbSync = sequelize.sync();
 
-import passport from './passport.js';
+require('./services/init.service.js');
 
-import routes from './routes/init.route.js';
+require('./passport.js');
 
-import './socketns.js';
+const routes = require('./routes/init.route.js');
 
-import job from './jobs/remove-outdated-transients.js';
+require('./socketns.js');
+
+const job = require('./jobs/remove-outdated-transients.js');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -68,4 +69,6 @@ app.use((request, response) => {
     });
 });
 
-server.listen(config.port, config.host);
+dbSync.then(() => {
+    server.listen(config.port, config.host);
+});

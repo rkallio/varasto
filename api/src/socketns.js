@@ -1,10 +1,10 @@
-import { io } from './server.js';
-import jwt from 'jsonwebtoken';
-import { findByKey } from './services/user.service.js';
-import config from './config.js';
+const { io } = require('./server.js');
+const jwt = require('jsonwebtoken');
+const { findByKey } = require('./services/user.service.js');
+const config = require('./config.js');
 
-export const itemns = io.of('/items');
-export const transientns = io.of('/transients');
+exports.itemns = io.of('/items');
+exports.transientns = io.of('/transients');
 
 const authMiddleware = (socket, next) => {
     const providedAuth = socket.handshake.auth;
@@ -14,5 +14,5 @@ const authMiddleware = (socket, next) => {
         .catch((err) => next(err));
 };
 
-itemns.use(authMiddleware);
-itemns.use(authMiddleware);
+exports.itemns.use(authMiddleware);
+exports.itemns.use(authMiddleware);

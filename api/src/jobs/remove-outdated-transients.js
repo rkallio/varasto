@@ -1,11 +1,16 @@
-import schedule from 'node-schedule';
-import { deleteOlderThan } from '../services/transient.service.js';
-import config from '../config.js';
-import { subHours } from 'date-fns';
+const schedule = require('node-schedule');
+const {
+    deleteOlderThan,
+} = require('../services/transient.service.js');
+const config = require('../config.js');
+const { subHours } = require('date-fns');
 
-export default schedule.scheduleJob(config.cronSchedule, async () => {
-    const result = await deleteOlderThan(
-        subHours(new Date(), config.transientLifetime)
-    );
-    return result;
-});
+module.exports = schedule.scheduleJob(
+    config.cronSchedule,
+    async () => {
+        const result = await deleteOlderThan(
+            subHours(new Date(), config.transientLifetime)
+        );
+        return result;
+    }
+);

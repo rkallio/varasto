@@ -1,9 +1,9 @@
-import sequelize from '../sequelize.init.js';
-import config from '../config.js';
+const sequelize = require('../sequelize.init.js');
+const config = require('../config.js');
 const { User } = sequelize.models;
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
-export const tryAuthenticate = async (username, password) => {
+exports.tryAuthenticate = async (username, password) => {
     const { ok, user } = await User.test(username, password);
 
     if (ok) {

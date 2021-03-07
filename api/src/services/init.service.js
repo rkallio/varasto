@@ -1,3 +1,4 @@
-import './item.service.js';
-import './auth.service.js';
-import './user.service.js';
+require('./item.service.js');
+require('./transient.service.js');
+require('./auth.service.js');
+require('./user.service.js');

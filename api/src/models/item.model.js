@@ -1,7 +1,7 @@
-import Sequelize from 'sequelize';
+const Sequelize = require('sequelize');
 const { Model } = Sequelize;
-import sequelize from '../sequelize.init.js';
-import _ from 'lodash';
+const sequelize = require('../sequelize.init.js');
+const _ = require('lodash');
 
 class Item extends Model {
     static async strictFindByKey(key, options) {
@@ -136,4 +136,4 @@ Item.init(
     }
 );
 
-export default Item;
+module.exports = Item;

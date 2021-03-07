@@ -1,6 +1,6 @@
-import express from 'express';
+const express = require('express');
 
-import { tryAuthenticate } from '../services/auth.service.js';
+const { tryAuthenticate } = require('../services/auth.service.js');
 
 const router = express.Router();
 
@@ -19,4 +19,4 @@ router.post('/', async (request, response) => {
     }
 });
 
-export default router;
+module.exports = router;

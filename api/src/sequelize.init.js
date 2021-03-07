@@ -1,5 +1,5 @@
-import Sequelize from 'sequelize';
-import config from './config.js';
+const Sequelize = require('sequelize');
+const config = require('./config.js');
 
 const sequelize = new Sequelize({
     dialect: config.dbDialect,
@@ -7,4 +7,4 @@ const sequelize = new Sequelize({
     logging: config.dbLogging,
 });
 
-export default sequelize;
+module.exports = sequelize;

@@ -1,6 +1,6 @@
-import express from 'express';
+const express = require('express');
 
-import * as userService from '../services/user.service.js';
+const userService = require('../services/user.service.js');
 
 const router = express.Router();
 
@@ -28,4 +28,4 @@ router.delete('/:id', async (request, response) => {
     return response.send(await userService.deleteByKey(id));
 });
 
-export default router;
+module.exports = router;

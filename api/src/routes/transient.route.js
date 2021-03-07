@@ -1,6 +1,6 @@
-import express from 'express';
-import * as service from '../services/transient.service.js';
-import passport from '../passport.js';
+const express = require('express');
+const service = require('../services/transient.service.js');
+const passport = require('../passport.js');
 
 const router = express.Router();
 
@@ -30,4 +30,4 @@ router.delete('/:id', async (request, response) => {
     return response.send(await service.deleteByKey(id));
 });
 
-export default router;
+module.exports = router;

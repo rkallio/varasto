@@ -1,7 +1,7 @@
-import Sequelize from 'sequelize';
+const Sequelize = require('sequelize');
 const { Model, Op } = Sequelize;
-import sequelize from '../sequelize.init.js';
-import _ from 'lodash';
+const sequelize = require('../sequelize.init.js');
+const _ = require('lodash');
 
 class Transient extends Model {
     static async strictFindByKey(key, options) {
@@ -144,4 +144,4 @@ Transient.init(
     }
 );
 
-export default Transient;
+module.exports = Transient;

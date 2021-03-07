@@ -1,28 +1,28 @@
-import sequelize from '../sequelize.init.js';
+const sequelize = require('../sequelize.init.js');
 const { Item } = sequelize.models;
-import { itemns } from '../socketns.js';
+const { itemns } = require('../socketns.js');
 
-export const findAll = () => {
+exports.findAll = () => {
     return Item.findAll();
 };
 
-export const findByKey = (key) => {
+exports.findByKey = (key) => {
     return Item.strictFindByKey(key);
 };
 
-export const create = async (data) => {
+exports.create = async (data) => {
     const result = await Item.create(data);
     itemns.emit('post', result);
     return result;
 };
 
-export const updateByKey = async (key, data) => {
+exports.updateByKey = async (key, data) => {
     const result = await Item.updateByKey(key, data);
     itemns.emit('patch', result);
     return result;
 };
 
-export const deleteByKey = async (key) => {
+exports.deleteByKey = async (key) => {
     const result = await Item.deleteByKey(key);
     itemns.emit('delete', result);
     return result;

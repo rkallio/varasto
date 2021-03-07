@@ -1,8 +1,8 @@
-import Sequelize from 'sequelize';
-import sequelize from '../sequelize.init.js';
-import bcrypt from 'bcrypt';
-import config from '../config.js';
-import _ from 'lodash';
+const Sequelize = require('sequelize');
+const sequelize = require('../sequelize.init.js');
+const bcrypt = require('bcrypt');
+const config = require('../config.js');
+const _ = require('lodash');
 
 class User extends Sequelize.Model {
     static async test(name, password, options) {
@@ -117,3 +117,5 @@ User.init(
         modelName: 'User',
     }
 );
+
+module.exports = User;

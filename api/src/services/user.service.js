@@ -1,22 +1,22 @@
-import sequelize from '../sequelize.init.js';
+const sequelize = require('../sequelize.init.js');
 const { User } = sequelize.models;
 
-export const findAll = () => {
+exports.findAll = () => {
     return User.findAll();
 };
 
-export const findByKey = (key) => {
+exports.findByKey = (key) => {
     return User.strictFindByKey(key);
 };
 
-export const create = (data) => {
+exports.create = (data) => {
     return User.create(data);
 };
 
-export const updateByKey = (key, data) => {
+exports.updateByKey = (key, data) => {
     return User.updateByKey(key, data);
 };
 
-export const deleteByKey = (key) => {
+exports.deleteByKey = (key) => {
     return User.deleteByKey(key);
 };

@@ -1,8 +1,8 @@
-import http from 'http';
-import express from 'express';
-import 'express-async-errors';
-import { Server as SocketServer } from 'socket.io';
+const http = require('http');
+const express = require('express');
+require('express-async-errors');
+const { Server } = require('socket.io');
 
-export const app = express();
-export const server = http.createServer(app);
-export const io = new SocketServer(server);
+exports.app = express();
+exports.server = http.createServer(exports.app);
+exports.io = new Server(exports.server);

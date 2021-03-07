@@ -1,9 +1,9 @@
-import passport from 'passport';
-import BearerStrategy from 'passport-http-bearer';
-import config from './config.js';
-import { findByKey } from './services/user.service.js';
+const passport = require('passport');
+const BearerStrategy = require('passport-http-bearer');
+const config = require('./config.js');
+const { findByKey } = require('./services/user.service.js');
 
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
 passport.use(
     new BearerStrategy((token, done) => {
@@ -14,4 +14,4 @@ passport.use(
     })
 );
 
-export default passport;
+module.exports = passport;
