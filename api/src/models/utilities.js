@@ -1,7 +1,7 @@
 const sequelize = require('../sequelize.init.js');
 
 exports.createOrKeepTransaction = (trx) => {
-    if (trx) {
+    if (!trx) {
         return sequelize.transaction();
     } else {
         return trx;
