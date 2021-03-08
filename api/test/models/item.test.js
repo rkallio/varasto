@@ -150,32 +150,245 @@ describe('item model', () => {
       });
 
       describe('update rejects', () => {
-        it('rolls back transaction @unit');
-        it('bubbles error @unit');
+        it('rolls back transaction @unit', async () => {
+          const update = () => ({ update: sinon.fake.rejects() });
+          const rollback = sinon.fake();
+          function Model() {}
+          Model.init = ignore;
+
+          const Item = proxyquire(REQUIRE_PATH, {
+            sequelize: { Model, DataTypes: {} },
+            '../sequelize.init.js': {},
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              rollbackOrKeepTransaction: rollback,
+            },
+          });
+
+          sinon.stub(Item, 'strictFindByKey').callsFake(update);
+
+          try {
+            await Item.updateByKey();
+          } catch {} // eslint-disable-line no-empty
+
+          assert.ok(rollback.called);
+        });
+
+        it('bubbles error @unit', async () => {
+          const error = Error();
+          const update = () => ({
+            update: sinon.fake.rejects(error),
+          });
+          function Model() {}
+          Model.init = ignore;
+          const Item = proxyquire(REQUIRE_PATH, {
+            sequelize: { Model, DataTypes: {} },
+            '../sequelize.init.js': {},
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              rollbackOrKeepTransaction: ignore,
+            },
+          });
+
+          sinon.stub(Item, 'strictFindByKey').callsFake(update);
+
+          await assert.isRejected(Item.updateByKey(), error);
+        });
       });
     });
+
     describe('find rejects', () => {
-      it('rolls back transaction @unit');
-      it('bubbles error @unit');
+      it('rolls back transaction @unit', async () => {
+        const rollback = sinon.fake();
+        const rejects = sinon.fake.rejects();
+
+        function Model() {}
+        Model.init = ignore;
+
+        const Item = proxyquire(REQUIRE_PATH, {
+          sequelize: { Model, DataTypes: {} },
+          '../sequelize.init.js': {},
+          lodash: { get: ignore },
+          './utilities.js': {
+            createOrKeepTransaction: ignore,
+            rollbackOrKeepTransaction: rollback,
+          },
+        });
+
+        sinon.stub(Item, 'strictFindByKey').callsFake(rejects);
+
+        try {
+          await Item.updateByKey();
+        } catch {} // eslint-disable-line no-empty
+
+        assert.ok(rollback.called);
+      });
+      it('bubbles error @unit', async () => {
+        const error = Error();
+        const rejects = sinon.fake.rejects(error);
+        function Model() {}
+        Model.init = ignore;
+
+        const Item = proxyquire(REQUIRE_PATH, {
+          sequelize: { Model, DataTypes: {} },
+          '../sequelize.init.js': {},
+          lodash: { get: ignore },
+          './utilities.js': {
+            createOrKeepTransaction: ignore,
+            rollbackOrKeepTransaction: ignore,
+          },
+        });
+
+        sinon.stub(Item, 'strictFindByKey').callsFake(rejects);
+
+        await assert.isRejected(Item.updateByKey(), error);
+      });
     });
   });
 
   describe('delete by key', () => {
     describe('find resolves', () => {
       describe('destroy resolves', () => {
-        it('commits transaction @unit');
-        it('returns destroyed item @unit');
+        it('commits transaction @unit', async () => {
+          const commit = sinon.fake();
+          const destroy = () => ({ destroy: ignore });
+          function Model() {}
+          Model.init = ignore;
+
+          const Item = proxyquire(REQUIRE_PATH, {
+            sequelize: { Model, DataTypes: {} },
+            '../sequelize.init.js': {},
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              commitOrKeepTransaction: commit,
+            },
+          });
+
+          sinon.stub(Item, 'strictFindByKey').callsFake(destroy);
+
+          await Item.deleteByKey();
+          assert.ok(commit.called);
+        });
+        it('returns destroyed item @unit', async () => {
+          const expected = {};
+          const destroy = () => ({ destroy: () => expected });
+          function Model() {}
+          Model.init = ignore;
+
+          const Item = proxyquire(REQUIRE_PATH, {
+            sequelize: { Model, DataTypes: {} },
+            '../sequelize.init.js': {},
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              commitOrKeepTransaction: ignore,
+            },
+          });
+
+          sinon.stub(Item, 'strictFindByKey').callsFake(destroy);
+          const result = await Item.deleteByKey();
+          assert.strictEqual(result, expected);
+        });
       });
 
       describe('destroy rejects', () => {
-        it('rolls back transaction @unit');
-        it('bubbles error @unit');
+        it('rolls back transaction @unit', async () => {
+          const destroy = () => ({ destroy: sinon.fake.rejects() });
+          const rollback = sinon.fake();
+          function Model() {}
+          Model.init = ignore;
+
+          const Item = proxyquire(REQUIRE_PATH, {
+            sequelize: { Model, DataTypes: {} },
+            '../sequelize.init.js': {},
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              rollbackOrKeepTransaction: rollback,
+            },
+          });
+
+          sinon.stub(Item, 'strictFindByKey').callsFake(destroy);
+
+          try {
+            await Item.deleteByKey();
+          } catch {} // eslint-disable-line no-empty
+
+          assert.ok(rollback.called);
+        });
+        it('bubbles error @unit', async () => {
+          const error = Error();
+          const destroy = () => ({
+            destroy: sinon.fake.rejects(error),
+          });
+          function Model() {}
+          Model.init = ignore;
+          const Item = proxyquire(REQUIRE_PATH, {
+            sequelize: { Model, DataTypes: {} },
+            '../sequelize.init.js': {},
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              rollbackOrKeepTransaction: ignore,
+            },
+          });
+
+          sinon.stub(Item, 'strictFindByKey').callsFake(destroy);
+
+          await assert.isRejected(Item.deleteByKey(), error);
+        });
       });
     });
 
     describe('find rejects', () => {
-      it('rolls back transaction @unit');
-      it('bubbles error @unit');
+      it('rolls back transaction @unit', async () => {
+        const rollback = sinon.fake();
+        const rejects = sinon.fake.rejects();
+
+        function Model() {}
+        Model.init = ignore;
+
+        const Item = proxyquire(REQUIRE_PATH, {
+          sequelize: { Model, DataTypes: {} },
+          '../sequelize.init.js': {},
+          lodash: { get: ignore },
+          './utilities.js': {
+            createOrKeepTransaction: ignore,
+            rollbackOrKeepTransaction: rollback,
+          },
+        });
+
+        sinon.stub(Item, 'strictFindByKey').callsFake(rejects);
+
+        try {
+          await Item.deleteByKey();
+        } catch {} // eslint-disable-line no-empty
+
+        assert.ok(rollback.called);
+      });
+      it('bubbles error @unit', async () => {
+        const error = Error();
+        const rejects = sinon.fake.rejects(error);
+        function Model() {}
+        Model.init = ignore;
+
+        const Item = proxyquire(REQUIRE_PATH, {
+          sequelize: { Model, DataTypes: {} },
+          '../sequelize.init.js': {},
+          lodash: { get: ignore },
+          './utilities.js': {
+            createOrKeepTransaction: ignore,
+            rollbackOrKeepTransaction: ignore,
+          },
+        });
+
+        sinon.stub(Item, 'strictFindByKey').callsFake(rejects);
+
+        await assert.isRejected(Item.deleteByKey(), error);
+      });
     });
   });
 });
