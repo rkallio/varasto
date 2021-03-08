@@ -100,4 +100,81 @@ describe('item model', () => {
       });
     });
   });
+
+  describe('update by key', () => {
+    describe('find resolves', () => {
+      describe('update resolves', () => {
+        it('commits transaction @unit', async () => {
+          const commit = sinon.fake();
+          const update = () => ({ update: () => {} });
+          function Model() {}
+          Model.init = () => {};
+
+          const Item = proxyquire(REQUIRE_PATH, {
+            sequelize: { Model, DataTypes: {} },
+            '../sequelize.init.js': {},
+            lodash: { get: () => {} },
+            './utilities.js': {
+              createOrKeepTransaction: () => {},
+              commitOrKeepTransaction: commit,
+            },
+          });
+
+          sinon.stub(Item, 'strictFindByKey').callsFake(update);
+
+          await Item.updateByKey();
+          assert.ok(commit.called);
+        });
+
+        it('returns the updated item @unit', async () => {
+          const expected = {};
+          const update = () => ({ update: () => expected });
+          function Model() {}
+          Model.init = () => {};
+
+          const Item = proxyquire(REQUIRE_PATH, {
+            sequelize: { Model, DataTypes: {} },
+            '../sequelize.init.js': {},
+            lodash: { get: () => {} },
+            './utilities.js': {
+              createOrKeepTransaction: () => {},
+              commitOrKeepTransaction: () => {},
+            },
+          });
+
+          sinon.stub(Item, 'strictFindByKey').callsFake(update);
+          const result = await Item.updateByKey();
+          assert.strictEqual(result, expected);
+        });
+      });
+
+      describe('update rejects', () => {
+        it('rolls back transaction @unit');
+        it('bubbles error @unit');
+      });
+    });
+    describe('find rejects', () => {
+      it('rolls back transaction @unit');
+      it('bubbles error @unit');
+    });
+  });
+
+  describe('delete by key', () => {
+    describe('find resolves', () => {
+      describe('destroy resolves', () => {
+        it('commits transaction @unit');
+        it('returns destroyed item @unit');
+      });
+
+      describe('destroy rejects', () => {
+        it('rolls back transaction @unit');
+        it('bubbles error @unit');
+      });
+    });
+
+    describe('find rejects', () => {
+      it('rolls back transaction @unit');
+      it('bubbles error @unit');
+    });
+  });
 });
