@@ -1,9 +1,14 @@
 const { describe, it } = require('mocha');
-const assert = require('chai').assert;
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
+const assert = chai.assert;
 const proxyquire = require('proxyquire').noCallThru();
 const sinon = require('sinon');
 
-describe('model utilities', () => {
+const ignore = () => {};
+
+describe('transaction utilities', () => {
   describe('create or keep', () => {
     it('creates a transaction when not provided one @unit', () => {
       const fake = sinon.fake();
@@ -103,6 +108,322 @@ describe('model utilities', () => {
       utils.rollbackOrKeepTransaction({ provided, used });
 
       assert.ok(fake.notCalled);
+    });
+  });
+});
+
+describe('model utilities', () => {
+  const REQUIRE_PATH = '../../src/models/model-utils.js';
+
+  describe('strict find by key', () => {
+    describe('query resolves', () => {
+      it('commits transaction @unit', async () => {
+        const commit = sinon.fake.resolves();
+        const model = { findByPk: ignore };
+
+        const { strictFindByKey } = proxyquire(REQUIRE_PATH, {
+          lodash: { get: ignore },
+          './utilities.js': {
+            createOrKeepTransaction: ignore,
+            commitOrKeepTransaction: commit,
+          },
+        });
+
+        await strictFindByKey(model);
+        assert.ok(commit.called);
+      });
+
+      it('resolves with value of query @unit', async () => {
+        const expected = {};
+        const query = sinon.fake.resolves(expected);
+        const model = { findByPk: query };
+
+        const { strictFindByKey } = proxyquire(REQUIRE_PATH, {
+          lodash: { get: ignore },
+          './utilities.js': {
+            createOrKeepTransaction: ignore,
+            commitOrKeepTransaction: ignore,
+          },
+        });
+
+        const result = await strictFindByKey(model);
+        assert.strictEqual(result, expected);
+      });
+    });
+
+    describe('query rejects', () => {
+      it('bubbles error @unit', async () => {
+        const error = Error();
+        const query = sinon.fake.rejects(error);
+        const model = { findByPk: query };
+
+        const { strictFindByKey } = proxyquire(REQUIRE_PATH, {
+          lodash: { get: ignore },
+          './utilities.js': {
+            createOrKeepTransaction: ignore,
+            rollbackOrKeepTransaction: ignore,
+          },
+        });
+
+        await assert.isRejected(strictFindByKey(model), error);
+      });
+
+      it('rolls back transaction @unit', async () => {
+        const query = sinon.fake.rejects();
+        const rollback = sinon.fake.resolves();
+        const model = { findByPk: query };
+
+        const { strictFindByKey } = proxyquire(REQUIRE_PATH, {
+          lodash: { get: ignore },
+          './utilities.js': {
+            createOrKeepTransaction: ignore,
+            rollbackOrKeepTransaction: rollback,
+          },
+        });
+
+        try {
+          await strictFindByKey(model);
+        } catch {} // eslint-disable-line no-empty
+        assert.ok(rollback.called);
+      });
+    });
+  });
+
+  describe('update by key', () => {
+    describe('find resolves', () => {
+      describe('update resolves', () => {
+        it('commits transaction @unit', async () => {
+          const commit = sinon.fake();
+          const instance = () => ({ update: ignore });
+          const model = { strictFindByKey: instance };
+
+          const { updateByKey } = proxyquire(REQUIRE_PATH, {
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              commitOrKeepTransaction: commit,
+            },
+          });
+
+          await updateByKey(model);
+          assert.ok(commit.called);
+        });
+
+        it('returns the updated item @unit', async () => {
+          const expected = {};
+          const instance = () => ({ update: () => expected });
+          const model = { strictFindByKey: instance };
+
+          const { updateByKey } = proxyquire(REQUIRE_PATH, {
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              commitOrKeepTransaction: ignore,
+            },
+          });
+
+          const result = await updateByKey(model);
+          assert.strictEqual(result, expected);
+        });
+      });
+
+      describe('update rejects', () => {
+        it('rolls back transaction @unit', async () => {
+          const instance = () => ({ update: sinon.fake.rejects() });
+          const rollback = sinon.fake();
+          const model = { strictFindByKey: instance };
+
+          const { updateByKey } = proxyquire(REQUIRE_PATH, {
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              rollbackOrKeepTransaction: rollback,
+            },
+          });
+
+          try {
+            await updateByKey(model);
+          } catch {} // eslint-disable-line no-empty
+
+          assert.ok(rollback.called);
+        });
+
+        it('bubbles error @unit', async () => {
+          const error = Error();
+          const instance = () => ({
+            update: sinon.fake.rejects(error),
+          });
+          const model = { strictFindByKey: instance };
+
+          const { updateByKey } = proxyquire(REQUIRE_PATH, {
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              rollbackOrKeepTransaction: ignore,
+            },
+          });
+
+          await assert.isRejected(updateByKey(model), error);
+        });
+      });
+    });
+
+    describe('find rejects', () => {
+      it('rolls back transaction @unit', async () => {
+        const rollback = sinon.fake();
+        const rejects = sinon.fake.rejects();
+
+        const model = { strictFindByKey: rejects };
+
+        const { updateByKey } = proxyquire(REQUIRE_PATH, {
+          lodash: { get: ignore },
+          './utilities.js': {
+            createOrKeepTransaction: ignore,
+            rollbackOrKeepTransaction: rollback,
+          },
+        });
+
+        try {
+          await updateByKey(model);
+        } catch {} // eslint-disable-line no-empty
+
+        assert.ok(rollback.called);
+      });
+
+      it('bubbles error @unit', async () => {
+        const error = Error();
+        const rejects = sinon.fake.rejects(error);
+        const model = { strictFindByKey: rejects };
+
+        const { updateByKey } = proxyquire(REQUIRE_PATH, {
+          lodash: { get: ignore },
+          './utilities.js': {
+            createOrKeepTransaction: ignore,
+            rollbackOrKeepTransaction: ignore,
+          },
+        });
+
+        await assert.isRejected(updateByKey(model), error);
+      });
+    });
+  });
+
+  describe('delete by key', () => {
+    describe('find resolves', () => {
+      describe('destroy resolves', () => {
+        it('commits transaction @unit', async () => {
+          const commit = sinon.fake();
+          const instance = () => ({ destroy: ignore });
+          const model = { strictFindByKey: instance };
+
+          const { deleteByKey } = proxyquire(REQUIRE_PATH, {
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              commitOrKeepTransaction: commit,
+            },
+          });
+
+          await deleteByKey(model);
+          assert.ok(commit.called);
+        });
+
+        it('returns destroyed item @unit', async () => {
+          const expected = {};
+          const instance = () => ({ destroy: () => expected });
+          const model = { strictFindByKey: instance };
+
+          const { deleteByKey } = proxyquire(REQUIRE_PATH, {
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              commitOrKeepTransaction: ignore,
+            },
+          });
+
+          const result = await deleteByKey(model);
+          assert.strictEqual(result, expected);
+        });
+      });
+
+      describe('destroy rejects', () => {
+        it('rolls back transaction @unit', async () => {
+          const instance = () => ({ destroy: sinon.fake.rejects() });
+          const rollback = sinon.fake();
+          const model = { strictFindByKey: instance };
+
+          const { deleteByKey } = proxyquire(REQUIRE_PATH, {
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              rollbackOrKeepTransaction: rollback,
+            },
+          });
+
+          try {
+            await deleteByKey(model);
+          } catch {} // eslint-disable-line no-empty
+
+          assert.ok(rollback.called);
+        });
+
+        it('bubbles error @unit', async () => {
+          const error = Error();
+          const instance = () => ({
+            destroy: sinon.fake.rejects(error),
+          });
+          const model = { strictFindByKey: instance };
+
+          const { deleteByKey } = proxyquire(REQUIRE_PATH, {
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              rollbackOrKeepTransaction: ignore,
+            },
+          });
+
+          await assert.isRejected(deleteByKey(model), error);
+        });
+      });
+    });
+
+    describe('find rejects', () => {
+      it('rolls back transaction @unit', async () => {
+        const rollback = sinon.fake();
+        const rejects = sinon.fake.rejects();
+
+        const model = { strictFindByKey: rejects };
+
+        const { deleteByKey } = proxyquire(REQUIRE_PATH, {
+          lodash: { get: ignore },
+          './utilities.js': {
+            createOrKeepTransaction: ignore,
+            rollbackOrKeepTransaction: rollback,
+          },
+        });
+
+        try {
+          await deleteByKey(model);
+        } catch {} // eslint-disable-line no-empty
+
+        assert.ok(rollback.called);
+      });
+
+      it('bubbles error @unit', async () => {
+        const error = Error();
+        const rejects = sinon.fake.rejects(error);
+        const model = { strictFindByKey: rejects };
+
+        const { deleteByKey } = proxyquire(REQUIRE_PATH, {
+          lodash: { get: ignore },
+          './utilities.js': {
+            createOrKeepTransaction: ignore,
+            rollbackOrKeepTransaction: ignore,
+          },
+        });
+
+        await assert.isRejected(deleteByKey(model), error);
+      });
     });
   });
 });
