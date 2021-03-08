@@ -7,24 +7,25 @@ const proxyquire = require('proxyquire').noCallThru();
 const sinon = require('sinon');
 
 const REQUIRE_PATH = '../../src/models/item.model.js';
+const ignore = () => {};
 
 describe('item model', () => {
   describe('strict find by key', () => {
     describe('query resolves', () => {
       it('commits transaction @unit', async () => {
-        const query = () => {};
+        const query = ignore;
         const commit = sinon.fake.resolves();
 
         function Model() {}
-        Model.init = () => {};
+        Model.init = ignore;
         Model.findByPk = query;
 
         const Item = proxyquire(REQUIRE_PATH, {
           sequelize: { Model, DataTypes: {} },
           '../sequelize.init.js': {},
-          lodash: { get: () => {} },
+          lodash: { get: ignore },
           './utilities.js': {
-            createOrKeepTransaction: () => {},
+            createOrKeepTransaction: ignore,
             commitOrKeepTransaction: commit,
           },
         });
@@ -37,16 +38,16 @@ describe('item model', () => {
         const query = sinon.fake.resolves(expected);
 
         function Model() {}
-        Model.init = () => {};
+        Model.init = ignore;
         Model.findByPk = query;
 
         const Item = proxyquire(REQUIRE_PATH, {
           sequelize: { Model, DataTypes: {} },
           '../sequelize.init.js': {},
-          lodash: { get: () => {} },
+          lodash: { get: ignore },
           './utilities.js': {
-            createOrKeepTransaction: () => {},
-            commitOrKeepTransaction: () => {},
+            createOrKeepTransaction: ignore,
+            commitOrKeepTransaction: ignore,
           },
         });
         const result = await Item.strictFindByKey();
@@ -61,15 +62,15 @@ describe('item model', () => {
 
         function Model() {}
         Model.findByPk = query;
-        Model.init = () => {};
+        Model.init = ignore;
 
         const Item = proxyquire(REQUIRE_PATH, {
           sequelize: { Model, DataTypes: {} },
           '../sequelize.init.js': {},
-          lodash: { get: () => {} },
+          lodash: { get: ignore },
           './utilities.js': {
-            createOrKeepTransaction: () => {},
-            rollbackOrKeepTransaction: () => {},
+            createOrKeepTransaction: ignore,
+            rollbackOrKeepTransaction: ignore,
           },
         });
 
@@ -81,14 +82,14 @@ describe('item model', () => {
         const rollback = sinon.fake.resolves();
         function Model() {}
         Model.findByPk = query;
-        Model.init = () => {};
+        Model.init = ignore;
 
         const Item = proxyquire(REQUIRE_PATH, {
           sequelize: { Model, DataTypes: {} },
           '../sequelize.init.js': {},
-          lodash: { get: () => {} },
+          lodash: { get: ignore },
           './utilities.js': {
-            createOrKeepTransaction: () => {},
+            createOrKeepTransaction: ignore,
             rollbackOrKeepTransaction: rollback,
           },
         });
@@ -106,16 +107,16 @@ describe('item model', () => {
       describe('update resolves', () => {
         it('commits transaction @unit', async () => {
           const commit = sinon.fake();
-          const update = () => ({ update: () => {} });
+          const update = () => ({ update: ignore });
           function Model() {}
-          Model.init = () => {};
+          Model.init = ignore;
 
           const Item = proxyquire(REQUIRE_PATH, {
             sequelize: { Model, DataTypes: {} },
             '../sequelize.init.js': {},
-            lodash: { get: () => {} },
+            lodash: { get: ignore },
             './utilities.js': {
-              createOrKeepTransaction: () => {},
+              createOrKeepTransaction: ignore,
               commitOrKeepTransaction: commit,
             },
           });
@@ -130,15 +131,15 @@ describe('item model', () => {
           const expected = {};
           const update = () => ({ update: () => expected });
           function Model() {}
-          Model.init = () => {};
+          Model.init = ignore;
 
           const Item = proxyquire(REQUIRE_PATH, {
             sequelize: { Model, DataTypes: {} },
             '../sequelize.init.js': {},
-            lodash: { get: () => {} },
+            lodash: { get: ignore },
             './utilities.js': {
-              createOrKeepTransaction: () => {},
-              commitOrKeepTransaction: () => {},
+              createOrKeepTransaction: ignore,
+              commitOrKeepTransaction: ignore,
             },
           });
 
