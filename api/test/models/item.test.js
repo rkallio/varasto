@@ -21,8 +21,7 @@ describe('item model', () => {
         Model.findByPk = query;
 
         const Item = proxyquire(REQUIRE_PATH, {
-          sequelize: { Model, DataTypes: {} },
-          '../sequelize.init.js': {},
+          sequelize: { Model },
           lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
@@ -42,8 +41,7 @@ describe('item model', () => {
         Model.findByPk = query;
 
         const Item = proxyquire(REQUIRE_PATH, {
-          sequelize: { Model, DataTypes: {} },
-          '../sequelize.init.js': {},
+          sequelize: { Model },
           lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
@@ -65,8 +63,7 @@ describe('item model', () => {
         Model.init = ignore;
 
         const Item = proxyquire(REQUIRE_PATH, {
-          sequelize: { Model, DataTypes: {} },
-          '../sequelize.init.js': {},
+          sequelize: { Model },
           lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
@@ -85,8 +82,7 @@ describe('item model', () => {
         Model.init = ignore;
 
         const Item = proxyquire(REQUIRE_PATH, {
-          sequelize: { Model, DataTypes: {} },
-          '../sequelize.init.js': {},
+          sequelize: { Model },
           lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
@@ -112,8 +108,7 @@ describe('item model', () => {
           Model.init = ignore;
 
           const Item = proxyquire(REQUIRE_PATH, {
-            sequelize: { Model, DataTypes: {} },
-            '../sequelize.init.js': {},
+            sequelize: { Model },
             lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
@@ -134,8 +129,7 @@ describe('item model', () => {
           Model.init = ignore;
 
           const Item = proxyquire(REQUIRE_PATH, {
-            sequelize: { Model, DataTypes: {} },
-            '../sequelize.init.js': {},
+            sequelize: { Model },
             lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
@@ -157,8 +151,7 @@ describe('item model', () => {
           Model.init = ignore;
 
           const Item = proxyquire(REQUIRE_PATH, {
-            sequelize: { Model, DataTypes: {} },
-            '../sequelize.init.js': {},
+            sequelize: { Model },
             lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
@@ -183,8 +176,7 @@ describe('item model', () => {
           function Model() {}
           Model.init = ignore;
           const Item = proxyquire(REQUIRE_PATH, {
-            sequelize: { Model, DataTypes: {} },
-            '../sequelize.init.js': {},
+            sequelize: { Model },
             lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
@@ -208,8 +200,7 @@ describe('item model', () => {
         Model.init = ignore;
 
         const Item = proxyquire(REQUIRE_PATH, {
-          sequelize: { Model, DataTypes: {} },
-          '../sequelize.init.js': {},
+          sequelize: { Model },
           lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
@@ -232,8 +223,7 @@ describe('item model', () => {
         Model.init = ignore;
 
         const Item = proxyquire(REQUIRE_PATH, {
-          sequelize: { Model, DataTypes: {} },
-          '../sequelize.init.js': {},
+          sequelize: { Model },
           lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
@@ -258,8 +248,7 @@ describe('item model', () => {
           Model.init = ignore;
 
           const Item = proxyquire(REQUIRE_PATH, {
-            sequelize: { Model, DataTypes: {} },
-            '../sequelize.init.js': {},
+            sequelize: { Model },
             lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
@@ -279,8 +268,7 @@ describe('item model', () => {
           Model.init = ignore;
 
           const Item = proxyquire(REQUIRE_PATH, {
-            sequelize: { Model, DataTypes: {} },
-            '../sequelize.init.js': {},
+            sequelize: { Model },
             lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
@@ -302,8 +290,7 @@ describe('item model', () => {
           Model.init = ignore;
 
           const Item = proxyquire(REQUIRE_PATH, {
-            sequelize: { Model, DataTypes: {} },
-            '../sequelize.init.js': {},
+            sequelize: { Model },
             lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
@@ -327,8 +314,7 @@ describe('item model', () => {
           function Model() {}
           Model.init = ignore;
           const Item = proxyquire(REQUIRE_PATH, {
-            sequelize: { Model, DataTypes: {} },
-            '../sequelize.init.js': {},
+            sequelize: { Model },
             lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
@@ -352,8 +338,7 @@ describe('item model', () => {
         Model.init = ignore;
 
         const Item = proxyquire(REQUIRE_PATH, {
-          sequelize: { Model, DataTypes: {} },
-          '../sequelize.init.js': {},
+          sequelize: { Model },
           lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
@@ -376,8 +361,7 @@ describe('item model', () => {
         Model.init = ignore;
 
         const Item = proxyquire(REQUIRE_PATH, {
-          sequelize: { Model, DataTypes: {} },
-          '../sequelize.init.js': {},
+          sequelize: { Model },
           lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
