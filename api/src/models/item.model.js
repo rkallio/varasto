@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize');
-const { Model } = Sequelize;
 const sequelize = require('../sequelize.init.js');
 const _ = require('lodash');
 const utils = require('./utilities.js');
+
+const { Model } = Sequelize;
 
 class Item extends Model {
   static async strictFindByKey(key, options) {
