@@ -6,10 +6,11 @@ const assert = chai.assert;
 const proxyquire = require('proxyquire').noCallThru();
 const sinon = require('sinon');
 
-const REQUIRE_PATH = '../../src/models/item.model.js';
 const ignore = () => {};
 
 describe('item model', () => {
+  const REQUIRE_PATH = '../../src/models/item.model.js';
+
   describe('strict find by key', () => {
     describe('query resolves', () => {
       it('commits transaction @unit', async () => {
@@ -373,6 +374,36 @@ describe('item model', () => {
 
         await assert.isRejected(Item.deleteByKey(), error);
       });
+    });
+  });
+});
+
+describe('item table definition', () => {
+  const REQUIRE_PATH = '../../src/models/item.def.js';
+
+  describe('target quantity validation @unit', () => {
+    it('throws when measure is % and target quantity not 100', () => {
+      const exports = proxyquire(REQUIRE_PATH, {
+        sequelize: { DataTypes: {} },
+        '../sequelize.init.js': {},
+        './item.model.js': { init: ignore },
+      });
+      const bound = exports.isTargetQuantity100WhenMeasureIsPercentage.bind(
+        { measure: '%', targetQuantity: 0 }
+      );
+      assert.throws(bound);
+    });
+
+    it('does not throw when measure is not %', () => {
+      const exports = proxyquire(REQUIRE_PATH, {
+        sequelize: { DataTypes: {} },
+        '../sequelize.init.js': {},
+        './item.model.js': { init: ignore },
+      });
+      const bound = exports.isTargetQuantity100WhenMeasureIsPercentage.bind(
+        { measure: 'pcs', targetQuantity: 0 }
+      );
+      assert.doesNotThrow(bound);
     });
   });
 });

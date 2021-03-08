@@ -2,6 +2,14 @@ const Sequelize = require('sequelize');
 const sequelize = require('../sequelize.init.js');
 const Item = require('./item.model.js');
 
+exports.isTargetQuantity100WhenMeasureIsPercentage = function () {
+  if (this.measure === '%' && this.targetQuantity !== 100) {
+    throw new Error(
+      'Target Quantity should be 100 when measuring in percentage'
+    );
+  }
+};
+
 Item.init(
   {
     name: {
@@ -47,13 +55,8 @@ Item.init(
     underscored: true,
     modelName: 'Item',
     validate: {
-      targetQuantity100WhenMeasureIsPercent() {
-        if (this.measure === '%' && this.targetQuantity !== 100) {
-          throw new Error(
-            'Target Quantity should be hundred when measure is set to %'
-          );
-        }
-      },
+      isTargetQuantity100WhenMeasureIsPercentage:
+        exports.isTargetQuantity100WhenMeasureIsPercentage,
     },
   }
 );
