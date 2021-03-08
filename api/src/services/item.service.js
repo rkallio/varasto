@@ -1,6 +1,11 @@
 const sequelize = require('../sequelize.init.js');
+const EventEmitter = require('events');
+
 const { Item } = sequelize.models;
-const { itemns } = require('../socketns.js');
+
+const emitter = new EventEmitter();
+
+exports.emitter = emitter;
 
 exports.findAll = () => {
   return Item.findAll();
@@ -12,18 +17,18 @@ exports.findByKey = (key) => {
 
 exports.create = async (data) => {
   const result = await Item.create(data);
-  itemns.emit('post', result);
+  emitter.emit('create', result);
   return result;
 };
 
 exports.updateByKey = async (key, data) => {
   const result = await Item.updateByKey(key, data);
-  itemns.emit('patch', result);
+  emitter.emit('update', result);
   return result;
 };
 
 exports.deleteByKey = async (key) => {
   const result = await Item.deleteByKey(key);
-  itemns.emit('delete', result);
+  emitter.emit('delete', result);
   return result;
 };

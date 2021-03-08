@@ -7,10 +7,10 @@ import {
 } from './login/auth.redux.js';
 
 const subscribeForItemUpdates = (store, socket) => {
-  socket.on('post', (data) =>
+  socket.on('create', (data) =>
     store.dispatch(itemActions.addOne(data))
   );
-  socket.on('patch', (data) =>
+  socket.on('update', (data) =>
     store.dispatch(
       itemActions.updateOne({ id: data.id, changes: data })
     )
@@ -21,10 +21,10 @@ const subscribeForItemUpdates = (store, socket) => {
 };
 
 const subscribeForTransientUpdates = (store, socket) => {
-  socket.on('post', (data) =>
+  socket.on('create', (data) =>
     store.dispatch(transientActions.addOne(data))
   );
-  socket.on('patch', (data) =>
+  socket.on('update', (data) =>
     store.dispatch(
       transientActions.updateOne({ id: data.id, changes: data })
     )
@@ -32,7 +32,7 @@ const subscribeForTransientUpdates = (store, socket) => {
   socket.on('delete', (data) =>
     store.dispatch(transientActions.removeOne(data.id))
   );
-  socket.on('deleteMany', (data) =>
+  socket.on('delete-many', (data) =>
     store.dispatch(transientActions.removeMany(data.map((p) => p.id)))
   );
 };

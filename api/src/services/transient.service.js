@@ -1,7 +1,11 @@
 const sequelize = require('../sequelize.init.js');
+const EventEmitter = require('events');
+
 const { Transient } = sequelize.models;
-const { transientns } = require('../socketns.js');
-const ns = transientns;
+
+const emitter = new EventEmitter();
+
+exports.emitter = emitter;
 
 exports.findAll = () => {
   return Transient.findAll();
@@ -13,24 +17,24 @@ exports.findByKey = (key) => {
 
 exports.create = async (data) => {
   const result = await Transient.create(data);
-  ns.emit('post', result);
+  emitter.emit('create', result);
   return result;
 };
 
 exports.updateByKey = async (key, data) => {
   const result = await Transient.updateByKey(key, data);
-  ns.emit('patch', result);
+  emitter.emit('update', result);
   return result;
 };
 
 exports.deleteByKey = async (key) => {
   const result = await Transient.deleteByKey(key);
-  ns.emit('delete', result);
+  emitter.emit('delete', result);
   return result;
 };
 
 exports.deleteOlderThan = async (time) => {
   const result = await Transient.deleteOlderThan(time);
-  ns.emit('deleteMany', result);
+  emitter.emit('delete-many', result);
   return result;
 };
