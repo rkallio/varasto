@@ -29,7 +29,7 @@ describe('item model', () => {
           },
         });
         await Item.strictFindByKey();
-        assert.ok(commit.calledOnce);
+        assert.ok(commit.called);
       });
 
       it('resolves with value of query @unit', async () => {
@@ -96,7 +96,7 @@ describe('item model', () => {
         try {
           await Item.strictFindByKey();
         } catch {} // eslint-disable-line no-empty
-        assert.ok(rollback.calledOnce);
+        assert.ok(rollback.called);
       });
     });
   });
