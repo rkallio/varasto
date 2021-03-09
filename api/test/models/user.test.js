@@ -32,7 +32,7 @@ describe('user model', () => {
 
     describe('username matches', () => {
       describe('password comparison resolves', () => {
-        it('.ok is true', async () => {
+        it('.ok is true @unit', async () => {
           const compare = sinon.fake.resolves(true);
           class Model {}
           Model.findOne = () => ({ password: {} });
@@ -48,7 +48,7 @@ describe('user model', () => {
           assert.propertyVal(result, 'ok', true);
         });
 
-        it('.user is matched user', async () => {
+        it('.user is matched user @unit', async () => {
           const compare = sinon.fake.resolves(true);
           const expected = { password: {} };
           class Model {}
@@ -67,7 +67,7 @@ describe('user model', () => {
       });
 
       describe('password comparison rejects', async () => {
-        it('.ok is false', async () => {
+        it('.ok is false @unit', async () => {
           const compare = sinon.fake.resolves(false);
           class Model {}
           Model.findOne = () => ({ password: {} });

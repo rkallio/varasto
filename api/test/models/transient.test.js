@@ -137,7 +137,7 @@ describe('transient model', () => {
         assert.ok(rollback.called);
       });
 
-      it('bubbles error', async () => {
+      it('bubbles error @unit', async () => {
         const error = Error();
         const destroy = sinon.fake.rejects(error);
         class Model {}

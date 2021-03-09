@@ -8,8 +8,8 @@ const ignore = () => {};
 describe('item table definition', () => {
   const REQUIRE_PATH = '../../src/models/item.def.js';
 
-  describe('target quantity validation @unit', () => {
-    it('throws when measure is % and target quantity not 100', () => {
+  describe('target quantity validation', () => {
+    it('throws when measure is % and target quantity not 100 @unit', () => {
       const exports = proxyquire(REQUIRE_PATH, {
         sequelize: { DataTypes: {} },
         '../sequelize.init.js': {},
@@ -21,7 +21,7 @@ describe('item table definition', () => {
       assert.throws(bound);
     });
 
-    it('does not throw when measure is not %', () => {
+    it('does not throw when measure is not % @unit', () => {
       const exports = proxyquire(REQUIRE_PATH, {
         sequelize: { DataTypes: {} },
         '../sequelize.init.js': {},
