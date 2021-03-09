@@ -49,7 +49,7 @@ dnf up -y
 dnf install -y epel-release podman
 dnf install -y certbot
 
-if [ ! -d /etc/letsencrypt ]
+if [ ! -d /etc/letsencrypt/live ]
 then
     certbot certonly --standalone --non-interactive --agree-tos \
             --email ${email} \
