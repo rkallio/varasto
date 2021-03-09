@@ -18,14 +18,12 @@ class Transient extends Model {
     return modelUtils.deleteByKey(Transient, key, options);
   }
 
-  static async deleteOlderThan(time, options) {
+  static async deleteInstancesOlderThan(time, options) {
     const providedTrx = _.get(options, 'transaction');
     const trx = await utils.createOrKeepTransaction(providedTrx);
 
-    let toDelete;
-
     try {
-      toDelete = await Transient.findAll({
+      const toDelete = await Transient.findAll({
         where: {
           updatedAt: {
             [Op.lt]: time,
@@ -33,15 +31,7 @@ class Transient extends Model {
         },
         transaction: trx,
       });
-    } catch (error) {
-      await utils.rollbackOrKeepTransaction({
-        provided: providedTrx,
-        used: trx,
-      });
-      throw error;
-    }
 
-    try {
       await Transient.destroy({
         where: {
           updatedAt: {
@@ -50,6 +40,13 @@ class Transient extends Model {
         },
         transaction: trx,
       });
+
+      await utils.commitOrKeepTransaction({
+        provided: providedTrx,
+        used: trx,
+      });
+
+      return toDelete;
     } catch (error) {
       await utils.rollbackOrKeepTransaction({
         provided: providedTrx,
@@ -57,12 +54,6 @@ class Transient extends Model {
       });
       throw error;
     }
-
-    await utils.commitOrKeepTransaction({
-      provided: providedTrx,
-      used: trx,
-    });
-    return toDelete;
   }
 }
 
