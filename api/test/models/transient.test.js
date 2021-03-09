@@ -112,9 +112,52 @@ describe('transient model', () => {
     });
 
     describe('lookup rejects', () => {
-      it('rolls back transaction @unit');
+      it('rolls back transaction @unit', async () => {
+        const rollback = sinon.fake();
+        class Model {}
+        Model.findAll = sinon.fake.rejects();
 
-      it('bubbles error');
+        const { deleteInstancesOlderThan } = proxyquire(
+          REQUIRE_PATH,
+          {
+            sequelize: { Model, Op: {} },
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              rollbackOrKeepTransaction: rollback,
+            },
+            './model-utils.js': {},
+          }
+        );
+
+        try {
+          await deleteInstancesOlderThan();
+        } catch {} // eslint-disable-line no-empty
+
+        assert.ok(rollback.called);
+      });
+
+      it('bubbles error', async () => {
+        const error = Error();
+        const destroy = sinon.fake.rejects(error);
+        class Model {}
+        Model.findAll = destroy;
+
+        const { deleteInstancesOlderThan } = proxyquire(
+          REQUIRE_PATH,
+          {
+            sequelize: { Model, Op: {} },
+            lodash: { get: ignore },
+            './utilities.js': {
+              createOrKeepTransaction: ignore,
+              rollbackOrKeepTransaction: ignore,
+            },
+            './model-utils.js': {},
+          }
+        );
+
+        await assert.isRejected(deleteInstancesOlderThan(), error);
+      });
     });
   });
 });
