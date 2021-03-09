@@ -22,7 +22,6 @@ describe('transient model', () => {
             REQUIRE_PATH,
             {
               sequelize: { Model, Op: {} },
-              lodash: { get: ignore },
               './utilities.js': {
                 createOrKeepTransaction: ignore,
                 commitOrKeepTransaction: commit,
@@ -45,7 +44,6 @@ describe('transient model', () => {
             REQUIRE_PATH,
             {
               sequelize: { Model, Op: {} },
-              lodash: { get: ignore },
               './utilities.js': {
                 createOrKeepTransaction: ignore,
                 commitOrKeepTransaction: ignore,
@@ -70,7 +68,6 @@ describe('transient model', () => {
             REQUIRE_PATH,
             {
               sequelize: { Model, Op: {} },
-              lodash: { get: ignore },
               './utilities.js': {
                 createOrKeepTransaction: ignore,
                 rollbackOrKeepTransaction: rollback,
@@ -97,7 +94,6 @@ describe('transient model', () => {
             REQUIRE_PATH,
             {
               sequelize: { Model, Op: {} },
-              lodash: { get: ignore },
               './utilities.js': {
                 createOrKeepTransaction: ignore,
                 rollbackOrKeepTransaction: ignore,
@@ -121,7 +117,6 @@ describe('transient model', () => {
           REQUIRE_PATH,
           {
             sequelize: { Model, Op: {} },
-            lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
               rollbackOrKeepTransaction: rollback,
@@ -147,7 +142,6 @@ describe('transient model', () => {
           REQUIRE_PATH,
           {
             sequelize: { Model, Op: {} },
-            lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
               rollbackOrKeepTransaction: ignore,

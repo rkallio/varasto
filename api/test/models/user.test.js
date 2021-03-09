@@ -4,8 +4,6 @@ const { assert } = chai;
 const proxyquire = require('proxyquire').noCallThru();
 const sinon = require('sinon');
 
-const ignore = () => {};
-
 describe('user model', () => {
   const REQUIRE_PATH = '../../src/models/user.model.js';
 
@@ -20,7 +18,6 @@ describe('user model', () => {
         const { test } = proxyquire(REQUIRE_PATH, {
           sequelize: { Model },
           bcrypt: {},
-          lodash: { get: ignore },
           './model-utils.js': {},
         });
 
@@ -40,7 +37,6 @@ describe('user model', () => {
           const { test } = proxyquire(REQUIRE_PATH, {
             sequelize: { Model },
             bcrypt: { compare },
-            lodash: { get: ignore },
             './model-utils.js': {},
           });
 
@@ -57,7 +53,6 @@ describe('user model', () => {
           const { test } = proxyquire(REQUIRE_PATH, {
             sequelize: { Model },
             bcrypt: { compare },
-            lodash: { get: ignore },
             './model-utils.js': {},
           });
 
@@ -75,7 +70,6 @@ describe('user model', () => {
           const { test } = proxyquire(REQUIRE_PATH, {
             sequelize: { Model },
             bcrypt: { compare },
-            lodash: { get: ignore },
             './model-utils.js': {},
           });
 

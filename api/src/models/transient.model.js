@@ -1,5 +1,4 @@
 const Sequelize = require('sequelize');
-const _ = require('lodash');
 const utils = require('./utilities.js');
 const modelUtils = require('./model-utils.js');
 
@@ -19,7 +18,7 @@ class Transient extends Model {
   }
 
   static async deleteInstancesOlderThan(time, options) {
-    const providedTrx = _.get(options, 'transaction');
+    const providedTrx = options?.transaction;
     const trx = await utils.createOrKeepTransaction(providedTrx);
 
     try {

@@ -1,11 +1,10 @@
 const Sequelize = require('sequelize');
 const bcrypt = require('bcrypt');
-const _ = require('lodash');
 const modelUtils = require('./model-utils.js');
 
 class User extends Sequelize.Model {
   static async test(name, password, options) {
-    const trx = _.get(options, 'transaction');
+    const trx = options?.transaction;
 
     const user = await User.findOne({
       where: { name },

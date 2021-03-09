@@ -1,8 +1,7 @@
 const utils = require('./utilities.js');
-const _ = require('lodash');
 
 exports.strictFindByKey = async (Model, key, options) => {
-  const providedTrx = _.get(options, 'transaction');
+  const providedTrx = options?.transaction;
   const trx = await utils.createOrKeepTransaction(providedTrx);
 
   try {
@@ -27,7 +26,7 @@ exports.strictFindByKey = async (Model, key, options) => {
 };
 
 exports.updateByKey = async (Model, key, data, options) => {
-  const providedTrx = _.get(options, 'transaction');
+  const providedTrx = options?.tranasction;
   const trx = await utils.createOrKeepTransaction(providedTrx);
 
   try {
@@ -54,7 +53,7 @@ exports.updateByKey = async (Model, key, data, options) => {
 };
 
 exports.deleteByKey = async (Model, key, options) => {
-  const providedTrx = _.get(options, 'transaction');
+  const providedTrx = options?.transaction;
   const trx = await utils.createOrKeepTransaction(providedTrx);
 
   try {

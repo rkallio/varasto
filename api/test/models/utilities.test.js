@@ -122,7 +122,6 @@ describe('model utilities', () => {
         const model = { findByPk: ignore };
 
         const { strictFindByKey } = proxyquire(REQUIRE_PATH, {
-          lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
             commitOrKeepTransaction: commit,
@@ -139,7 +138,6 @@ describe('model utilities', () => {
         const model = { findByPk: query };
 
         const { strictFindByKey } = proxyquire(REQUIRE_PATH, {
-          lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
             commitOrKeepTransaction: ignore,
@@ -158,7 +156,6 @@ describe('model utilities', () => {
         const model = { findByPk: query };
 
         const { strictFindByKey } = proxyquire(REQUIRE_PATH, {
-          lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
             rollbackOrKeepTransaction: ignore,
@@ -174,7 +171,6 @@ describe('model utilities', () => {
         const model = { findByPk: query };
 
         const { strictFindByKey } = proxyquire(REQUIRE_PATH, {
-          lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
             rollbackOrKeepTransaction: rollback,
@@ -198,7 +194,6 @@ describe('model utilities', () => {
           const model = { strictFindByKey: instance };
 
           const { updateByKey } = proxyquire(REQUIRE_PATH, {
-            lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
               commitOrKeepTransaction: commit,
@@ -215,7 +210,6 @@ describe('model utilities', () => {
           const model = { strictFindByKey: instance };
 
           const { updateByKey } = proxyquire(REQUIRE_PATH, {
-            lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
               commitOrKeepTransaction: ignore,
@@ -234,7 +228,6 @@ describe('model utilities', () => {
           const model = { strictFindByKey: instance };
 
           const { updateByKey } = proxyquire(REQUIRE_PATH, {
-            lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
               rollbackOrKeepTransaction: rollback,
@@ -256,7 +249,6 @@ describe('model utilities', () => {
           const model = { strictFindByKey: instance };
 
           const { updateByKey } = proxyquire(REQUIRE_PATH, {
-            lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
               rollbackOrKeepTransaction: ignore,
@@ -276,7 +268,6 @@ describe('model utilities', () => {
         const model = { strictFindByKey: rejects };
 
         const { updateByKey } = proxyquire(REQUIRE_PATH, {
-          lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
             rollbackOrKeepTransaction: rollback,
@@ -296,7 +287,6 @@ describe('model utilities', () => {
         const model = { strictFindByKey: rejects };
 
         const { updateByKey } = proxyquire(REQUIRE_PATH, {
-          lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
             rollbackOrKeepTransaction: ignore,
@@ -317,7 +307,6 @@ describe('model utilities', () => {
           const model = { strictFindByKey: instance };
 
           const { deleteByKey } = proxyquire(REQUIRE_PATH, {
-            lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
               commitOrKeepTransaction: commit,
@@ -334,7 +323,6 @@ describe('model utilities', () => {
           const model = { strictFindByKey: instance };
 
           const { deleteByKey } = proxyquire(REQUIRE_PATH, {
-            lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
               commitOrKeepTransaction: ignore,
@@ -353,7 +341,6 @@ describe('model utilities', () => {
           const model = { strictFindByKey: instance };
 
           const { deleteByKey } = proxyquire(REQUIRE_PATH, {
-            lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
               rollbackOrKeepTransaction: rollback,
@@ -375,7 +362,6 @@ describe('model utilities', () => {
           const model = { strictFindByKey: instance };
 
           const { deleteByKey } = proxyquire(REQUIRE_PATH, {
-            lodash: { get: ignore },
             './utilities.js': {
               createOrKeepTransaction: ignore,
               rollbackOrKeepTransaction: ignore,
@@ -395,7 +381,6 @@ describe('model utilities', () => {
         const model = { strictFindByKey: rejects };
 
         const { deleteByKey } = proxyquire(REQUIRE_PATH, {
-          lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
             rollbackOrKeepTransaction: rollback,
@@ -415,7 +400,6 @@ describe('model utilities', () => {
         const model = { strictFindByKey: rejects };
 
         const { deleteByKey } = proxyquire(REQUIRE_PATH, {
-          lodash: { get: ignore },
           './utilities.js': {
             createOrKeepTransaction: ignore,
             rollbackOrKeepTransaction: ignore,
