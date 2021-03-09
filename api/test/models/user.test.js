@@ -31,7 +31,7 @@ describe('user model', () => {
     });
 
     describe('username matches', () => {
-      describe('password comparison succeeds', () => {
+      describe('password comparison resolves', () => {
         it('.ok is true', async () => {
           const compare = sinon.fake.resolves(true);
           class Model {}
@@ -66,7 +66,7 @@ describe('user model', () => {
         });
       });
 
-      describe('password comparison fails', async () => {
+      describe('password comparison rejects', async () => {
         it('.ok is false', async () => {
           const compare = sinon.fake.resolves(false);
           class Model {}
