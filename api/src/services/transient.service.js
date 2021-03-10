@@ -34,7 +34,7 @@ exports.deleteByKey = async (key) => {
 };
 
 exports.deleteOlderThan = async (time) => {
-  const result = await Transient.deleteOlderThan(time);
+  const result = await Transient.deleteInstancesOlderThan(time);
   emitter.emit('delete-many', result);
   return result;
 };
