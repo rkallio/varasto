@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   toggleCompleted,
   findAll,
   selector as transientSelector,
 } from './transient.redux.js';
-import * as css from './transient-components.module.css';
+import styled from 'styled-components';
 import Card from '../components/card.jsx';
 import {
   LabeledInput,
@@ -31,42 +32,55 @@ const TransientList = () => {
   return (
     <GroupList
       data={Object.entries(transients)}
-      render={(t) => <Transient key={t.id} id={t.id} />}
+      render={(t) => <TransientContainer key={t.id} id={t.id} />}
     />
   );
 };
 
 export default TransientList;
 
-const Transient = ({ id }) => {
+const TransientInnerComponent = styled.div`
+  margin: auto;
+  text-decoration: ${({ completed }) =>
+    completed ? 'line-through' : 'initial'};
+`;
+
+const TransientComponent = styled(Card)`
+cursor: pointer;
+user-select: none;
+flex-grow: 1;
+margin: 3px;
+
+&:hover {
+  background: black;
+  color: white;
+}
+
+&:active {
+  background: white;
+  color: black;
+`;
+
+const TransientContainer = ({ id }) => {
   const tsient = useSelector((state) =>
     transientSelector.selectById(state, id)
   );
+
   const dispatch = useDispatch();
 
   const onClick = () => dispatch(toggleCompleted(id));
 
-  if (tsient.completed) {
-    return (
-      <div className={css.outerTransient} onClick={onClick}>
-        <Card>
-          <div className={css.innerTransient}>
-            <s>{tsient.name}</s>
-          </div>
-        </Card>
-      </div>
-    );
-  } else {
-    return (
-      <div className={css.outerTransient} onClick={onClick}>
-        <Card>
-          <div className={css.innerTransient}>
-            <span>{tsient.name}</span>
-          </div>
-        </Card>
-      </div>
-    );
-  }
+  return (
+    <TransientComponent onClick={onClick}>
+      <TransientInnerComponent completed={tsient.completed}>
+        {tsient.name}
+      </TransientInnerComponent>
+    </TransientComponent>
+  );
+};
+
+TransientContainer.propTypes = {
+  id: PropTypes.number.isRequired,
 };
 
 export const NameInput = (props) => {
