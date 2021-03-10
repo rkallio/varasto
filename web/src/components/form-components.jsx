@@ -121,7 +121,8 @@ export const Button = styled.button`
   color: ${({ primary }) => (primary ? 'white' : 'black')};
   border-radius: 6px;
   border: 1px solid black;
-  background: ${({ primary }) => (primary ? 'black' : 'white')};
+  border-color: ${({ primary }) => (primary ? 'blue' : 'initial')};
+  background: ${({ primary }) => (primary ? 'blue' : 'white')};
   padding: 10px;
   margin: 3px;
   flex-grow: 1;
@@ -129,14 +130,13 @@ export const Button = styled.button`
   white-space: nowrap;
 
   &:hover {
-    color: ${({ primary }) => (primary ? 'black' : 'white')};
+    color: ${({ primary }) => (primary ? 'blue' : 'white')};
     background: ${({ primary }) => (primary ? 'white' : 'black')};
   }
 
   &:active {
     color: ${({ primary }) => (primary ? 'white' : 'black')};
-    ${({ primary }) => (primary ? 'white' : 'black')};
-    background: ${({ primary }) => (primary ? 'black' : 'white')};
+    background: ${({ primary }) => (primary ? 'blue' : 'white')};
   }
 
   &:focus {
