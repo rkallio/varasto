@@ -1,13 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import * as css from './container.module.css';
+import styled from 'styled-components';
 
-const Container = ({ children }) => {
-  return <div className={css.container}>{children}</div>;
-};
-
-Container.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 
 export default Container;
