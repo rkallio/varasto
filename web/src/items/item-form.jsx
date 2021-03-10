@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 import {
   postItem,
   patchItem,
@@ -10,6 +11,7 @@ import { Button } from '../components/form-components.jsx';
 import PropTypes from 'prop-types';
 import If from '../components/if.jsx';
 import useItemForm from './use-item-form.js';
+
 import * as Items from './item-components.jsx';
 import * as Forms from '../components/form-components.jsx';
 import CloseModalButton from '../modal/close-modal-button.jsx';
@@ -82,6 +84,20 @@ export const AddItemForm = () => {
   );
 };
 
+const DeleteItemButton = styled(Button)`
+border-color: red;
+color: red;
+font-weight: 700;
+
+&:hover {
+color: white;
+background: red;
+
+&:active {
+color: orangered;
+background: white;
+}`;
+
 export const EditItemForm = ({ id }) => {
   const dispatch = useDispatch();
 
@@ -94,7 +110,7 @@ export const EditItemForm = ({ id }) => {
       id={id}
       dispatcher={dispatcher}
       actionButtons={[
-        <Button
+        <DeleteItemButton
           key="remove"
           type="button"
           onClick={() => {
@@ -102,7 +118,7 @@ export const EditItemForm = ({ id }) => {
           }}
         >
           Delete
-        </Button>,
+        </DeleteItemButton>,
         <CloseModalButton key="close-modal" />,
       ]}
     />
