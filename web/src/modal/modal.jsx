@@ -2,7 +2,7 @@ import React from 'react';
 import ReactModal from 'react-modal';
 
 import Container from '../components/container.jsx';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import * as modal from './modal.redux.js';
 
 import { AddItemForm, EditItemForm } from '../items/item-form.jsx';
@@ -28,9 +28,12 @@ const ModalSelector = () => {
 
 const Modal = () => {
   const state = useSelector(modal.modalSelector);
+  const dispatch = useDispatch();
   const parentSelector = () => {
     return document.querySelector('#root');
   };
+
+  const closeModal = () => dispatch(modal.actions.closeModal());
 
   return (
     <ReactModal
@@ -41,6 +44,8 @@ const Modal = () => {
         },
       }}
       parentSelector={parentSelector}
+      shouldCloseOnOverlayClick={true}
+      onRequestClose={closeModal}
       isOpen={state.type !== undefined}
     >
       <Container>
