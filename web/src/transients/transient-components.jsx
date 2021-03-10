@@ -7,12 +7,11 @@ import {
   selector as transientSelector,
 } from './transient.redux.js';
 import styled from 'styled-components';
-import Card from '../components/card.jsx';
 import {
   LabeledInput,
   LabeledCheckbox,
 } from '../components/form-components.jsx';
-import GroupList from '../components/grouplist.jsx';
+import GroupList, { ListElement } from '../components/grouplist.jsx';
 
 const TransientList = () => {
   const dispatch = useDispatch();
@@ -45,21 +44,7 @@ const TransientInnerComponent = styled.div`
     completed ? 'line-through' : 'initial'};
 `;
 
-const TransientComponent = styled(Card)`
-cursor: pointer;
-user-select: none;
-flex-grow: 1;
-margin: 3px;
-
-&:hover {
-  background: black;
-  color: white;
-}
-
-&:active {
-  background: white;
-  color: black;
-`;
+const TransientComponent = styled(ListElement)``;
 
 const TransientContainer = ({ id }) => {
   const tsient = useSelector((state) =>

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Card from './card.jsx';
 
 const StyledGroupList = styled.div`
   display: flex;
@@ -63,4 +64,21 @@ const Body = styled.div`
   align-items: stretch;
   margin-left: -3px;
   margin-right: -3px;
+`;
+
+export const ListElement = styled(Card)`
+  user-select: none;
+  flex-grow: 1;
+  margin: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background: black;
+    color: white;
+  }
+
+  &:active {
+    background: white;
+    color: black;
+  }
 `;

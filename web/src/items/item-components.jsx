@@ -10,8 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { itemSelector, findAllItems } from './item.redux.js';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { actions } from '../modal/modal.redux.js';
-import Card from '../components/card.jsx';
-import GroupList from '../components/grouplist.jsx';
+import GroupList, { ListElement } from '../components/grouplist.jsx';
 
 const ItemList = () => {
   const dispatch = useDispatch();
@@ -41,22 +40,7 @@ const ItemList = () => {
 
 export default ItemList;
 
-const ItemComponent = styled(Card)`
-  user-select: none;
-  flex-grow: 1;
-  margin: 3px;
-  cursor: pointer;
-
-  &:hover {
-    background: black;
-    color: white;
-  }
-
-  &:active {
-    background: white;
-    color: black;
-  }
-`;
+const ItemComponent = styled(ListElement)``;
 
 const ItemInnerComponent = styled.div`
   margin: auto;
