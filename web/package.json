@@ -20,6 +20,8 @@
     "prettier": "^2.2.1"
   },
   "dependencies": {
+    "@mdi/js": "^5.9.55",
+    "@mdi/react": "^1.4.0",
     "@reduxjs/toolkit": "^1.5.0",
     "axios": "^0.21.1",
     "date-fns": "^2.16.1",

@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { Button } from './form-components.jsx';
 import { actions } from '../modal/modal.redux.js';
+import { mdiDotsVertical } from '@mdi/js';
+import Icon from '@mdi/react';
 
 const AddButtonComponent = styled(Button)`
   position: fixed;
@@ -15,7 +17,11 @@ const AddButtonComponent = styled(Button)`
 const AddButtonContainer = () => {
   const dispatch = useDispatch();
   const onClick = () => dispatch(actions.formPicker());
-  return <AddButtonComponent onClick={onClick}>+</AddButtonComponent>;
+  return (
+    <AddButtonComponent onClick={onClick}>
+      <Icon path={mdiDotsVertical} title="More" size={1} />
+    </AddButtonComponent>
+  );
 };
 
 export default AddButtonContainer;
