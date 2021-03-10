@@ -4,7 +4,7 @@ import {
   LabeledInput,
   LabeledSelect,
 } from '../components/form-components.jsx';
-import * as css from './item-components.module.css';
+import styled from 'styled-components';
 import * as math from 'mathjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { itemSelector, findAllItems } from './item.redux.js';
@@ -34,40 +34,58 @@ const ItemList = () => {
   return (
     <GroupList
       data={Object.entries(categories)}
-      render={(item) => <Item key={item.id} id={item.id} />}
+      render={(item) => <ItemContainer key={item.id} id={item.id} />}
     />
   );
 };
 
 export default ItemList;
 
-const Item = (props) => {
+const ItemComponent = styled(Card)`
+  user-select: none;
+  flex-grow: 1;
+  margin: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background: black;
+    color: white;
+  }
+
+  &:active {
+    background: white;
+    color: black;
+  }
+`;
+
+const ItemInnerComponent = styled.div`
+  margin: auto;
+`;
+
+const ItemContainer = (props) => {
   const { id } = props;
   const item = useSelector((state) =>
     itemSelector.selectById(state, id)
   );
   const dispatch = useDispatch();
 
+  const onClick = () => dispatch(actions.editItem(id));
+
   return (
-    <div
-      className={css.outerItem}
-      onClick={() => dispatch(actions.editItem(id))}
-    >
-      <Card>
-        <div className={css.innerItem}>
-          <TaggedName>{item.name}</TaggedName>
-          <TaggedQuantity
-            current={item.currentQuantity}
-            target={item.targetQuantity}
-            measure={item.measure}
-          />
-        </div>
-      </Card>
-    </div>
+    <ItemComponent onClick={onClick}>
+      <ItemInnerComponent>
+        <TaggedName>{item.name}</TaggedName>
+        <TaggedQuantity
+          current={item.currentQuantity}
+          target={item.targetQuantity}
+          measure={item.measure}
+        />
+      </ItemInnerComponent>
+    </ItemComponent>
   );
 };
 
-Item.propTypes = {
+ItemContainer.propTypes = {
   id: PropTypes.number.isRequired,
 };
 
@@ -85,21 +103,13 @@ TaggedName.propTypes = {
   children: PropTypes.string.isRequired,
 };
 
-export const Property = ({ children }) => {
-  return <div className={css.property}>{children}</div>;
-};
+const Property = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+`;
 
-Property.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-const PropertyName = ({ children }) => {
-  return <div className={css.propertyName}>{children}</div>;
-};
-
-PropertyName.propTypes = {
-  children: PropTypes.string.isRequired,
-};
+const PropertyName = styled.div``;
 
 const Space = () => {
   return <span>&nbsp;</span>;
@@ -113,13 +123,7 @@ Name.propTypes = {
   children: PropTypes.string.isRequired,
 };
 
-const PropertyValue = ({ children }) => {
-  return <div className={css.propertyValue}>{children}</div>;
-};
-
-PropertyValue.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+const PropertyValue = styled.div``;
 
 export const TaggedLocation = ({ children }) => {
   return (
@@ -179,18 +183,16 @@ Quantity.propTypes = {
   measure: PropTypes.string.isRequired,
 };
 
-export const CurrentQuantity = ({ value, target, measure }) => {
-  const color = `hsl(${Math.min(
-    180,
-    (value / target) * 120
-  )}, 50%, 50%)`;
-
-  return (
-    <span className={css.currentQuantity} style={{ color }}>
-      {mapQuantityToString(value, measure)}
-    </span>
-  );
+const computeColor = (current, target) => {
+  const color = Math.min(180, (current / target) * 120);
+  return `hsl(${color}, 100%, 50%)`;
 };
+
+const CurrentQuantity = styled.span.attrs((props) => ({
+  children: mapQuantityToString(props.value, props.measure),
+}))`
+  color: ${({ value, target }) => computeColor(value, target)};
+`;
 
 CurrentQuantity.propTypes = {
   value: PropTypes.number.isRequired,
@@ -198,17 +200,13 @@ CurrentQuantity.propTypes = {
   measure: PropTypes.string.isRequired,
 };
 
-export const QuantitySeparator = () => {
-  return <span className={css.quantitySeparator}>/</span>;
-};
+const QuantitySeparator = styled.span.attrs(() => ({
+  children: '/',
+}))``;
 
-export const TargetQuantity = ({ value, measure }) => {
-  return (
-    <span className={css.targetQuantity}>
-      {mapQuantityToString(value, measure)}
-    </span>
-  );
-};
+const TargetQuantity = styled.span.attrs((props) => ({
+  children: mapQuantityToString(props.value, props.measure),
+}))``;
 
 TargetQuantity.propTypes = {
   value: PropTypes.number.isRequired,
