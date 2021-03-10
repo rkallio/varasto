@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as css from './form-components.module.css';
+import styled from 'styled-components';
 
 const appendAsteriskIf = (text, cond) => {
   if (cond) {
@@ -10,41 +10,47 @@ const appendAsteriskIf = (text, cond) => {
   }
 };
 
-export const FieldContainer = (props) => {
-  const { children, ...rest } = props;
-  return (
-    <div className={css.fieldContainer} {...rest}>
-      {children}
-    </div>
-  );
-};
+export const Form = styled.form`
+  margin-top: -5px;
+  display: flex;
+  flex-flow: column nowrap;
+  align-content: flex-start;
+`;
 
-FieldContainer.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+const FieldContainer = styled.div`
+  padding: 5px 0;
+  display: flex;
+  flex-flow: column nowrap;
+`;
 
-export const Input = (props) => {
-  return <input {...props} className={css.input} />;
-};
+export const Input = styled.input`
+color: black;
+border-radius: 6px;
+border: 1px solid black;
+background: white;
+padding: 10px;
 
-export const Select = (props) => {
-  const { children, ...rest } = props;
-  return (
-    <select {...rest} className={css.select}>
-      {children}
-    </select>
-  );
-};
+&:focus {
+  outline: none;
+  border-style dashed;
+}`;
 
-Select.propTypes = {
-  // Create and use an Option element
-  children: PropTypes.node.isRequired,
-};
+export const Select = styled.select`
+color: black;
+border-radius: 6px;
+border: 1px solid black;
+background: white;
+padding: 10px;
 
-export const Checkbox = (props) => {
-  const rest = Object.assign({}, props, { children: null });
-  return <input {...rest} type="checkbox" className={css.checkbox} />;
-};
+&:focus {
+  outline: none;
+  border-style dashed;
+}`;
+
+export const Checkbox = styled.input.attrs(() => ({
+  type: 'checkbox',
+  children: undefined,
+}))``;
 
 export const LabeledCheckbox = (props) => {
   const { label, name, required, ...rest } = props;
@@ -66,19 +72,11 @@ LabeledCheckbox.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export const Label = (props) => {
-  const { children, required, ...rest } = props;
-  return (
-    <label {...rest} className={css.label}>
-      {appendAsteriskIf(children, required)}
-    </label>
-  );
-};
-
-Label.propTypes = {
-  children: PropTypes.string.isRequired,
-  required: PropTypes.bool,
-};
+export const Label = styled.label.attrs((props) => ({
+  children: appendAsteriskIf(props.children, props.required),
+}))`
+  padding-bottom: 5px;
+`;
 
 export const LabeledInput = (props) => {
   const { label, name, required, ...rest } = props;
@@ -119,24 +117,35 @@ LabeledSelect.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export const Button = (props) => {
-  const { children, ...rest } = props;
-  return (
-    <button className={css.button} {...rest}>
-      {children}
-    </button>
-  );
-};
+export const Button = styled.button`
+  color: ${({ primary }) => (primary ? 'white' : 'black')};
+  border-radius: 6px;
+  border: 1px solid black;
+  background: ${({ primary }) => (primary ? 'black' : 'white')};
+  padding: 10px;
+  margin: 3px;
+  flex-grow: 1;
+  flex-basis: 0;
 
-Button.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+  &:hover {
+    color: ${({ primary }) => (primary ? 'black' : 'white')};
+    background: ${({ primary }) => (primary ? 'white' : 'black')};
+  }
 
-export const ButtonGroup = ({ children }) => {
-  return <div className={css.buttonGroup}>{children}</div>;
-};
+  &:active {
+    color: ${({ primary }) => (primary ? 'white' : 'black')};
+    ${({ primary }) => (primary ? 'white' : 'black')};
+    background: ${({ primary }) => (primary ? 'black' : 'white')};
+  }
 
-ButtonGroup.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.array, PropTypes.element])
-    .isRequired,
-};
+  &:focus {
+    outline: none;
+    border-style: dashed;
+  }
+`;
+
+export const ButtonGroup = styled(FieldContainer)`
+  display: flex;
+  flex-flow: row wrap;
+  margin: -3px;
+`;

@@ -34,11 +34,11 @@ const LoginForm = () => {
         value={values.password}
         onChange={handleChange}
       />
-      <Forms.FieldContainer>
-        <Forms.ButtonGroup>
-          <Forms.Button type="submit">Submit</Forms.Button>
-        </Forms.ButtonGroup>
-      </Forms.FieldContainer>
+      <Forms.ButtonGroup>
+        <Forms.Button primary type="submit">
+          Log in
+        </Forms.Button>
+      </Forms.ButtonGroup>
     </form>
   );
 };

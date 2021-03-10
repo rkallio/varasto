@@ -25,7 +25,7 @@ const ItemForm = (props) => {
   });
 
   return (
-    <form onSubmit={onSubmit}>
+    <Forms.Form onSubmit={onSubmit}>
       <Items.NameInput
         value={values.name}
         onChange={handleChange}
@@ -52,13 +52,11 @@ const ItemForm = (props) => {
           required
         />
       </If>
-      <Forms.FieldContainer>
-        <Forms.ButtonGroup>
-          <Forms.Button type="submit">Submit</Forms.Button>
-          {props.actionButtons}
-        </Forms.ButtonGroup>
-      </Forms.FieldContainer>
-    </form>
+      <Forms.ButtonGroup>
+        <Forms.Button type="submit">Submit</Forms.Button>
+        {props.actionButtons}
+      </Forms.ButtonGroup>
+    </Forms.Form>
   );
 };
 

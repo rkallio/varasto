@@ -29,14 +29,12 @@ export const TransientForm = (props) => {
         value={values.completed}
         onChange={handleChange}
       />
-      <Forms.FieldContainer>
-        <Forms.ButtonGroup>
-          <Forms.Button key="submit" type="submit">
-            Submit
-          </Forms.Button>
-          {actionButtons ? actionButtons : null}
-        </Forms.ButtonGroup>
-      </Forms.FieldContainer>
+      <Forms.ButtonGroup>
+        <Forms.Button key="submit" type="submit">
+          Submit
+        </Forms.Button>
+        {actionButtons ? actionButtons : null}
+      </Forms.ButtonGroup>
     </form>
   );
 };
