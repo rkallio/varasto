@@ -30,7 +30,7 @@ export const TransientForm = (props) => {
         onChange={handleChange}
       />
       <Forms.ButtonGroup>
-        <Forms.Button key="submit" type="submit">
+        <Forms.Button primary key="submit" type="submit">
           Submit
         </Forms.Button>
         {actionButtons ? actionButtons : null}

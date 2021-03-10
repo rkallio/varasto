@@ -53,7 +53,9 @@ const ItemForm = (props) => {
         />
       </If>
       <Forms.ButtonGroup>
-        <Forms.Button type="submit">Submit</Forms.Button>
+        <Forms.Button type="submit" primary>
+          Submit
+        </Forms.Button>
         {props.actionButtons}
       </Forms.ButtonGroup>
     </Forms.Form>
