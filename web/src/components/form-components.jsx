@@ -120,14 +120,15 @@ LabeledSelect.propTypes = {
 export const Button = styled.button`
   color: ${({ primary }) => (primary ? 'white' : 'black')};
   border-radius: 6px;
-  border: 1px solid black;
-  border-color: ${({ primary }) => (primary ? 'blue' : 'initial')};
+  border: 1.5px solid black;
+  border-color: ${({ primary }) => (primary ? 'blue' : 'black')};
   background: ${({ primary }) => (primary ? 'blue' : 'white')};
   padding: 10px;
   margin: 3px;
   flex-grow: 1;
   flex-basis: 0;
   white-space: nowrap;
+  font-weight: 700;
 
   &:hover {
     color: ${({ primary }) => (primary ? 'blue' : 'white')};
