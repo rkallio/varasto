@@ -126,6 +126,7 @@ export const Button = styled.button`
   margin: 3px;
   flex-grow: 1;
   flex-basis: 0;
+  white-space: nowrap;
 
   &:hover {
     color: ${({ primary }) => (primary ? 'black' : 'white')};
