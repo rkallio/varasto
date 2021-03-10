@@ -34,6 +34,12 @@ const Modal = () => {
 
   return (
     <ReactModal
+      style={{
+        content: {
+          borderRadius: '6px',
+          borderColor: 'black',
+        },
+      }}
       parentSelector={parentSelector}
       isOpen={state.type !== undefined}
     >
