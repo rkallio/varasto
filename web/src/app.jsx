@@ -34,12 +34,13 @@ export default App;
 const RootRedirect = () => {
   const token = useSelector(tokenSelector);
   const history = useHistory();
+  console.log(history);
 
   useEffect(() => {
     if (token) {
-      history.push('/items');
+      history.replace('/items');
     } else {
-      history.push('/login');
+      history.replace('/login');
     }
   }, [token]);
 
@@ -51,7 +52,7 @@ const ProtectedRoute = (props) => {
   const token = useSelector(tokenSelector);
   useEffect(() => {
     if (!token) {
-      history.push('/login');
+      history.replace('/login');
     }
   }, [token]);
 
