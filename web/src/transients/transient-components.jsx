@@ -40,11 +40,19 @@ export default TransientList;
 
 const TransientInnerComponent = styled.div`
   margin: auto;
-  text-decoration: ${({ completed }) =>
-    completed ? 'line-through' : 'initial'};
 `;
 
-const TransientComponent = styled(ListElement)``;
+const TransientComponent = styled(ListElement)`
+  text-decoration: ${({ completed }) =>
+    completed ? 'line-through' : 'initial'};
+  color: ${({ completed }) => (completed ? '#ddd' : 'initial')};
+  border-color: ${({ completed }) => (completed ? '#bbb' : 'black')};
+
+  &:hover {
+    color: white;
+    border-color: black;
+  }
+`;
 
 const TransientContainer = ({ id }) => {
   const tsient = useSelector((state) =>
@@ -56,7 +64,10 @@ const TransientContainer = ({ id }) => {
   const onClick = () => dispatch(toggleCompleted(id));
 
   return (
-    <TransientComponent onClick={onClick}>
+    <TransientComponent
+      onClick={onClick}
+      completed={tsient.completed}
+    >
       <TransientInnerComponent completed={tsient.completed}>
         {tsient.name}
       </TransientInnerComponent>
