@@ -19,7 +19,7 @@ export const TransientForm = (props) => {
   });
 
   return (
-    <form onSubmit={onSubmit}>
+    <Forms.Form onSubmit={onSubmit}>
       <Transients.NameInput
         value={values.name}
         onChange={handleChange}
@@ -35,7 +35,7 @@ export const TransientForm = (props) => {
         </Forms.Button>
         {actionButtons ? actionButtons : null}
       </Forms.ButtonGroup>
-    </form>
+    </Forms.Form>
   );
 };
 

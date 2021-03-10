@@ -23,7 +23,7 @@ const LoginForm = () => {
   });
 
   return (
-    <form onSubmit={onSubmit}>
+    <Forms.Form onSubmit={onSubmit}>
       <UsernameInput
         required
         value={values.name}
@@ -39,7 +39,7 @@ const LoginForm = () => {
           Log in
         </Forms.Button>
       </Forms.ButtonGroup>
-    </form>
+    </Forms.Form>
   );
 };
 
