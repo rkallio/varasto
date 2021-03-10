@@ -1,18 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import * as css from './card.module.css';
+import styled from 'styled-components';
 
-const Card = (props) => {
-  const { children, ...rest } = props;
-  return (
-    <div className={css.card} {...rest}>
-      {children}
-    </div>
-  );
-};
-
-Card.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+const Card = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1.5px solid black;
+  border-radius: 6px;
+  padding: 9px;
+`;
 
 export default Card;
