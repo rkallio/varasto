@@ -68,7 +68,18 @@ export const toggleCompleted = createAsyncThunk(
 
 export const entityAdapter = createEntityAdapter({
   sortComparer: (a, b) => {
-    return a.name.localeCompare(b.name);
+    // prettier-ignore
+    const completedDiff = a.completed
+      ? b.completed
+        ? 0
+        : 1
+      : b.completed
+        ? -1
+        : 0;
+
+    return completedDiff !== 0
+      ? completedDiff
+      : a.name.localeCompare(b.name);
   },
 });
 
