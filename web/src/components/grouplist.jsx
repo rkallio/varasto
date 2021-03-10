@@ -1,7 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import * as css from './grouplist.module.css';
+const StyledGroupList = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+`;
 
 const GroupList = (props) => {
   const { render, data } = props;
@@ -14,7 +18,7 @@ const GroupList = (props) => {
     />
   );
 
-  return <div className={css.groupList}>{data.map(mapfn)}</div>;
+  return <StyledGroupList>{data.map(mapfn)}</StyledGroupList>;
 };
 
 GroupList.propTypes = {
@@ -24,15 +28,18 @@ GroupList.propTypes = {
 
 export default GroupList;
 
+const StyledGroup = styled.div`
+  margin-bottom: 15px;
+`;
 const Group = (props) => {
   const { render, data, header } = props;
 
   return (
-    <div className={css.group}>
+    <StyledGroup>
       <Header>{header}</Header>
       <Body>{data.map(render)}</Body>
       <Separator />
-    </div>
+    </StyledGroup>
   );
 };
 
@@ -42,28 +49,18 @@ Group.propTypes = {
   header: PropTypes.string.isRequired,
 };
 
-const Header = (props) => {
-  const { children, ...rest } = props;
-  return (
-    <div className={css.header} {...rest}>
-      {children}
-    </div>
-  );
-};
+const Header = styled.div`
+  font-size: 20px;
+`;
 
-Header.propTypes = {
-  children: PropTypes.string.isRequired,
-};
+const Separator = styled.hr`
+  border: 1px solid black;
+`;
 
-const Separator = () => {
-  return <hr className={css.separator} />;
-};
-
-const Body = (props) => {
-  const { children } = props;
-  return <div className={css.body}>{children}</div>;
-};
-
-Body.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.node).isRequired,
-};
+const Body = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  align-items: stretch;
+  margin-left: -3px;
+  margin-right: -3px;
+`;
