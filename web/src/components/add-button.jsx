@@ -18,7 +18,7 @@ const AddButtonContainer = () => {
   const dispatch = useDispatch();
   const onClick = () => dispatch(actions.formPicker());
   return (
-    <AddButtonComponent onClick={onClick}>
+    <AddButtonComponent data-testid="add-button" onClick={onClick}>
       <Icon path={mdiDotsVertical} title="More" size={1} />
     </AddButtonComponent>
   );
