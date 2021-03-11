@@ -8,14 +8,23 @@
     "build": "rm -rf .parchel-cache dist && parcel build src/index.html --public-url . --no-source-maps",
     "lint": "eslint . --ext .js --ext .jsx",
     "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "test": "jest"
   },
   "author": "Roni Kallio",
   "license": "MIT",
   "devDependencies": {
+    "@babel/preset-env": "^7.13.10",
+    "@babel/preset-react": "^7.12.13",
+    "@testing-library/jest-dom": "^5.11.9",
+    "@testing-library/react": "^11.2.5",
+    "@testing-library/user-event": "^12.8.3",
+    "babel-jest": "^26.6.3",
     "eslint": "^7.19.0",
     "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-jest": "^24.2.1",
     "eslint-plugin-react": "^7.22.0",
+    "jest": "^26.6.3",
     "parcel": "^2.0.0-beta.1",
     "prettier": "^2.2.1"
   },
@@ -33,5 +42,8 @@
     "react-router-dom": "^5.2.0",
     "socket.io-client": "^3.1.1",
     "styled-components": "^5.2.1"
-  }
+  },
+  "browserslist": [
+    "defaults"
+  ]
 }
