@@ -7,7 +7,7 @@ usage () {
     exit 1
 }
 
-while getopts 'c:' option;
+while getopts 'c:v:' option;
 do
     case "${option}"
     in
