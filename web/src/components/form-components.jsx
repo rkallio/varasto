@@ -86,7 +86,12 @@ export const LabeledInput = (props) => {
       <Label htmlFor={name} required={required}>
         {label}
       </Label>
-      <Input name={name} required={required} {...rest} />
+      <Input
+        data-testid="input"
+        name={name}
+        required={required}
+        {...rest}
+      />
     </FieldContainer>
   );
 };
@@ -98,13 +103,15 @@ LabeledInput.propTypes = {
 };
 
 export const LabeledSelect = (props) => {
-  const { label, name, required, ...rest } = props;
+  const { label, name, required, children, ...rest } = props;
   return (
     <FieldContainer>
       <Label htmlFor={name} required={required}>
         {label}
       </Label>
-      <Select required={required} name={name} {...rest} />
+      <Select required={required} name={name} {...rest}>
+        {children}
+      </Select>
     </FieldContainer>
   );
 };
