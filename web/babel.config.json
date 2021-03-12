@@ -1,13 +1,4 @@
 {
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "useBuiltIns": "usage",
-        "corejs": 3,
-        "targets": "defaults"
-      }
-    ],
-    "@babel/preset-react"
-  ]
+  "presets": ["@parcel/babel-preset-env", "@babel/preset-react"],
+  "plugins": ["@parcel/babel-plugin-transform-runtime"]
 }
