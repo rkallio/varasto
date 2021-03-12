@@ -2,6 +2,7 @@ FROM node:latest AS dist-build
 
 WORKDIR /usr/src/app
 COPY package*.json .
+COPY babel.config.json .
 COPY src src
 RUN npm install
 RUN npm run build
