@@ -40,7 +40,9 @@ const ItemList = () => {
 
 export default ItemList;
 
-const ItemComponent = styled(ListElement)``;
+const ItemComponent = styled(ListElement)`
+  background: ${(props) => props.color};
+`;
 
 const ItemInnerComponent = styled.div`
   margin: auto;
@@ -56,7 +58,10 @@ const ItemContainer = (props) => {
   const onClick = () => dispatch(actions.editItem(id));
 
   return (
-    <ItemComponent onClick={onClick}>
+    <ItemComponent
+      onClick={onClick}
+      color={computeColor(item.currentQuantity, item.targetQuantity)}
+    >
       <ItemInnerComponent>
         <TaggedName>{item.name}</TaggedName>
         <TaggedQuantity
@@ -169,14 +174,12 @@ Quantity.propTypes = {
 
 const computeColor = (current, target) => {
   const color = Math.min(180, (current / target) * 120);
-  return `hsl(${color}, 100%, 50%)`;
+  return `hsl(${color}, 75%, 90%)`;
 };
 
 const CurrentQuantity = styled.span.attrs((props) => ({
   children: mapQuantityToString(props.value, props.measure),
-}))`
-  color: ${({ value, target }) => computeColor(value, target)};
-`;
+}))``;
 
 CurrentQuantity.propTypes = {
   value: PropTypes.number.isRequired,
