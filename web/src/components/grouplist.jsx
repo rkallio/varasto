@@ -32,7 +32,8 @@ export default GroupList;
 const StyledGroup = styled.div`
   margin-bottom: 15px;
 `;
-const Group = (props) => {
+
+export const Group = (props) => {
   const { render, data, header } = props;
 
   return (
