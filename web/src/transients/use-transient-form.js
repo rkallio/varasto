@@ -21,7 +21,6 @@ const useTransientForm = ({ defaults, dispatcher }) => {
     const value = event.target.value;
 
     if (type === 'checkbox') {
-      console.log(event.target.checked);
       setters[field](event.target.checked);
       return;
     }

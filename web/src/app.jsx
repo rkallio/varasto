@@ -34,7 +34,6 @@ export default App;
 const RootRedirect = () => {
   const token = useSelector(tokenSelector);
   const history = useHistory();
-  console.log(history);
 
   useEffect(() => {
     if (token) {
