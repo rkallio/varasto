@@ -20,23 +20,21 @@ class Transient extends Model {
   static async deleteInstancesOlderThan(time, options) {
     const providedTrx = options?.transaction;
     const trx = await utils.createOrKeepTransaction(providedTrx);
+    const where = {
+      completed: true,
+      updatedAt: {
+        [Op.lt]: time,
+      },
+    };
 
     try {
       const toDelete = await Transient.findAll({
-        where: {
-          updatedAt: {
-            [Op.lt]: time,
-          },
-        },
+        where,
         transaction: trx,
       });
 
       await Transient.destroy({
-        where: {
-          updatedAt: {
-            [Op.lt]: time,
-          },
-        },
+        where,
         transaction: trx,
       });
 

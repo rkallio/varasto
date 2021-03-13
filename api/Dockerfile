@@ -15,4 +15,4 @@ ENTRYPOINT ["node", "src", \
         "--host", "localhost", \
         "--port", "8080", \
         "--cron-schedule", "0 0 * * *", \
-        "--transient-lifetime", "24"]
+        "--transient-lifetime", "1"]
