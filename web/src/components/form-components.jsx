@@ -68,7 +68,6 @@ LabeledCheckbox.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  // use an Option element here as well
   children: PropTypes.node.isRequired,
 };
 
@@ -109,7 +108,12 @@ export const LabeledSelect = (props) => {
       <Label htmlFor={name} required={required}>
         {label}
       </Label>
-      <Select required={required} name={name} {...rest}>
+      <Select
+        data-testid="select"
+        required={required}
+        name={name}
+        {...rest}
+      >
         {children}
       </Select>
     </FieldContainer>
@@ -120,8 +124,7 @@ LabeledSelect.propTypes = {
   label: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   required: PropTypes.bool,
-  // use an Option element here as well
-  children: PropTypes.node.isRequired,
+  children: PropTypes.array.isRequired,
 };
 
 export const Button = styled.button`

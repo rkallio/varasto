@@ -25,7 +25,7 @@ describe('label', () => {
   });
 });
 
-describe('labeled component', () => {
+describe('labeled input', () => {
   it('draws label', () => {
     const expected = 'expected';
 
@@ -65,5 +65,67 @@ describe('labeled component', () => {
       'name',
       expected
     );
+  });
+});
+
+describe('labeled select', () => {
+  it('draws label', () => {
+    const expected = 'expected';
+
+    const component = render(
+      <Forms.LabeledSelect label={expected} name="">
+        {[]}
+      </Forms.LabeledSelect>
+    );
+
+    expect(component.container).toHaveTextContent(expected);
+  });
+
+  it('draws a select element', () => {
+    const component = render(
+      <Forms.LabeledSelect label="" name="">
+        {[]}
+      </Forms.LabeledSelect>
+    );
+
+    expect(component.getByTestId('select')).toBeTruthy();
+  });
+
+  it('sets for of label', () => {
+    const label = 'label';
+    const expected = 'target-input';
+    const component = render(
+      <Forms.LabeledSelect label={label} name={expected}>
+        {[]}
+      </Forms.LabeledSelect>
+    );
+
+    expect(component.getByText(label)).toHaveAttribute(
+      'for',
+      expected
+    );
+  });
+
+  it('sets name of select', () => {
+    const expected = 'name';
+    const component = render(
+      <Forms.LabeledSelect label="" name={expected}>
+        {[]}
+      </Forms.LabeledSelect>
+    );
+    expect(component.getByTestId('select')).toHaveAttribute(
+      'name',
+      expected
+    );
+  });
+
+  it('renders provided children', () => {
+    const expected = 'expected';
+    const component = render(
+      <Forms.LabeledSelect label="" name="">
+        {[expected]}
+      </Forms.LabeledSelect>
+    );
+    expect(component.container).toHaveTextContent(expected);
   });
 });
