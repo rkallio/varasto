@@ -14,7 +14,7 @@ import useItemForm from './use-item-form.js';
 
 import * as Items from './item-components.jsx';
 import * as Forms from '../components/form-components.jsx';
-import CloseModalButton from '../modal/close-modal-button.jsx';
+import { PopModalButton } from '../modal/modal-buttons.jsx';
 
 const ItemForm = (props) => {
   const item = useSelector((state) =>
@@ -67,7 +67,7 @@ const ItemForm = (props) => {
 ItemForm.propTypes = {
   id: PropTypes.number,
   dispatcher: PropTypes.func.isRequired,
-  actionButtons: PropTypes.arrayOf(PropTypes.element),
+  actionButtons: PropTypes.node,
 };
 
 export default ItemForm;
@@ -79,12 +79,15 @@ export const AddItemForm = () => {
   return (
     <ItemForm
       dispatcher={dispatcher}
-      actionButtons={[<CloseModalButton key="close-modal" />]}
+      actionButtons={<PopModalButton>Cancel</PopModalButton>}
     />
   );
 };
 
-const DeleteItemButton = styled(Button)`
+const DeleteItemButtonComponent = styled(Button).attrs(() => ({
+  type: 'button',
+  children: 'Delete',
+}))`
 border-color: red;
 color: red;
 font-weight: 700;
@@ -98,6 +101,21 @@ color: orangered;
 background: white;
 }`;
 
+const DeleteItemButton = (props) => {
+  const { id } = props;
+  const dispatch = useDispatch();
+
+  return (
+    <DeleteItemButtonComponent
+      onClick={() => dispatch(deleteItem(id))}
+    />
+  );
+};
+
+DeleteItemButton.propTypes = {
+  id: PropTypes.number.isRequired,
+};
+
 export const EditItemForm = ({ id }) => {
   const dispatch = useDispatch();
 
@@ -109,18 +127,12 @@ export const EditItemForm = ({ id }) => {
     <ItemForm
       id={id}
       dispatcher={dispatcher}
-      actionButtons={[
-        <DeleteItemButton
-          key="remove"
-          type="button"
-          onClick={() => {
-            dispatch(deleteItem(id));
-          }}
-        >
-          Delete
-        </DeleteItemButton>,
-        <CloseModalButton key="close-modal" />,
-      ]}
+      actionButtons={
+        <>
+          <DeleteItemButton key="delete-button" id={id} />
+          <PopModalButton key="pop-button">Cancel</PopModalButton>,
+        </>
+      }
     />
   );
 };

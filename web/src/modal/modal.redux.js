@@ -1,7 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createSelector,
+  createAction,
+} from '@reduxjs/toolkit';
 
 import {
-  actions as itemActions,
   postItem,
   patchItem,
   deleteItem,
@@ -9,59 +12,64 @@ import {
 
 import { create as createTransient } from '../transients/transient.redux.js';
 
-const initialState = {
-  type: undefined,
-  props: {},
-};
+const formPicker = createAction('modal/form-picker');
+const newItemForm = createAction('modal/add-new-item');
+const editItemForm = createAction('modal/edit-item', (id) => {
+  return {
+    payload: { id },
+  };
+});
 
-const closeModal = (_state, _action) => {
-  return initialState;
-};
+const newTransientForm = createAction('modal/add-new-transient');
 
-export const FORM_PICKER = 'FORM-PICKER';
-export const CREATE_TRANSIENT = 'CREATE-TRANSIENT';
-export const CREATE_ITEM = 'CREATE-ITEM';
-export const EDIT_ITEM = 'EDIT-ITEM';
+const push = (state, action) => {
+  state.push(action.payload);
+};
+const pop = (state, _action) => {
+  state.pop();
+};
+const clear = (state, _action) => {
+  state.length = 0;
+};
 
 const modalSlice = createSlice({
   name: 'modal',
-  initialState,
+  initialState: [],
   reducers: {
-    formPicker(state, _action) {
-      state.type = FORM_PICKER;
-      state.props = {};
-    },
-    addTransient(state, _action) {
-      state.type = CREATE_TRANSIENT;
-      state.props = {};
-    },
-    addItem(state, _action) {
-      state.type = CREATE_ITEM;
-      state.props = {};
-    },
-    editItem(state, action) {
-      state.type = EDIT_ITEM;
-      state.props = { id: action.payload };
-    },
-    closeModal,
+    push,
+    pop,
+    clear,
   },
   extraReducers: {
-    [postItem.fulfilled]: closeModal,
-    [patchItem.fulfilled]: closeModal,
-    [deleteItem.fulfilled]: closeModal,
-    [createTransient.fulfilled]: closeModal,
-    [itemActions.removeOne]: (state, action) => {
-      if (
-        state.type === EDIT_ITEM &&
-        state.props.id === action.payload
-      ) {
-        return initialState;
-      }
-    },
+    [postItem.fulfilled]: clear,
+    [patchItem.fulfilled]: clear,
+    [deleteItem.fulfilled]: clear,
+    [createTransient.fulfilled]: clear,
   },
 });
 
 export default modalSlice;
 
-export const modalSelector = (state) => state.modal;
-export const actions = modalSlice.actions;
+const selector = (state) => state.modal;
+const modalShouldRender = createSelector(
+  selector,
+  (state) => state.length > 0
+);
+const activeModal = createSelector(
+  selector,
+  (state) => state[state.length - 1]
+);
+
+export const selectors = {
+  selector,
+  modalShouldRender,
+  activeModal,
+};
+
+export const actions = {
+  ...modalSlice.actions,
+  formPicker,
+  newItemForm,
+  newTransientForm,
+  editItemForm,
+};

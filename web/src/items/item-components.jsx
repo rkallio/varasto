@@ -55,7 +55,8 @@ const ItemContainer = (props) => {
   );
   const dispatch = useDispatch();
 
-  const onClick = () => dispatch(actions.editItem(id));
+  const onClick = () =>
+    dispatch(actions.push(actions.editItemForm(id)));
 
   return (
     <ItemComponent

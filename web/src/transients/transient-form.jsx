@@ -5,7 +5,7 @@ import * as Transients from './transient-components.jsx';
 import * as Forms from '../components/form-components.jsx';
 import { create } from './transient.redux.js';
 import useTransientForm from './use-transient-form.js';
-import CloseModalButton from '../modal/close-modal-button.jsx';
+import { PopModalButton } from '../modal/modal-buttons.jsx';
 
 export const TransientForm = (props) => {
   const { actionButtons } = props;
@@ -40,13 +40,13 @@ export const TransientForm = (props) => {
 };
 
 TransientForm.propTypes = {
-  actionButtons: PropTypes.arrayOf(PropTypes.node),
+  actionButtons: PropTypes.node,
 };
 
 const AddTransientFormModal = () => {
   return (
     <TransientForm
-      actionButtons={[<CloseModalButton key="close-modal" />]}
+      actionButtons={<PopModalButton>Cancel</PopModalButton>}
     />
   );
 };

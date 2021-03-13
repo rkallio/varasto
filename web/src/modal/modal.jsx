@@ -3,37 +3,48 @@ import ReactModal from 'react-modal';
 
 import Container from '../components/container.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import * as modal from './modal.redux.js';
+import { selectors, actions } from './modal.redux.js';
 
 import { AddItemForm, EditItemForm } from '../items/item-form.jsx';
 import AddTransientForm from '../transients/transient-form.jsx';
 import FormPicker from './form-picker.jsx';
+import If from '../components/if.jsx';
+import Icon from '@mdi/react';
+import { mdiClose } from '@mdi/js';
+import styled from 'styled-components';
 
 ReactModal.setAppElement('#root');
 
+const modalMap = {
+  [actions.formPicker]: FormPicker,
+  [actions.newItemForm]: AddItemForm,
+  [actions.newTransientForm]: AddTransientForm,
+  [actions.editItemForm]: EditItemForm,
+};
+
 const ModalSelector = () => {
-  const state = useSelector(modal.modalSelector);
-  if (state.type === modal.CREATE_ITEM) {
-    return <AddItemForm />;
-  } else if (state.type === modal.CREATE_TRANSIENT) {
-    return <AddTransientForm />;
-  } else if (state.type === modal.EDIT_ITEM) {
-    return <EditItemForm id={state.props.id} />;
-  } else if (state.type === modal.FORM_PICKER) {
-    return <FormPicker />;
-  } else {
+  const current = useSelector(selectors.activeModal);
+
+  if (!current) {
     return null;
   }
+
+  const Component = modalMap[current.type];
+
+  return (
+    <If cond={Component}>
+      <Component {...current.payload} />
+    </If>
+  );
 };
 
 const Modal = () => {
-  const state = useSelector(modal.modalSelector);
+  const isOpen = useSelector(selectors.modalShouldRender);
+
   const dispatch = useDispatch();
   const parentSelector = () => {
     return document.querySelector('#root');
   };
-
-  const closeModal = () => dispatch(modal.actions.closeModal());
 
   return (
     <ReactModal
@@ -45,13 +56,43 @@ const Modal = () => {
       }}
       parentSelector={parentSelector}
       shouldCloseOnOverlayClick={true}
-      onRequestClose={closeModal}
-      isOpen={state.type !== undefined}
+      onRequestClose={() => dispatch(actions.clear())}
+      isOpen={isOpen}
     >
       <Container>
+        <CloseModalButton />
         <ModalSelector />
       </Container>
     </ReactModal>
+  );
+};
+
+const ModalControlButton = styled(Icon)`
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  border-radius: 6px;
+  background: white;
+
+  &:hover {
+    background: black;
+    color: white;
+  }
+
+  &:active {
+    background: white;
+    color: black;
+  }
+`;
+
+const CloseModalButton = () => {
+  const dispatch = useDispatch();
+  return (
+    <ModalControlButton
+      path={mdiClose}
+      size={1.0}
+      onClick={() => dispatch(actions.clear())}
+    />
   );
 };
 
