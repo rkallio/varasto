@@ -9,7 +9,7 @@ import * as math from 'mathjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { itemSelector, findAllItems } from './item.redux.js';
 import { formatDistanceToNow, parseISO } from 'date-fns';
-import { actions } from '../modal/modal.redux.js';
+import { actions, payloadCreators } from '../modal/modal.redux.js';
 import GroupList, { ListElement } from '../components/grouplist.jsx';
 
 const ItemList = () => {
@@ -56,7 +56,7 @@ const ItemContainer = (props) => {
   const dispatch = useDispatch();
 
   const onClick = () =>
-    dispatch(actions.push(actions.editItemForm(id)));
+    dispatch(actions.push(payloadCreators.editItem(id)));
 
   return (
     <ItemComponent

@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import styled from 'styled-components';
+
 import { useDispatch } from 'react-redux';
+
 import Icon from '@mdi/react';
 import { mdiDotsVertical } from '@mdi/js';
+
+import { actions, payloadCreators } from './modal.redux.js';
 import { Button } from '../components/form-components.jsx';
-import { actions } from './modal.redux.js';
-import styled from 'styled-components';
 
 const ModalButton = styled(Button).attrs(() => ({
   type: 'button',
@@ -15,7 +19,10 @@ export const ShowItemFormButton = () => {
   const dispatch = useDispatch();
   return (
     <ModalButton
-      onClick={() => dispatch(actions.push(actions.newItemForm()))}
+      onClick={() =>
+        dispatch(actions.push(payloadCreators.newItem()))
+      }
+      data-testid="show-item-form-button"
     >
       New Item
     </ModalButton>
@@ -27,8 +34,9 @@ export const ShowTransientFormButton = () => {
   return (
     <ModalButton
       onClick={() =>
-        dispatch(actions.push(actions.newTransientForm()))
+        dispatch(actions.push(payloadCreators.newTransient()))
       }
+      data-testid="show-transient-form-button"
     >
       New Transient
     </ModalButton>
@@ -39,7 +47,7 @@ export const CloseModalButton = (props) => {
   const { children } = props;
   const dispatch = useDispatch();
   return (
-    <ModalButton onClick={() => dispatch(actions.pop())}>
+    <ModalButton onClick={() => dispatch(actions.clear())}>
       {children}
     </ModalButton>
   );
@@ -60,7 +68,7 @@ export const PopModalButton = (props) => {
 };
 
 PopModalButton.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.string.isRequired,
 };
 
 const OpenModalButtonComponent = styled(Button)`
@@ -73,10 +81,11 @@ const OpenModalButtonComponent = styled(Button)`
 
 export const OpenModalButton = () => {
   const dispatch = useDispatch();
-  const onClick = () => dispatch(actions.push(actions.formPicker()));
+  const onClick = () =>
+    dispatch(actions.push(payloadCreators.formPicker()));
   return (
     <OpenModalButtonComponent
-      data-testid="add-button"
+      data-testid="open-modal-button"
       onClick={onClick}
     >
       <Icon path={mdiDotsVertical} title="More" size={1} />

@@ -130,7 +130,7 @@ export const EditItemForm = ({ id }) => {
       actionButtons={
         <>
           <DeleteItemButton key="delete-button" id={id} />
-          <PopModalButton key="pop-button">Cancel</PopModalButton>,
+          <PopModalButton key="pop-button">Cancel</PopModalButton>
         </>
       }
     />

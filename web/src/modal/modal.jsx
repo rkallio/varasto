@@ -3,7 +3,7 @@ import ReactModal from 'react-modal';
 
 import Container from '../components/container.jsx';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectors, actions } from './modal.redux.js';
+import { selectors, actions, types } from './modal.redux.js';
 
 import { AddItemForm, EditItemForm } from '../items/item-form.jsx';
 import AddTransientForm from '../transients/transient-form.jsx';
@@ -16,10 +16,10 @@ import styled from 'styled-components';
 ReactModal.setAppElement('#root');
 
 const modalMap = {
-  [actions.formPicker]: FormPicker,
-  [actions.newItemForm]: AddItemForm,
-  [actions.newTransientForm]: AddTransientForm,
-  [actions.editItemForm]: EditItemForm,
+  [types.FORM_PICKER]: FormPicker,
+  [types.NEW_ITEM_FORM]: AddItemForm,
+  [types.NEW_TRANSIENT_FORM]: AddTransientForm,
+  [types.EDIT_ITEM_FORM]: EditItemForm,
 };
 
 const ModalSelector = () => {
@@ -33,7 +33,7 @@ const ModalSelector = () => {
 
   return (
     <If cond={Component}>
-      <Component {...current.payload} />
+      <Component {...current.props} />
     </If>
   );
 };
