@@ -97,6 +97,7 @@ const slice = createSlice({
     [create.fulfilled]: entityAdapter.addOne,
     [update.fulfilled]: entityAdapter.updateOne,
     [remove.fulfilled]: entityAdapter.removeOne,
+    [toggleCompleted.fulfilled]: entityAdapter.updateOne,
   },
 });
 
