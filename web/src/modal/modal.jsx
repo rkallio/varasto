@@ -53,6 +53,9 @@ const Modal = () => {
           borderRadius: '6px',
           borderColor: 'black',
         },
+        overlay: {
+          zIndex: 1,
+        },
       }}
       parentSelector={parentSelector}
       shouldCloseOnOverlayClick={true}
