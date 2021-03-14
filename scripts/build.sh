@@ -46,6 +46,6 @@ popd
 pushd ../api
 podman build -t rkallio/varasto-http-api:"${version}" .
 podman tag rkallio/varasto-http-api:"${version}" rkallio/varasto-http-api:latest
-podman push rkallio/varasto-httpd:"${version}" --creds="${creds}"
-podman push rkallio/varasto-httpd:latest --creds="${creds}"
+podman push rkallio/varasto-http-api:"${version}" --creds="${creds}"
+podman push rkallio/varasto-http-api:latest --creds="${creds}"
 popd
