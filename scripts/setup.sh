@@ -3,11 +3,11 @@
 trap 'exit' ERR
 
 usage () {
-    echo "Usage: $0 -s <secret> -e <email> -d <domain>" 1>&2
+    echo "Usage: $0 -s <secret> -e <email> -d <domain> -t <tag>" 1>&2
     exit 1
 }
 
-while getopts 's:d:e:' option;
+while getopts 's:d:e:t:' option;
 do
     case "${option}"
     in
@@ -19,6 +19,9 @@ do
             ;;
         e)
             email=${OPTARG}
+            ;;
+        t)
+            tag=${OPTARG}
             ;;
         *)
             usage
@@ -43,6 +46,11 @@ then
     usage
 fi
 
+if [ -z "${tag}" ]
+then
+    usage
+fi
+
 set -x
 
 dnf up -y
@@ -56,8 +64,8 @@ then
             --domains ${domain}
 fi
 
-podman pull rkallio/varasto-http-api:latest
-podman pull rkallio/varasto-httpd:latest
+podman pull rkallio/varasto-http-api:"${tag}"
+podman pull rkallio/varasto-httpd:"${tag}"
 
 if podman pod exists varasto
 then
@@ -71,13 +79,13 @@ podman create \
        --name varasto-httpd --pod varasto \
        --env HTTPD_SERVER_ADMIN="${email}" \
        --env HTTPD_SERVER_NAME="${domain}" \
-       rkallio/varasto-httpd:latest
+       rkallio/varasto-httpd:"${tag}"
 
 mkdir -p /var/lib/varasto
 
 podman create \
-       --volume /var/lib/varasto:/var/lib/varasto:Z \
+       --volume /var/lib/varasto:/var/lib/varasto/:Z \
        --name varasto-api --pod varasto \
-       rkallio/varasto-http-api:latest --jwt-secret="${secret}"
+       rkallio/varasto-http-api:"${tag}" --jwt-secret="${secret}"
 
 podman pod start varasto
