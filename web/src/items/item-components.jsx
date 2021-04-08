@@ -251,23 +251,28 @@ export const TargetQuantityInput = (props) => {
 export const MeasureInput = (props) => {
   return (
     <LabeledSelect name="measure" label="Measure" {...props}>
-      <option value="mass">Mass (kg)</option>
-      <option value="volume">Volume (litres)</option>
-      <option value="pcs">Pieces</option>
-      <option value="%">Percentage (%)</option>
+      <option value={MASS}>Mass (kg)</option>
+      <option value={VOLUME}>Volume (litres)</option>
+      <option value={PCS}>Pieces</option>
+      <option value={PERCENTAGE}>Percentage (%)</option>
     </LabeledSelect>
   );
 };
 
+const MASS = 'mass';
+const VOLUME = 'volume';
+const PCS = 'pcs';
+const PERCENTAGE = '%';
+
 const mapQuantityToString = (quantity, measure) => {
   switch (measure) {
-    case 'mass':
+    case MASS:
       return math.unit(quantity, 'kg').toString();
-    case 'volume':
+    case VOLUME:
       return math.unit(quantity, 'l').toString();
-    case '%':
+    case PERCENTAGE:
       return quantity + '%';
-    case 'pcs':
+    case PCS:
       return quantity + ' pieces';
   }
 };
