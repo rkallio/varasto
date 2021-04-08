@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   LabeledInput,
@@ -8,7 +8,6 @@ import styled from 'styled-components';
 import * as math from 'mathjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { itemSelector, findAllItems } from './item.redux.js';
-import { formatDistanceToNow, parseISO } from 'date-fns';
 import { actions, payloadCreators } from '../modal/modal.redux.js';
 import GroupList, { ListElement } from '../components/grouplist.jsx';
 
@@ -199,59 +198,6 @@ const TargetQuantity = styled.span.attrs((props) => ({
 TargetQuantity.propTypes = {
   value: PropTypes.number.isRequired,
   measure: PropTypes.string.isRequired,
-};
-
-export const TaggedLastModified = ({ time }) => {
-  return (
-    <Property>
-      <PropertyName>Last Modified</PropertyName>
-      <Space />
-      <LastModified time={time} />
-    </Property>
-  );
-};
-
-TaggedLastModified.propTypes = {
-  time: PropTypes.string.isRequired,
-};
-
-export const LastModified = ({ time }) => {
-  return (
-    <PropertyValue>
-      <Relatime time={time} />
-    </PropertyValue>
-  );
-};
-
-LastModified.propTypes = {
-  time: PropTypes.string.isRequired,
-};
-
-export const Relatime = ({ time }) => {
-  const [formattedTime, setFormattedTime] = useState(timeSince(time));
-
-  useEffect(() => {
-    setFormattedTime(timeSince(time));
-    const timer = setInterval(() => {
-      setFormattedTime(timeSince(time));
-    }, 2500);
-    return () => {
-      return clearInterval(timer);
-    };
-  }, [time]);
-
-  return <time dateTime={time}>{formattedTime}</time>;
-};
-
-Relatime.propTypes = {
-  time: PropTypes.string.isRequired,
-};
-
-const timeSince = (time) => {
-  return formatDistanceToNow(parseISO(time), {
-    includeSeconds: true,
-    addSuffix: true,
-  });
 };
 
 export const NameInput = (props) => {
