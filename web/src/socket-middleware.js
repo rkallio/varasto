@@ -37,40 +37,35 @@ const subscribeForTransientUpdates = (store, socket) => {
   );
 };
 
-export default () => {
-  return (store) => {
-    let token = tokenSelector(store.getState());
+export default (store) => {
+  let token = tokenSelector(store.getState());
 
-    let items, transients;
+  let items, transients;
 
-    if (token) {
+  if (token) {
+    items = io('/items', {
+      auth: { token },
+    });
+    transients = io('/transients', {
+      auth: { token },
+    });
+
+    subscribeForItemUpdates(store, items);
+    subscribeForTransientUpdates(store, transients);
+  }
+
+  return (next) => (action) => {
+    if (action.type && action.type === authenticate.fulfilled.type) {
+      token = action.payload;
       items = io('/items', {
         auth: { token },
       });
       transients = io('/transients', {
         auth: { token },
       });
-
       subscribeForItemUpdates(store, items);
       subscribeForTransientUpdates(store, transients);
     }
-
-    return (next) => (action) => {
-      if (
-        action.type &&
-        action.type === authenticate.fulfilled.type
-      ) {
-        token = action.payload;
-        items = io('/items', {
-          auth: { token },
-        });
-        transients = io('/transients', {
-          auth: { token },
-        });
-        subscribeForItemUpdates(store, items);
-        subscribeForTransientUpdates(store, transients);
-      }
-      return next(action);
-    };
+    return next(action);
   };
 };

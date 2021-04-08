@@ -17,5 +17,5 @@ export default configureStore({
     auth: authSlice.reducer,
     modal: modalSlice.reducer,
   },
-  middleware: [...getDefaultMiddleware(), socketMiddleware()],
+  middleware: [...getDefaultMiddleware(), socketMiddleware],
 });
