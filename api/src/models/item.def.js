@@ -17,7 +17,7 @@ Item.init(
       allowNull: false,
       unique: 'name-location-composite',
       validate: {
-        len: [3, 20],
+        len: [3, 40],
       },
     },
     location: {
@@ -25,7 +25,7 @@ Item.init(
       allowNull: false,
       unique: 'name-location-composite',
       validate: {
-        len: [3, 20],
+        len: [3, 40],
       },
     },
     currentQuantity: {

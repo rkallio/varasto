@@ -8,7 +8,7 @@ Transient.init(
       type: Sequelize.DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [3, 20],
+        len: [3, 40],
       },
     },
     completed: {
