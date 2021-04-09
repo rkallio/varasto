@@ -78,32 +78,6 @@ ItemContainer.propTypes = {
   id: PropTypes.number.isRequired,
 };
 
-export const TaggedName = ({ children }) => {
-  return (
-    <Property>
-      <PropertyName>Name</PropertyName>
-      <Space />
-      <Name>{children}</Name>
-    </Property>
-  );
-};
-
-TaggedName.propTypes = {
-  children: PropTypes.string.isRequired,
-};
-
-const Property = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-`;
-
-const PropertyName = styled.div``;
-
-const Space = () => {
-  return <span>&nbsp;</span>;
-};
-
 export const Name = ({ children }) => {
   return <PropertyValue>{children}</PropertyValue>;
 };
@@ -113,44 +87,6 @@ Name.propTypes = {
 };
 
 const PropertyValue = styled.div``;
-
-export const TaggedLocation = ({ children }) => {
-  return (
-    <Property>
-      <PropertyName>Location</PropertyName>
-      <Space />
-      <Location>{children}</Location>
-    </Property>
-  );
-};
-
-TaggedLocation.propTypes = {
-  children: PropTypes.string.isRequired,
-};
-
-export const Location = ({ children }) => {
-  return <PropertyValue>{children}</PropertyValue>;
-};
-
-Location.propTypes = {
-  children: PropTypes.string.isRequired,
-};
-
-export const TaggedQuantity = ({ current, target, measure }) => {
-  return (
-    <Property>
-      <PropertyName>Quantity</PropertyName>
-      <Space />
-      <Quantity current={current} target={target} measure={measure} />
-    </Property>
-  );
-};
-
-TaggedQuantity.propTypes = {
-  current: PropTypes.number.isRequired,
-  target: PropTypes.number.isRequired,
-  measure: PropTypes.string.isRequired,
-};
 
 const Quantity = ({ current, target, measure }) => {
   return (
