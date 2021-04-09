@@ -13,6 +13,11 @@ import Modal from './modal/modal.jsx';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+:root {
+  font-size: 1.2rem;
+  font-family: sans;
+}
+
 input {
   font-size: inherit;
 }

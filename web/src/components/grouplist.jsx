@@ -52,7 +52,7 @@ Group.propTypes = {
 };
 
 const Header = styled.div`
-  font-size: 20px;
+  font-size: 1.2em;
 `;
 
 const Separator = styled.hr`
