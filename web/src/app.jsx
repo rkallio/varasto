@@ -10,9 +10,26 @@ import ItemPage from './pages/item-page.jsx';
 
 import Modal from './modal/modal.jsx';
 
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+input {
+  font-size: inherit;
+}
+
+button {
+  font-size: inherit;
+}
+
+select {
+font-size: inherit;
+}
+`;
+
 const App = () => {
   return (
     <>
+      <GlobalStyle />
       <Switch>
         <Route path="/login">
           <LoginPage />
