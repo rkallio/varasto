@@ -51,7 +51,8 @@ Group.propTypes = {
   header: PropTypes.string.isRequired,
 };
 
-const Header = styled.div`
+const Header = styled.h1`
+  margin: 0px;
   font-size: 1.2em;
 `;
 
