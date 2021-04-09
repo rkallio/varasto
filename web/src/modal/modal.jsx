@@ -11,7 +11,25 @@ import FormPicker from './form-picker.jsx';
 import If from '../components/if.jsx';
 import Icon from '@mdi/react';
 import { mdiClose } from '@mdi/js';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+
+const ModalStyle = createGlobalStyle`
+.ReactModal__Overlay {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 250ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+  transform: translateX(-20px);
+}
+`;
 
 ReactModal.setAppElement('#root');
 
@@ -47,26 +65,30 @@ const Modal = () => {
   };
 
   return (
-    <ReactModal
-      style={{
-        content: {
-          borderRadius: '6px',
-          borderColor: 'black',
-        },
-        overlay: {
-          zIndex: 1,
-        },
-      }}
-      parentSelector={parentSelector}
-      shouldCloseOnOverlayClick={true}
-      onRequestClose={() => dispatch(actions.clear())}
-      isOpen={isOpen}
-    >
-      <Container>
-        <CloseModalButton />
-        <ModalSelector />
-      </Container>
-    </ReactModal>
+    <>
+      <ModalStyle />
+      <ReactModal
+        style={{
+          content: {
+            borderRadius: '6px',
+            borderColor: 'black',
+          },
+          overlay: {
+            zIndex: 1,
+          },
+        }}
+        closeTimeoutMS={250}
+        parentSelector={parentSelector}
+        shouldCloseOnOverlayClick={true}
+        onRequestClose={() => dispatch(actions.clear())}
+        isOpen={isOpen}
+      >
+        <Container>
+          <CloseModalButton />
+          <ModalSelector />
+        </Container>
+      </ReactModal>
+    </>
   );
 };
 
