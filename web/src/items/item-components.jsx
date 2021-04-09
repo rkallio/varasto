@@ -63,8 +63,8 @@ const ItemContainer = (props) => {
       color={computeColor(item.currentQuantity, item.targetQuantity)}
     >
       <ItemInnerComponent>
-        <TaggedName>{item.name}</TaggedName>
-        <TaggedQuantity
+        <Name>{item.name}</Name>
+        <Quantity
           current={item.currentQuantity}
           target={item.targetQuantity}
           measure={item.measure}
