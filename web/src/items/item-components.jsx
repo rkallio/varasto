@@ -203,9 +203,9 @@ const PERCENTAGE = '%';
 const mapQuantityToString = (quantity, measure) => {
   switch (measure) {
     case MASS:
-      return math.unit(quantity, 'kg').toString();
+      return math.format(math.unit(quantity, 'kg'), { precision: 3 });
     case VOLUME:
-      return math.unit(quantity, 'l').toString();
+      return math.format(math.unit(quantity, 'l'), { precision: 3 });
     case PERCENTAGE:
       return quantity + '%';
     case PCS:
