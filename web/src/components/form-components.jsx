@@ -138,7 +138,6 @@ export const Button = styled.button`
   flex-grow: 1;
   flex-basis: 0;
   white-space: nowrap;
-  font-weight: 700;
 
   &:hover {
     color: ${({ primary }) => (primary ? 'blue' : 'white')};

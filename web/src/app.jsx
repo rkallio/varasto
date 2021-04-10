@@ -27,7 +27,11 @@ button {
 }
 
 select {
-font-size: inherit;
+  font-size: inherit;
+}
+
+button {
+  font-family: inherit;
 }
 `;
 

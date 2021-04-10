@@ -90,7 +90,6 @@ const DeleteItemButtonComponent = styled(Button).attrs(() => ({
 }))`
 border-color: red;
 color: red;
-font-weight: 700;
 
 &:hover {
 color: white;
